@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/objects/55_neo_zero_props_and_items_01.png" type="Texture" id=1]
-[ext_resource path="res://Assets/objects/28_neo_zero_props_and_items_01.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SettingItems/55_neo_zero_props_and_items_01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/SettingItems/28_neo_zero_props_and_items_01.png" type="Texture" id=2]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
