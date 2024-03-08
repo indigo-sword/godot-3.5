@@ -13,6 +13,8 @@ onready var editor_cam = editor.get_node("Camera2D")
 onready var tile_map : TileMap = level.get_node("TileMap")
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
 
+onready var player = preload("res://Objects/Player.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	editor_cam.current = true
@@ -103,6 +105,9 @@ func load_level():
 	get_parent().remove_child(level)
 	level.queue_free()
 	get_parent().add_child(this_level)
+	# Add player to scene
+	this_level.add_child(player.instance())
+	# Update attributes
 	tile_map = get_parent().get_node("Level/TileMap")
 	level = this_level
 	
