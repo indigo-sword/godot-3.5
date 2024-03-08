@@ -13,7 +13,7 @@ onready var editor_cam = editor.get_node("Camera2D")
 onready var tile_map : TileMap = level.get_node("TileMap")
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
 
-onready var player = preload("res://Objects/Player.tscn")
+onready var player_obj = preload("res://Objects/Player.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,7 +27,7 @@ func _process(delta):
 
 	if !Global.place_tile:
 		if (!Global.filesystem_shown):
-			if (current_item != null and can_place and Input.is_action_just_pressed("ui_left")):
+			if (current_item != null and can_place and Input.is_action_just_pressed("mb_left")):
 				var new_item = current_item.instance()
 				level.add_child(new_item)
 				new_item.owner = level
@@ -35,7 +35,7 @@ func _process(delta):
 	else:
 		if (!Global.filesystem_shown):
 			if (can_place):
-				if Input.is_action_pressed("ui_left"):
+				if Input.is_action_pressed("mb_left"):
 					place_tile()
 				if Input.is_action_pressed("mb_right"):
 					remove_tile()
@@ -65,15 +65,16 @@ func remove_tile():
 	tile_map.set_cell(mousepos.x, mousepos.y, -1)	
 	
 func move_editor():
-	if (!Global.filesystem_shown):
-		if Input.is_action_pressed("w"):
-			editor.global_position.y -= cam_spd
-		if Input.is_action_pressed("a"):
-			editor.global_position.x -= cam_spd
-		if Input.is_action_pressed("s"):
-			editor.global_position.y += cam_spd
-		if Input.is_action_pressed("d"):
-			editor.global_position.x += cam_spd
+	# FIXME: fix moving editor (currently compromising player movement)
+#	if (!Global.filesystem_shown):
+#		if Input.is_action_pressed("w"):
+#			editor.global_position.y -= cam_spd
+#		if Input.is_action_pressed("a"):
+#			editor.global_position.x -= cam_spd
+#		if Input.is_action_pressed("s"):
+#			editor.global_position.y += cam_spd
+#		if Input.is_action_pressed("d"):
+#			editor.global_position.x += cam_spd
 		pass
 	
 func _unhandled_input(event):
@@ -106,7 +107,11 @@ func load_level():
 	level.queue_free()
 	get_parent().add_child(this_level)
 	# Add player to scene
-	this_level.add_child(player.instance())
+	var player = player_obj.instance()
+	this_level.add_child(player)
+	# TODO Hide editor panel
+	# Use player camera
+	player.get_node("Camera2D").current = true
 	# Update attributes
 	tile_map = get_parent().get_node("Level/TileMap")
 	level = this_level
