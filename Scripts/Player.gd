@@ -1,11 +1,11 @@
 extends KinematicBody2D
 
 # Globals
-const NORM_SPEED = 150
+const NORM_SPEED = 200
 enum STATE {
 	MOVE, ATTACK
 }
-const DASH_SPEED = 450
+const DASH_SPEED = 500
 const DASH_DURATION = 0.7
 const DASH_COOLDOWN = 1
 
