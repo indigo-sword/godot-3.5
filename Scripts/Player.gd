@@ -1,14 +1,23 @@
 extends KinematicBody2D
 
-var SPEED = 150
+# Globals
+const NORM_SPEED = 150
 enum STATE {
 	MOVE, ATTACK
 }
-var state = STATE.MOVE
+const DASH_SPEED = 300
+const DASH_DURATION = 0.25
 
+# Player params
+var speed = NORM_SPEED
+var state = STATE.MOVE
+var is_dashing = false
+
+# Tree nodes
 onready var sprite = $Sprite
 onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
+onready var timer = $Timer
 
 func _physics_process(delta):
 	match state:
@@ -18,21 +27,29 @@ func _physics_process(delta):
 			on_attack_enter()
 
 func move(delta):
+	if (Input.is_action_just_pressed("attack")):
+		state = STATE.ATTACK
+	elif (Input.is_action_just_pressed("dash")):
+		anim_player.play("Dash")
+		timer.start_dash(DASH_DURATION)
+	
+	speed = DASH_SPEED if timer.is_dashing() else NORM_SPEED
+	
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("d") - Input.get_action_strength("a")
 	input_vector.y = Input.get_action_strength("s") - Input.get_action_strength("w")
 	input_vector = input_vector.normalized()
 	
-	if (input_vector == Vector2.ZERO):
-		anim_player.play("Idle")
-	else:
+	if (input_vector != Vector2.ZERO):
 		sprite.flip_h = true if input_vector.x < 0 else false
-		anim_player.play("Run")
 	
-	move_and_collide(input_vector * delta * SPEED)
+	if !timer.is_dashing():
+		if (input_vector == Vector2.ZERO):
+			anim_player.play("Idle")
+		else:
+			anim_player.play("Run")
 	
-	if (Input.is_action_just_pressed("attack")):
-		state = STATE.ATTACK
+	move_and_collide(input_vector * delta * speed)
 	
 func on_attack_enter():
 	anim_player.play("Attack")
