@@ -28,7 +28,6 @@ margin_top = 45.0
 margin_right = 628.0
 margin_bottom = 352.0
 rect_min_size = Vector2( 400, 140 )
-filters = PoolStringArray( "*.tscn" )
 script = ExtResource( 4 )
 
 [node name="CamContainer" type="Node2D" parent="."]
