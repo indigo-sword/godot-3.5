@@ -11,9 +11,10 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if Input.is_action_just_pressed("toggle_editor"):
-		Global.playing = !Global.playing
-		visible = !Global.playing
+	if (!Global.filesystem_shown):
+		if Input.is_action_just_pressed("toggle_editor"):
+			Global.playing = !Global.playing
+			visible = !Global.playing
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
