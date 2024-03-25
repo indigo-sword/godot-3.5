@@ -1,6 +1,6 @@
 extends Control
 
-const GODOT_CLIENT_ERRORS = preload("res://Scripts/client_errors.gd")
+const GODOT_CLIENT_ERRORS = preload("res://Scripts/Client/client_errors.gd")
 
 # class attributes
 var LOGGED_IN: bool
