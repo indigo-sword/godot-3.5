@@ -4,12 +4,12 @@ const GODOT_CLIENT_ERRORS = preload("res://Scripts/client_errors.gd")
 
 # class attributes
 var LOGGED_IN: bool
-var COOKIE: String
-var URL: String
 var UNAME: String
+var BIO: String
 var ERROR: String
 var ERROR_CODE: int
-var BIO: String
+var _COOKIE: String
+var _URL: String
 
 # signals
 signal login_completed
@@ -19,8 +19,8 @@ signal create_user_completed
 
 func _init(): 
 	self.LOGGED_IN = false
-	self.COOKIE = ""
-	self.URL = "http://64.225.11.30:8080"
+	self._COOKIE = ""
+	self._URL = "http://64.225.11.30:8080"
 	self.UNAME = ""
 	self.ERROR = ""
 	self.ERROR_CODE = 0
@@ -35,7 +35,7 @@ func login(username: String, password: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "username=" + username + "&password=" + password
 
-	$LoginRequest.request(self.URL + "/login", headers, true, HTTPClient.METHOD_POST, body)
+	$LoginRequest.request(self._URL + "/login", headers, true, HTTPClient.METHOD_POST, body)
 	return ""
 	
 func _on_LoginRequest_request_completed(result, response_code, headers, body):
@@ -45,7 +45,7 @@ func _on_LoginRequest_request_completed(result, response_code, headers, body):
 	if response_code == 200:
 		for header in headers:
 			if "Set-Cookie" in header:
-				self.COOKIE = header.split(" ")[1].split(";")[0]
+				self._COOKIE = header.split(" ")[1].split(";")[0]
 				self.LOGGED_IN = true
 				self.ERROR = ""
 				self.ERROR_CODE = 0
@@ -55,6 +55,7 @@ func _on_LoginRequest_request_completed(result, response_code, headers, body):
 			self.ERROR = "server error - no cookie (this should not happen)"
 
 	else: 
+		self.UNAME = ""
 		if result != 0: 
 			self.ERROR = GODOT_CLIENT_ERRORS.E.get(result, "unknown error")
 			self.ERROR_CODE = result
@@ -69,10 +70,10 @@ func logout():
 	if not self.LOGGED_IN:
 		return "not logged in"
 		
-	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + COOKIE]
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
 	var body = "username=" + self.UNAME 
 	
-	$LogoutRequest.request(self.URL + "/logout", headers, true, HTTPClient.METHOD_POST, body)
+	$LogoutRequest.request(self._URL + "/logout", headers, true, HTTPClient.METHOD_POST, body)
 	
 	return ""
 	
@@ -101,7 +102,7 @@ func create_user(username: String, password: String, email: String):
 	
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "username=" + username + "&password=" + password + "&email=" + email	
-	$CreateUserRequest.request(self.URL + "/create_user", headers, true, HTTPClient.METHOD_POST, body)
+	$CreateUserRequest.request(self._URL + "/create_user", headers, true, HTTPClient.METHOD_POST, body)
 	return ""
 	
 func _on_CreateUserRequest_request_completed(result, response_code, headers, body):
@@ -127,10 +128,10 @@ func change_bio(new_bio: String):
 	if "&" in new_bio: 
 		return "invalid character: &"
 	
-	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + COOKIE]
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
 	var body = "username=" + self.UNAME + "&bio=" + new_bio
 	
-	$ChangeBioRequest.request(URL + "/change_user_bio", headers, true, HTTPClient.METHOD_POST, body)
+	$ChangeBioRequest.request(self._URL + "/change_user_bio", headers, true, HTTPClient.METHOD_POST, body)
 	return ""
 	
 func _on_ChangeBioRequest_request_completed(result, response_code, headers, body):
