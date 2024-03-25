@@ -13,6 +13,9 @@ script = ExtResource( 1 )
 
 [node name="LogoutRequest" type="HTTPRequest" parent="."]
 
+[node name="CreateUserRequest" type="HTTPRequest" parent="."]
+
 [connection signal="request_completed" from="LoginRequest" to="." method="_on_LoginRequest_request_completed"]
 [connection signal="request_completed" from="ChangeBioRequest" to="." method="_on_ChangeBioRequest_request_completed"]
 [connection signal="request_completed" from="LogoutRequest" to="." method="_on_LogoutRequest_request_completed"]
+[connection signal="request_completed" from="CreateUserRequest" to="." method="_on_CreateUserRequest_request_completed"]
