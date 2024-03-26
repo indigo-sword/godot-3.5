@@ -1,29 +1,26 @@
 extends Node2D
 
 func RANDOM_UNAME():
-	var l = 60
+	var l = 15
 	var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 	var uname = ""
 	for i in range(l):
 		uname += characters[rand_range(0, characters.length())]
-	return uname
 
-func RANDOM_PASS():
-	var l = 25
-	var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_!@#$%^*()-+=[]{}|;:,.<>?`~"
-	var password = ""
-	for i in range(l):
-		password += characters[rand_range(0, characters.length())]
-	return password
+	return uname
 
 func RANDOM_EMAIL():
 	var uname = RANDOM_UNAME()
 	return uname + "@gmail.com"
 	
 func _on_login_pressed():
+	randomize()
+	
 	var SAMPLE_UNAME = "LsZCFWRNMl"
+	var NEW_USER_1 = RANDOM_UNAME()
 	var SAMPLE_PASS = "PASS"
 	var err = ""
+	var ret = ""
 	
 	#### test login -- SUCCESS
 	print("test login -- SUCCESS") 
@@ -103,7 +100,7 @@ func _on_login_pressed():
 	
 	#### test create user -- SUCCESS
 	print("test create user -- SUCCESS")
-	var t = Client.create_user(RANDOM_UNAME(), RANDOM_PASS(), RANDOM_EMAIL())
+	var t = Client.create_user(NEW_USER_1, "PASSWORD", RANDOM_EMAIL())
 	if t == "": yield(Client, "create_user_completed")
 	else:
 		print("TESTING ERROR: got error when should not have")
@@ -126,7 +123,7 @@ func _on_login_pressed():
 		return
 	
 	if Client.ERROR != "": 
-		print("TESTING ERROR: got error when should not have ", Client.ERROR)
+		print("TESTING ERROR: got error at client when should not have ", Client.ERROR)
 		return
 		
 	print("ok")
@@ -137,4 +134,80 @@ func _on_login_pressed():
 	if err != "invalid character: &": 
 		print("TESTING ERROR: got no error when should have")
 		
+	print("ok")
+	
+	#### test get user -- SUCCESS
+	print("test get user -- SUCCESS")
+	err = Client.get_user(SAMPLE_UNAME)
+	if err == "": 
+		ret = yield(Client, "get_user_completed")
+		assert(ret.get("username", "not found" == SAMPLE_UNAME))
+	else: 
+		print("TESTING ERROR: got error when should not have ", err)
+		return
+		
+	if Client.ERROR: 
+		print("TESTING ERROR: got error at client when should not have ", Client.ERROR)
+		return
+	
+	print("ok")
+	
+	#### test follow user -- SUCCESS
+	print("test follow user -- SUCCESS")
+	assert(Client.follow_user(NEW_USER_1) == "")
+	ret = yield(Client, "follow_user_completed")
+	assert(ret.get("message", "not found") == "user followed")	
+	print("ok")
+	
+	#### test unfollow user -- SUCCESS
+	print("test unfollow user -- SUCCESS")
+	err = Client.unfollow_user(NEW_USER_1)
+	assert(err == "")
+	ret = yield(Client, "unfollow_user_completed")
+	assert(ret.get("message", "not found") == "user unfollowed")
+	print("ok")
+
+	#### test get follows -- SUCCESS
+	# refollowing to have something
+	print("test get follows -- SUCCESS")
+	assert(Client.follow_user(NEW_USER_1) == "")
+	ret = yield(Client, "follow_user_completed")
+	assert(ret.get("message", "not found") == "user followed")	
+	
+	err = Client.get_follows(NEW_USER_1)
+	assert(err == "")
+	ret = yield(Client, "get_follows_completed")
+	assert(ret["followed"][0] == SAMPLE_UNAME)
+	
+	print("ok")
+	
+	#### test create node -- SUCCESS
+	print("test create node -- SUCCESS")
+	err = Client.create_node("title", "description", true, false, "res://SavedLevels/test1.tscn")
+	assert(err == "")
+	ret = yield(Client, "create_node_completed")
+	assert(ret.get("message", "not found") == "node created")
+	print("ok")
+
+	var node_id = ret["node_id"]
+	
+	#### test get level -- SUCCESS
+	print("test get level -- SUCCESS")
+	assert(Client.get_level(node_id) == "")
+	ret = yield(Client, "get_level_completed")
+	assert(ret.get("message", "error") == "level")
+	print("ok")
+	
+	#### test get level -- FAIL: no level found
+	print("test get level -- FAIL: no level found")
+	assert(Client.get_level("aaa") == "")
+	ret = yield(Client, "get_level_completed")
+	assert(ret.get("message", "error") == "node not found")
+	print("ok")
+	
+	#### test update node level -- SUCCESS
+	print("test update node level -- SUCCESS")
+	assert(Client.update_node_level(node_id, "res://SavedLevels/test1.tscn") == "")	
+	ret = yield(Client, "update_node_level_completed")
+	assert(ret.get("message", "error") == "level updated")
 	print("ok")

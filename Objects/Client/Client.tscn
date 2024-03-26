@@ -7,15 +7,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 
-[node name="LoginRequest" type="HTTPRequest" parent="."]
+[node name="Login" type="HTTPRequest" parent="."]
 
-[node name="ChangeBioRequest" type="HTTPRequest" parent="."]
+[node name="ChangeBio" type="HTTPRequest" parent="."]
 
-[node name="LogoutRequest" type="HTTPRequest" parent="."]
+[node name="Logout" type="HTTPRequest" parent="."]
 
-[node name="CreateUserRequest" type="HTTPRequest" parent="."]
+[node name="CreateUser" type="HTTPRequest" parent="."]
 
-[connection signal="request_completed" from="LoginRequest" to="." method="_on_LoginRequest_request_completed"]
-[connection signal="request_completed" from="ChangeBioRequest" to="." method="_on_ChangeBioRequest_request_completed"]
-[connection signal="request_completed" from="LogoutRequest" to="." method="_on_LogoutRequest_request_completed"]
-[connection signal="request_completed" from="CreateUserRequest" to="." method="_on_CreateUserRequest_request_completed"]
+[node name="GetUser" type="HTTPRequest" parent="."]
+
+[node name="FollowUser" type="HTTPRequest" parent="."]
+
+[node name="UnfollowUser" type="HTTPRequest" parent="."]
+
+[node name="GetFollows" type="HTTPRequest" parent="."]
+
+[node name="CreateNode" type="HTTPRequest" parent="."]
+
+[node name="GetLevel" type="HTTPRequest" parent="."]
+
+[node name="UpdateNodeLevel" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="Login" to="." method="_on_Login_request_completed"]
+[connection signal="request_completed" from="ChangeBio" to="." method="_on_ChangeBio_request_completed"]
+[connection signal="request_completed" from="Logout" to="." method="_on_Logout_request_completed"]
+[connection signal="request_completed" from="CreateUser" to="." method="_on_CreateUser_request_completed"]
