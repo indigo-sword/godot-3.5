@@ -23,7 +23,7 @@ signal get_follows_completed
 signal create_node_completed
 signal get_level_completed
 signal update_node_level_completed
-signal get_node_completed
+signal get_node_data_completed
 signal link_nodes_completed
 signal get_next_links_completed
 signal get_previous_links_completed
@@ -48,9 +48,6 @@ func _init():
 	self._COOKIE = ""
 	self._URL = "http://64.225.11.30:8080"
 	self.UNAME = ""
-	self.ERROR = ""
-	self.ERROR_CODE = 0
-	self.BIO = ""
 
 func _generate_boundary():
 	var boundary = ""
@@ -61,6 +58,7 @@ func _generate_boundary():
 
 func _default_request_processing(result: int, response_code: int, expected: int, body) -> Dictionary:
 	var output = parse_json(body.get_string_from_utf8())
+	output["code"] = String(response_code)
 
 	if response_code != expected:
 		if result != 0: 
@@ -71,131 +69,72 @@ func _default_request_processing(result: int, response_code: int, expected: int,
 	return output
 	
 func login(username: String, password: String):
-	if self.LOGGED_IN: 
-		return "Already logged in"
-	
-	self.UNAME = username
-	
+	if self.LOGGED_IN: return "already logged in"
+
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "username=" + username + "&password=" + password
-
+	
+	$Login.connect("request_completed", self, "_on_Login_request_completed")
 	$Login.request(self._URL + "/login", headers, true, HTTPClient.METHOD_POST, body)
 	return ""
 	
 func _on_Login_request_completed(result, response_code, headers, body):
-	var output = parse_json(body.get_string_from_utf8())
-	var got_cookie = false
+	var output = _default_request_processing(result, response_code, 200, body)
 	
 	if response_code == 200:
+		self.LOGGED_IN = true
+		self.UNAME = output["username"]
+
 		for header in headers:
 			if "Set-Cookie" in header:
 				self._COOKIE = header.split(" ")[1].split(";")[0]
-				self.LOGGED_IN = true
-				self.ERROR = ""
-				self.ERROR_CODE = 0
-				got_cookie = true
-		
-		if not got_cookie:
-			self.ERROR = "server error - no cookie (this should not happen)"
-
-	else: 
-		self.UNAME = ""
-		if result != 0: 
-			self.ERROR = GODOT_CLIENT_ERRORS.E.get(result, "unknown error")
-			self.ERROR_CODE = result
-		else: 
-			self.ERROR = output.get("message", "unknown server error")
-			self.ERROR_CODE = response_code
-		
-	emit_signal("login_completed")
 	
+	emit_signal("login_completed", output)
 	
 func logout():
-	if not self.LOGGED_IN:
-		return "not logged in"
+	if not self.LOGGED_IN: return "not logged in"
 		
 	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
 	var body = "username=" + self.UNAME 
 	
+	$Logout.connect("request_completed", self, "_on_Logout_request_completed")
 	$Logout.request(self._URL + "/logout", headers, true, HTTPClient.METHOD_POST, body)
-	
 	return ""
 	
 func _on_Logout_request_completed(result, response_code, headers, body):
-	var output = parse_json(body.get_string_from_utf8())
-	
-	if response_code == 200:
-		self.LOGGED_IN = false
-		self.ERROR = ""
-		self.ERROR_CODE = 0
-		
-	else: 
-		if result != 0: 
-			self.ERROR = GODOT_CLIENT_ERRORS.E.get(result, "unknown error")
-			self.ERROR_CODE = result
-		else: 
-			self.ERROR = output.get("message", "unknown server error")
-			self.ERROR_CODE = response_code
-			
-	emit_signal("logout_completed")
+	var output = _default_request_processing(result, response_code, 200, body)
+	if response_code == 200: self.LOGGED_IN = false
+	emit_signal("logout_completed", output)
 	
 	
 func create_user(username: String, password: String, email: String):	
-	if "&" in username or "&" in password or "&" in email:
-		return "invalid character: &"
-		
-	# TODO: maybe check login here
+	if "&" in username or "&" in password or "&" in email: return "invalid character: &"
+	if self.LOGGED_IN: return "already logged in"	
+	
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "username=" + username + "&password=" + password + "&email=" + email	
+	
+	$CreateUser.connect("request_completed", self, "_on_CreateUser_request_completed")
 	$CreateUser.request(self._URL + "/create_user", headers, true, HTTPClient.METHOD_POST, body)
 	return ""
 	
 func _on_CreateUser_request_completed(result, response_code, headers, body):
-	var output = parse_json(body.get_string_from_utf8())
-	if response_code == 201:
-		self.ERROR = ""
-		self.ERROR_CODE = 0	
-		
-	else:
-		if result != 0: 
-			self.ERROR = GODOT_CLIENT_ERRORS.E.get(result, "unknown error")
-			self.ERROR_CODE = result
-		else:
-			self.ERROR = output.get("message", "unknown server error")
-			self.ERROR_CODE = response_code
-	
-	emit_signal("create_user_completed")
+	var output = _default_request_processing(result, response_code, 201, body)	
+	emit_signal("create_user_completed", output)
 
 func change_bio(new_bio: String):
-	if not(self.LOGGED_IN):
-		return "not logged in"
-		
-	if "&" in new_bio: 
-		return "invalid character: &"
+	if not(self.LOGGED_IN): return "not logged in"
+	if "&" in new_bio: return "invalid character: &"
 	
 	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
 	var body = "username=" + self.UNAME + "&bio=" + new_bio
 	
+	$ChangeBio.connect("request_completed", self, "_on_ChangeBio_request_completed")
 	$ChangeBio.request(self._URL + "/change_user_bio", headers, true, HTTPClient.METHOD_POST, body)
 	return ""
 	
 func _on_ChangeBio_request_completed(result, response_code, headers, body):
-	var output = parse_json(body.get_string_from_utf8())
-	
-	if response_code == 200:
-		self.BIO = output["bio"]
-		self.ERROR = ""
-		self.ERROR_CODE = 0
-	else: 
-		if result != 0: 
-			self.ERROR = GODOT_CLIENT_ERRORS.E.get(result, "unknown error")
-			self.ERROR_CODE = result
-			output = GODOT_CLIENT_ERRORS.E.get(result, "unknown error") + " " + String(result)
-		else: 
-			self.ERROR = output.get("message", "unknown server error")
-			self.ERROR_CODE = response_code
-			output = output.get("message", "unknown server error") + " " + String(response_code)
-			
+	var output = _default_request_processing(result, response_code, 200, body)		
 	emit_signal("change_bio_completed", output)
 	
 func get_user(username: String):
@@ -208,21 +147,7 @@ func get_user(username: String):
 	return ""
 
 func _on_GetUser_request_completed(result, response_code, headers, body):
-	var output = parse_json(body.get_string_from_utf8())
-	
-	if response_code == 200:
-		self.ERROR = ""
-		self.ERROR_CODE = 0
-	else:
-		if result != 0: 
-			self.ERROR = GODOT_CLIENT_ERRORS.E.get(result, "unknown error")
-			self.ERROR_CODE = result
-			output = GODOT_CLIENT_ERRORS.E.get(result, "unknown error") + " " + String(result)
-		else: 
-			self.ERROR = output.get("message", "unknown server error")
-			self.ERROR_CODE = response_code
-			output = output.get("message", "unknown server error") + " " + String(response_code)
-	
+	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_user_completed", output)
 	
 func follow_user(followed_username: String):
@@ -379,4 +304,43 @@ func _on_UpdateNodeLevel_request_completed(result, response_code, headers, body)
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("update_node_level_completed", output)
 	
+func get_node_data(node_id: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "node_id=" + node_id
+	
+	$GetNode.connect("request_completed", self, "_on_GetNodeData_request_completed")
+	$GetNode.request(self._URL + "/get_node", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
 
+func _on_GetNodeData_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_node_data_completed", output)
+	
+func link_nodes(origin_id: String, destination_id: String, description: String):
+	if not self.LOGGED_IN: return "not logged in"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&origin_id=" + origin_id + "&destination_id=" + destination_id + "&description=" + description
+	
+	$LinkNodes.connect("request_completed", self, "_on_LinkNodes_request_completed")
+	$LinkNodes.request(self._URL + "/link_nodes", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+
+func _on_LinkNodes_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("link_nodes_completed", output)
+
+func get_next_links(node_id: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "node_id=" + node_id
+	
+	$GetNextLinks.connect("request_completed", self, "_on_GetNextLinks_request_completed")
+	$GetNextLinks.request(self._URL + "/get_next_links", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetNextLinks_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_next_links_completed", output)
