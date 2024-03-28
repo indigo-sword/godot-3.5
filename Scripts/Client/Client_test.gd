@@ -183,3 +183,38 @@ func _on_login_pressed():
 	ret = yield(Client, "get_next_links_completed")
 	assert(ret["next_links"][0]["destination_id"] == node2_id)
 	print("ok") 
+	
+	#### test get previous links -- SUCCESS
+	print("test get previous links -- SUCCESS")
+	assert(Client.get_previous_links(node2_id) == "")
+	ret = yield(Client, "get_previous_links_completed")
+	assert(ret["previous_links"][0]["origin_id"] == node_id)
+	print("ok") 
+	
+	#### test update playcount -- SUCCESS
+	print("test update playcount -- SUCCESS")
+	assert(Client.update_playcount(node_id) == "")
+	ret = yield(Client, "update_playcount_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test update rating -- SUCCESS
+	print("test update rating -- SUCCESS")
+	assert(Client.update_rating(node_id, 7.5) == "")
+	ret = yield(Client, "update_rating_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test update node description -- SUCCESS
+	print("test update node description -- SUCCESS")
+	assert(Client.update_node_description(node_id, "something") == "")
+	ret = yield(Client, "update_node_description_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test update node title -- SUCCESS
+	print("test update node title -- SUCCESS")
+	assert(Client.update_node_title(node_id, "a new title") == "")
+	ret = yield(Client, "update_node_title_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")

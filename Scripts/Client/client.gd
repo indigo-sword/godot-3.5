@@ -344,3 +344,77 @@ func get_next_links(node_id: String):
 func _on_GetNextLinks_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_next_links_completed", output)
+
+func get_previous_links(node_id: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "node_id=" + node_id
+	
+	$GetNextLinks.connect("request_completed", self, "_on_GetPreviousLinks_request_completed")
+	$GetNextLinks.request(self._URL + "/get_previous_links", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetPreviousLinks_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_previous_links_completed", output)
+
+func update_playcount(node_id: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "node_id=" + node_id
+	
+	$UpdatePlaycount.connect("request_completed", self, "_on_UpdatePlaycount_request_completed")
+	$UpdatePlaycount.request(self._URL + "/update_playcount", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_UpdatePlaycount_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_playcount_completed", output)
+
+func update_rating(node_id: String, rating: float):
+	if not self.LOGGED_IN: return "not logged in"
+	if rating < 0.0 or rating > 10.0: return "invalid rating"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&node_id=" + node_id + "&rating=" + String(rating)
+	
+	$UpdateRating.connect("request_completed", self, "_on_UpdateRating_request_completed")
+	$UpdateRating.request(self._URL + "/update_rating", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_UpdateRating_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_rating_completed", output)
+	
+func update_node_description(node_id: String, description: String):
+	if not self.LOGGED_IN: return "not logged in"
+	if "&" in description: return "forbidden character: &"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&node_id=" + node_id + "&description=" + description
+	
+	$UpdateNodeDescription.connect("request_completed", self, "_on_UpdateNodeDescription_request_completed")
+	$UpdateNodeDescription.request(self._URL + "/update_node_description", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_UpdateNodeDescription_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_node_description_completed", output)
+	
+func update_node_title(node_id: String, title: String):
+	if not self.LOGGED_IN: return "not logged in"
+	if "&" in title: return "forbidden character: &"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&node_id=" + node_id + "&title=" + title
+	
+	$UpdateNodeTitle.connect("request_completed", self, "_on_UpdateNodeTitle_request_completed")
+	$UpdateNodeTitle.request(self._URL + "/update_node_title", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_UpdateNodeTitle_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_node_title_completed", output)
