@@ -34,3 +34,13 @@ script = ExtResource( 1 )
 [node name="LinkNodes" type="HTTPRequest" parent="."]
 
 [node name="GetNextLinks" type="HTTPRequest" parent="."]
+
+[node name="GetPreviousLinks" type="HTTPRequest" parent="."]
+
+[node name="UpdatePlaycount" type="HTTPRequest" parent="."]
+
+[node name="UpdateRating" type="HTTPRequest" parent="."]
+
+[node name="UpdateNodeDescription" type="HTTPRequest" parent="."]
+
+[node name="UpdateNodeTitle" type="HTTPRequest" parent="."]
