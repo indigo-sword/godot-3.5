@@ -2,7 +2,7 @@ extends Control
 
 const GODOT_CLIENT_ERRORS = preload("res://Scripts/Client/client_errors.gd")
 
-# class attributes
+# ATTRIBUTES
 var LOGGED_IN: bool
 var UNAME: String
 var BIO: String
@@ -11,7 +11,7 @@ var ERROR_CODE: int
 var _COOKIE: String
 var _URL: String
 
-# signals
+# SIGNALS
 signal login_completed
 signal logout_completed
 signal change_bio_completed
@@ -33,7 +33,7 @@ signal update_node_description_completed
 signal update_node_title_completed
 signal create_path_completed
 signal add_to_path_completed
-signal get_path_completed
+signal get_path_info_completed
 signal create_path_from_nodes_completed
 signal update_path_playcount_completed
 signal update_path_rating_completed
@@ -42,6 +42,7 @@ signal update_path_description_completed
 signal get_user_paths_completed
 signal get_node_paths_completed
 
+#### INTERNAL FUNCTIONS
 func _init(): 
 	randomize()
 	self.LOGGED_IN = false
@@ -68,6 +69,7 @@ func _default_request_processing(result: int, response_code: int, expected: int,
 			
 	return output
 	
+#### CLIENT INTERFACES
 func login(username: String, password: String):
 	if self.LOGGED_IN: return "already logged in"
 
@@ -90,6 +92,7 @@ func _on_Login_request_completed(result, response_code, headers, body):
 				self._COOKIE = header.split(" ")[1].split(";")[0]
 	
 	emit_signal("login_completed", output)
+	
 	
 func logout():
 	if not self.LOGGED_IN: return "not logged in"
@@ -122,6 +125,7 @@ func _on_CreateUser_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 201, body)	
 	emit_signal("create_user_completed", output)
 
+
 func change_bio(new_bio: String):
 	if not(self.LOGGED_IN): return "not logged in"
 	if "&" in new_bio: return "invalid character: &"
@@ -137,6 +141,7 @@ func _on_ChangeBio_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)		
 	emit_signal("change_bio_completed", output)
 	
+	
 func get_user(username: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "username=" + username
@@ -149,6 +154,7 @@ func get_user(username: String):
 func _on_GetUser_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_user_completed", output)
+	
 	
 func follow_user(followed_username: String):
 	if not self.LOGGED_IN: return "not logged in"
@@ -165,6 +171,7 @@ func _on_FollowUser_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("follow_user_completed", output)
 
+
 func unfollow_user(unfollowed_username: String):
 	if not self.LOGGED_IN: return "not logged in"
 	
@@ -180,6 +187,7 @@ func _on_UnfollowUser_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("unfollow_user_completed", output)
 	
+	
 func get_follows(username: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "username=" + username
@@ -193,6 +201,7 @@ func _on_GetFollows_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_follows_completed", output)
  
+
 func create_node(title: String, description: String, is_initial: bool, is_final: bool, file_path: String):
 	if not self.LOGGED_IN: return "not logged in"
 	
@@ -245,6 +254,7 @@ func _on_CreateNode_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 201, body)
 	emit_signal("create_node_completed", output)
 	
+	
 func get_level(node_id: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "node_id=" + node_id
@@ -265,6 +275,7 @@ func _on_GetLevel_request_completed(result, response_code, headers, body):
 		file.close()
 		
 	emit_signal("get_level_completed", output)
+	
 	
 func update_node_level(node_id: String, file_path: String):
 	if not self.LOGGED_IN: return "not logged in"
@@ -303,6 +314,7 @@ func update_node_level(node_id: String, file_path: String):
 func _on_UpdateNodeLevel_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("update_node_level_completed", output)
+
 	
 func get_node_data(node_id: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
@@ -316,6 +328,7 @@ func get_node_data(node_id: String):
 func _on_GetNodeData_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_node_data_completed", output)
+	
 	
 func link_nodes(origin_id: String, destination_id: String, description: String):
 	if not self.LOGGED_IN: return "not logged in"
@@ -332,6 +345,7 @@ func _on_LinkNodes_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("link_nodes_completed", output)
 
+
 func get_next_links(node_id: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "node_id=" + node_id
@@ -344,6 +358,7 @@ func get_next_links(node_id: String):
 func _on_GetNextLinks_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_next_links_completed", output)
+
 
 func get_previous_links(node_id: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
@@ -358,6 +373,7 @@ func _on_GetPreviousLinks_request_completed(result, response_code, headers, body
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_previous_links_completed", output)
 
+
 func update_playcount(node_id: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
 	var body = "node_id=" + node_id
@@ -370,6 +386,7 @@ func update_playcount(node_id: String):
 func _on_UpdatePlaycount_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("update_playcount_completed", output)
+
 
 func update_rating(node_id: String, rating: float):
 	if not self.LOGGED_IN: return "not logged in"
@@ -387,6 +404,7 @@ func _on_UpdateRating_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("update_rating_completed", output)
 	
+	
 func update_node_description(node_id: String, description: String):
 	if not self.LOGGED_IN: return "not logged in"
 	if "&" in description: return "forbidden character: &"
@@ -403,6 +421,7 @@ func _on_UpdateNodeDescription_request_completed(result, response_code, headers,
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("update_node_description_completed", output)
 	
+	
 func update_node_title(node_id: String, title: String):
 	if not self.LOGGED_IN: return "not logged in"
 	if "&" in title: return "forbidden character: &"
@@ -418,3 +437,164 @@ func update_node_title(node_id: String, title: String):
 func _on_UpdateNodeTitle_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("update_node_title_completed", output)
+	
+	
+func create_path(title: String, description: String):
+	if not self.LOGGED_IN: return "not logged in"
+	if "&" in title or "&" in description: return "forbidden character: &"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&title=" + title + "&description=" + description
+	
+	$CreatePath.connect("request_completed", self, "_on_CreatePath_request_completed")
+	$CreatePath.request(self._URL + "/create_path", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_CreatePath_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 201, body)
+	emit_signal("create_path_completed", output)
+	
+
+func add_to_path(path_id: String, node_id: String, position: int):
+	if position < 0: return "invalid position (must be 0 or larger)"
+	if not self.LOGGED_IN: return "not logged in"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&path_id=" + path_id + "&node_id=" + node_id + "&position=" + String(position)
+	
+	$AddToPath.connect("request_completed", self, "_on_AddToPath_request_completed")
+	$AddToPath.request(self._URL + "/add_to_path", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+
+func _on_AddToPath_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("add_to_path_completed", output)
+
+
+func get_path_info(path_id: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "path_id=" + path_id
+	
+	$GetPath.connect("request_completed", self, "_on_GetPath_request_completed")
+	$GetPath.request(self._URL + "/get_path", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+
+func _on_GetPath_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_path_info_completed", output)
+
+
+func create_path_from_nodes(title: String, description: String, nodes: Array):
+	if len(nodes) == 0: return "must be non-empty array"
+	if not self.LOGGED_IN: return "Not logged in"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&title=" + title + "&description=" + description
+	
+	for node in nodes:
+		body += "&node_ids=" + node
+		
+	for i in range(nodes.size()):
+		body += "&positions=" + String(i)
+		
+	$CreatePathFromNodes.connect("request_completed", self, "_on_CreatePathFromNodes_request_completed")
+	$CreatePathFromNodes.request(self._URL + "/create_path_from_nodes", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_CreatePathFromNodes_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 201, body)
+	emit_signal("create_path_from_nodes_completed", output)
+	
+
+func update_path_playcount(path_id: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "path_id=" + path_id
+	
+	$UpdatePathPlaycount.connect("request_completed", self, "_on_UpdatePathPlaycount_request_completed")
+	$UpdatePathPlaycount.request(self._URL + "/update_path_playcount", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+
+func _on_UpdatePathPlaycount_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_path_playcount_completed", output)
+	
+
+func update_path_rating(path_id: String, rating: float):
+	if not self.LOGGED_IN: return "not logged in"
+	
+	if rating < 0.0 or rating > 10.0: return "invalid rating"
+	
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&path_id=" + path_id + "&rating=" + String(rating)
+	
+	$UpdatePathRating.connect("request_completed", self, "_on_UpdatePathRating_request_completed")
+	$UpdatePathRating.request(self._URL + "/update_path_rating", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_UpdatePathRating_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_path_rating_completed", output)
+	
+
+func update_path_title(path_id: String, title: String):
+	if not self.LOGGED_IN: return "not logged in"
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&path_id=" + path_id + "&title=" + title
+	
+	$UpdatePathTitle.connect("request_completed", self, "_on_UpdatePathTitle_request_completed")
+	$UpdatePathTitle.request(self._URL + "/update_path_title", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_UpdatePathTitle_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_path_title_completed", output)
+
+
+func update_path_description(path_id: String, description: String):
+	if not self.LOGGED_IN: return "not logged in"
+	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
+	var body = "username=" + self.UNAME + "&path_id=" + path_id + "&description=" + description
+	
+	$UpdatePathDescription.connect("request_completed", self, "_on_UpdatePathDescription_request_completed")
+	$UpdatePathDescription.request(self._URL + "/update_path_description", headers, true, HTTPClient.METHOD_POST, body)
+	
+	return ""
+	
+func _on_UpdatePathDescription_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("update_path_description_completed", output)
+
+
+func get_user_paths(username: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "username=" + username
+	
+	$GetUserPaths.connect("request_completed", self, "_on_GetUserPaths_request_completed")
+	$GetUserPaths.request(self._URL + "/get_user_paths", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetUserPaths_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_user_paths_completed", output)
+	
+
+func get_node_paths(node_id: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "node_id=" + node_id
+	
+	$GetNodePaths.connect("request_completed", self, "_on_GetNodePaths_request_completed")
+	$GetNodePaths.request(self._URL + "/get_node_paths", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetNodePaths_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_node_paths_completed", output)

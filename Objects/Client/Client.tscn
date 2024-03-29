@@ -44,3 +44,23 @@ script = ExtResource( 1 )
 [node name="UpdateNodeDescription" type="HTTPRequest" parent="."]
 
 [node name="UpdateNodeTitle" type="HTTPRequest" parent="."]
+
+[node name="CreatePath" type="HTTPRequest" parent="."]
+
+[node name="AddToPath" type="HTTPRequest" parent="."]
+
+[node name="GetPath" type="HTTPRequest" parent="."]
+
+[node name="CreatePathFromNodes" type="HTTPRequest" parent="."]
+
+[node name="UpdatePathPlaycount" type="HTTPRequest" parent="."]
+
+[node name="UpdatePathRating" type="HTTPRequest" parent="."]
+
+[node name="UpdatePathTitle" type="HTTPRequest" parent="."]
+
+[node name="UpdatePathDescription" type="HTTPRequest" parent="."]
+
+[node name="GetUserPaths" type="HTTPRequest" parent="."]
+
+[node name="GetNodePaths" type="HTTPRequest" parent="."]

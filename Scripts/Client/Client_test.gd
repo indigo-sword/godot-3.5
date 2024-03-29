@@ -218,3 +218,75 @@ func _on_login_pressed():
 	ret = yield(Client, "update_node_title_completed")
 	assert(ret.get("code", "error") == "200")
 	print("ok")
+
+	#### test create path -- SUCCESS
+	print("test create path -- SUCCESS")
+	assert(Client.create_path("title", "description") == "")
+	ret = yield(Client, "create_path_completed")
+	assert(ret.get("code", "error") == "201")
+	print("ok")
+	
+	var path_id = ret["path_id"]
+	
+	#### test add to path -- SUCCESS
+	print("test add to path -- SUCCESS")
+	assert(Client.add_to_path(path_id, node_id, 0) == "")
+	ret = yield(Client, "add_to_path_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test get path info -- SUCCESS
+	print("test get path info -- SUCCESS")
+	assert(Client.get_path_info(path_id) == "")
+	ret = yield(Client, "get_path_info_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test create path from nodes -- SUCCESS
+	print("test create path from nodes -- SUCCESS")
+	assert(Client.create_path_from_nodes("title", "description", [node_id, node2_id]) == "")
+	ret = yield(Client, "create_path_from_nodes_completed")
+	assert(ret.get("code", "error") == "201")
+	print("ok")
+	
+	#### test update path playcount -- SUCCESS
+	print("test update path playcount -- SUCCESS")
+	assert(Client.update_path_playcount(path_id) == "")
+	ret = yield(Client, "update_path_playcount_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test update path rating -- SUCCESS
+	print("test update path rating -- SUCCESS")
+	assert(Client.update_path_rating(path_id, 5.5) == "")
+	ret = yield(Client, "update_path_rating_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test update path title -- SUCCESS
+	print("test update path title -- SUCCESS")
+	assert(Client.update_path_title(path_id, "new title yay") == "")
+	ret = yield(Client, "update_path_title_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test update path description -- SUCCESS
+	print("test update path description -- SUCCESS")
+	assert(Client.update_path_description(path_id, "new description yay") == "")
+	ret = yield(Client, "update_path_description_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test get user paths -- SUCCESS
+	print("test get user paths -- SUCCESS")
+	assert(Client.get_user_paths(SAMPLE_UNAME) == "")
+	ret = yield(Client, "get_user_paths_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test get node paths -- SUCCESS
+	print("test get node paths -- SUCCESS")
+	assert(Client.get_node_paths(node_id) == "")
+	ret = yield(Client, "get_node_paths_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
