@@ -29,7 +29,6 @@ __meta__ = {
 }
 
 [node name="Items" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -84,6 +83,7 @@ margin_bottom = 64.0
 [node name="ItemTexture" parent="TabContainer/Weapons/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 
 [node name="Tiles" type="Tabs" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
