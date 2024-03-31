@@ -98,6 +98,7 @@ func save_level():
 	tile_map.owner = level
 	toSave.pack(level)
 	ResourceSaver.save(popup.current_path + ".tscn", toSave)
+	
 
 func load_level():
 	var toLoad : PackedScene = PackedScene.new()
