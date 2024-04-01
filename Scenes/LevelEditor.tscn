@@ -35,20 +35,29 @@ script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="CamContainer"]
 
-[node name="SaveSceneButton" type="Button" parent="."]
-margin_left = 955.0
-margin_top = 549.0
-margin_right = 1241.0
-margin_bottom = 608.0
+[node name="Menu" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+margin_left = 613.0
+margin_top = 372.0
+margin_right = 924.0
+margin_bottom = 517.0
+color = Color( 0.462745, 0.690196, 0.756863, 1 )
+
+[node name="LoadSceneButton" type="Button" parent="Menu"]
+margin_left = 626.0
+margin_top = 450.0
+margin_right = 913.0
+margin_bottom = 509.0
+text = "Load The Scene"
+
+[node name="SaveSceneButton" type="Button" parent="Menu"]
+margin_left = 626.0
+margin_top = 380.0
+margin_right = 912.0
+margin_bottom = 439.0
 text = "Save The Scene"
 script = ExtResource( 5 )
-
-[node name="LoadSceneButton" type="Button" parent="."]
-margin_left = 955.0
-margin_top = 626.0
-margin_right = 1242.0
-margin_bottom = 685.0
-text = "Load The Scene"
 
 [connection signal="confirmed" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_confirmed"]
 [connection signal="hide" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_hide"]

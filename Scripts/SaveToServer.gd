@@ -2,7 +2,13 @@ extends Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	# Connect the button's 'pressed' signal to the 'on_button_pressed' method.
+	connect("pressed", self, "on_button_pressed")
+
+# This method will be called when the button is pressed
+func on_button_pressed():
+	# Call the 'serialize_scene' method with the path of the scene to serialize and output file path
+	serialize_scene("res://path_to_your_scene.tscn", "res://output_file.dat")
 
 # Serializes the current scene with all its dependencies into a single file
 func serialize_scene(scene_path: String, output_file: String):
