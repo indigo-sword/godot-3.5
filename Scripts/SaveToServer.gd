@@ -9,6 +9,7 @@ func _ready():
 
 # This method will be called when the button is pressed
 func on_button_pressed():
+	# TODO visual interface
 	var title		: String = "My awesome level"
 	var description	: String = "Welcome to my awesome level"
 	var is_initial	: bool = false
@@ -25,10 +26,13 @@ func on_button_pressed():
 	# FIXME remove after adding main menu for user to log in
 	if (!Client.LOGGED_IN):
 		err = Client.login("LsZCFWRNMl", "PASS")
+		ret = yield(Client, "login_completed")
+		print(ret.get("code", "not found"))
 		# TODO add visual error handling
-		assert(err == "")
-		# ret = yield(Client, "login_completed")
-		# print(ret.get("code", "not found"))
-	# err = Client.create_node(title, description, is_initial, is_final, save_path)
+		if (err != "" or ret.get("code", "not found") != "200"):
+			print("Error in logging in.")
+		
+	err = Client.create_node(title, description, is_initial, is_final, save_path)
 	# TODO add visual error handling
-	# print(err)
+	if (err != ""):
+		print("Error in saving the level.")
