@@ -16,10 +16,8 @@ var is_dashing = false
 var time_last_dashed = 0.0
 
 # Tree nodes
-onready var sprite = $Sprite
-onready var anim_player = $AnimationPlayer
-onready var anim_tree = $AnimationTree
-onready var timer = $Timer
+onready var _animated_sprite = $AnimatedSprite
+onready var _timer = $Timer
 
 func _physics_process(delta):
 	match state:
@@ -32,12 +30,13 @@ func move(delta):
 	if (Input.is_action_just_pressed("attack")):
 		state = STATE.ATTACK
 	elif (Input.is_action_just_pressed("dash")):
-		if (can_dash()):
-			anim_player.play("Dash")
-			timer.start_dash(DASH_DURATION)
-			time_last_dashed = OS.get_ticks_msec()
+		pass
+		# if (can_dash()):
+		#	anim_player.play("Dash")
+		#	timer.start_dash(DASH_DURATION)
+		#	time_last_dashed = OS.get_ticks_msec()
 	
-	speed = DASH_SPEED if timer.is_dashing() else NORM_SPEED
+	# speed = DASH_SPEED if timer.is_dashing() else NORM_SPEED
 	
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("d") - Input.get_action_strength("a")
@@ -45,13 +44,13 @@ func move(delta):
 	input_vector = input_vector.normalized()
 	
 	if (input_vector != Vector2.ZERO):
-		sprite.flip_h = true if input_vector.x < 0 else false
+		_animated_sprite.flip_h = true if input_vector.x < 0 else false
 	
-	if !timer.is_dashing():
-		if (input_vector == Vector2.ZERO):
-			anim_player.play("Idle")
-		else:
-			anim_player.play("Run")
+	# if !timer.is_dashing():
+	#	if (input_vector == Vector2.ZERO):
+	#		anim_player.play("Idle")
+	#	else:
+	#		anim_player.play("Run")
 	
 	move_and_collide(input_vector * delta * speed)
 	
