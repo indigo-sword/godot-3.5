@@ -1,42 +1,34 @@
 extends Button
 
-onready var level = get_node("/root/LevelEditor/Level")
+const LEVEL_DIR: String = "res://SavedLevels/"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Connect the button's 'pressed' signal to the 'on_button_pressed' method.
 	connect("pressed", self, "on_button_pressed")
-	
+
+# This method will be called when the button is pressed
 func on_button_pressed():
-	# Assuming 'level' is a variable pointing to the node you want to pack
-	save_packed_scene(level)
-	serialize_scene("res://saved_scene.tscn", "res://output_file.dat")
-
-func save_packed_scene(level_node):
-	var toSave : PackedScene = PackedScene.new()
-	if toSave.pack(level_node) == OK:
-		var scene_path = "res://saved_scene.tscn" # Or any other path you want
-		ResourceSaver.save(scene_path, toSave)
-		print("Packed scene saved successfully to", scene_path)
-	else:
-		print("Failed to pack the scene.")
-
-# Serializes the current scene with all its dependencies into a single file
-func serialize_scene(scene_path: String, output_file: String):
-	var scene = ResourceLoader.load(scene_path)
-	var deps = ResourceLoader.get_dependencies(scene_path)
-	var packed_data = {
-		"scene": scene,
-		"dependencies": []
-	}
-	
-	for dep in deps:
-		var res = ResourceLoader.load(dep)
-		packed_data["dependencies"].append({"path": dep, "resource": res})
-
-	var file = File.new()
-	if file.open(output_file, File.WRITE) == OK:
-		file.store_var(packed_data)
-		file.close()
-		print("Scene serialized successfully.")
-	else:
-		print("Failed to save serialized scene.")
+	var title		: String = "My awesome level"
+	var description	: String = "Welcome to my awesome level"
+	var is_initial	: bool = false
+	var is_final		: bool = true
+	var level		: Node2D = get_node("/root/LevelEditor/Level")
+	# Pack scene and save
+	var save_path	: String = LEVEL_DIR + title + ".tscn"
+	var toSave 		: PackedScene = PackedScene.new()
+	toSave.pack(level)
+	ResourceSaver.save(save_path, toSave)
+	# Request to save to server
+	var err = "";
+	var ret = "";
+	# FIXME remove after adding main menu for user to log in
+	if (!Client.LOGGED_IN):
+		err = Client.login("LsZCFWRNMl", "PASS")
+		# TODO add visual error handling
+		assert(err == "")
+		# ret = yield(Client, "login_completed")
+		# print(ret.get("code", "not found"))
+	# err = Client.create_node(title, description, is_initial, is_final, save_path)
+	# TODO add visual error handling
+	# print(err)
