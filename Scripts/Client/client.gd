@@ -5,9 +5,10 @@ const GODOT_CLIENT_ERRORS = preload("res://Scripts/Client/client_errors.gd")
 # ATTRIBUTES
 var LOGGED_IN: bool
 var UNAME: String
+var EMAIL: String
+var FOLLOWING: int
+var FOLLOWS: int
 var BIO: String
-var ERROR: String
-var ERROR_CODE: int
 var _COOKIE: String
 var _URL: String
 
@@ -49,6 +50,10 @@ func _init():
 	self._COOKIE = ""
 	self._URL = "http://64.225.11.30:8080"
 	self.UNAME = ""
+	self.BIO = ""
+	self.EMAIL = ""
+	self.FOLLOWING = 0
+	self.FOLLOWS = 0
 
 func _generate_boundary():
 	var boundary = ""
