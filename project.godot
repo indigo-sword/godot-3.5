@@ -8,10 +8,20 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "IEnemy",
+"language": "GDScript",
+"path": "res://Scripts/Enemy/IEnemy.gd"
+} ]
+_global_script_class_icons={
+"IEnemy": ""
+}
+
 [application]
 
 config/name="Octopus"
-run/main_scene="res://Scripts/LevelEditor.tscn"
+run/main_scene="res://Scenes/Tests/Gameplay_test.tscn"
 config/icon="res://icon.png"
 
 [autoload]
