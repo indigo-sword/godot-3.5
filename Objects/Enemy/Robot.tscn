@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Robot.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Enemy/Robot.png" type="Texture" id=2]
@@ -131,6 +131,21 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=47]
+resource_name = "Die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("MoveSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 260, 261, 262, 263, 264, 265, 266, 267, 268, 269 ]
+}
+
 [sub_resource type="Animation" id=26]
 length = 0.001
 tracks/0/type = "value"
@@ -251,6 +266,9 @@ min_space = Vector2( -1, -1.1 )
 max_space = Vector2( 1, 1.1 )
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id=48]
+animation = "Die"
+
 [sub_resource type="AnimationNodeAnimation" id=35]
 animation = "Walk_LEFT"
 
@@ -280,14 +298,20 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=46]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=49]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=50]
+
 [sub_resource type="AnimationNodeStateMachine" id=18]
 states/Attack/node = SubResource( 44 )
-states/Attack/position = Vector2( 342.26, 181.995 )
+states/Attack/position = Vector2( 289.26, 136.057 )
+states/Die/node = SubResource( 48 )
+states/Die/position = Vector2( 182.76, 255.62 )
 states/Walk/node = SubResource( 34 )
 states/Walk/position = Vector2( 88.26, 136.62 )
-transitions = [ "Walk", "Attack", SubResource( 45 ), "Attack", "Walk", SubResource( 46 ) ]
+transitions = [ "Walk", "Attack", SubResource( 45 ), "Attack", "Walk", SubResource( 46 ), "Walk", "Die", SubResource( 49 ), "Attack", "Die", SubResource( 50 ) ]
 start_node = "Walk"
-graph_offset = Vector2( -267.24, 73.62 )
+graph_offset = Vector2( -517.778, 95.8275 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=19]
 
@@ -327,6 +351,7 @@ anims/Attack_DOWN = SubResource( 32 )
 anims/Attack_LEFT = SubResource( 31 )
 anims/Attack_RIGHT = SubResource( 33 )
 anims/Attack_UP = SubResource( 30 )
+anims/Die = SubResource( 47 )
 anims/RESET = SubResource( 26 )
 anims/Walk_DOWN = SubResource( 28 )
 anims/Walk_LEFT = SubResource( 27 )

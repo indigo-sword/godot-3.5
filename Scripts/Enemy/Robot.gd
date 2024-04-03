@@ -55,3 +55,4 @@ func _on_attack_exit():
 	_atk_sprite.visible = false
 	_anim_state.travel("Walk")
 	state = STATE.PATROL
+
