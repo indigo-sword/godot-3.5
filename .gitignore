@@ -14,5 +14,6 @@ mono_crash.*.json
 # Misc
 .DS_Store
 
+*.import
 SavedLevels
 SavedLevels/*
