@@ -281,7 +281,6 @@ func _on_login_pressed():
 	print("test get user paths -- SUCCESS")
 	assert(Client.get_user_paths(SAMPLE_UNAME) == "")
 	ret = yield(Client, "get_user_paths_completed")
-	print(ret)
 	assert(ret.get("code", "error") == "200")
 	print("ok")
 	
