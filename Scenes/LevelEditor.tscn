@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/EditorObject.gd" type="Script" id=2]
 [ext_resource path="res://tilemap_tiles.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/FileDialog.gd" type="Script" id=4]
-[ext_resource path="res://Scripts/SaveToServer.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/LevelEditorMenu.gd" type="Script" id=5]
 [ext_resource path="res://Items/itemSaveButton.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Items/itemVisibilityButton.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Items/itemLoadButton.tscn" type="PackedScene" id=8]
@@ -28,64 +28,51 @@ script = ExtResource( 2 )
 
 [node name="FileDialog" type="FileDialog" parent="ItemSelect"]
 visible = true
-margin_left = 22.0
-margin_top = 45.0
-margin_right = 628.0
-margin_bottom = 352.0
+margin_left = -611.0
+margin_top = -385.0
+margin_right = -5.0
+margin_bottom = -78.0
 rect_min_size = Vector2( 400, 140 )
 script = ExtResource( 4 )
 
 [node name="CamContainer" type="Node2D" parent="."]
+position = Vector2( 5, 3 )
 
 [node name="Camera2D" type="Camera2D" parent="CamContainer"]
+position = Vector2( -4, 2 )
 
-[node name="Menu" type="Node2D" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="Menu"]
-margin_left = 613.0
-margin_top = 372.0
-margin_right = 924.0
-margin_bottom = 517.0
-color = Color( 0.462745, 0.690196, 0.756863, 1 )
-
-[node name="LoadSceneButton" type="Button" parent="Menu"]
-margin_left = 626.0
-margin_top = 450.0
-margin_right = 913.0
-margin_bottom = 509.0
-text = "Load The Scene"
-
-[node name="SaveSceneButton" type="Button" parent="Menu"]
-margin_left = 626.0
-margin_top = 380.0
-margin_right = 912.0
-margin_bottom = 439.0
-text = "Save The Scene"
+[node name="LevelEditorMenu" type="Node2D" parent="."]
+position = Vector2( -6, -518 )
+z_index = 1
 script = ExtResource( 5 )
 
-[node name="Node2D" parent="Menu" instance=ExtResource( 9 )]
-margin_left = 736.0
-margin_top = -537.0
-margin_right = 736.0
-margin_bottom = -537.0
+[node name="VisibilityButton" parent="LevelEditorMenu" instance=ExtResource( 7 )]
+margin_left = 536.0
+margin_top = 6.0
+margin_right = 696.0
+margin_bottom = 86.0
+script = null
 
-[node name="Node2D2" parent="Menu" instance=ExtResource( 8 )]
-margin_left = 283.0
-margin_top = -537.0
-margin_right = 283.0
-margin_bottom = -537.0
+[node name="SaveButton" parent="LevelEditorMenu" instance=ExtResource( 6 )]
+margin_left = 179.0
+margin_top = 5.0
+margin_right = 339.0
+margin_bottom = 85.0
+script = null
 
-[node name="Node2D4" parent="Menu" instance=ExtResource( 6 )]
-margin_left = 49.0
-margin_top = -537.0
-margin_right = 49.0
-margin_bottom = -537.0
+[node name="LoadButton" parent="LevelEditorMenu" instance=ExtResource( 8 )]
+margin_left = 353.0
+margin_top = 6.0
+margin_right = 513.0
+margin_bottom = 86.0
+script = null
 
-[node name="Node2D3" parent="Menu" instance=ExtResource( 7 )]
-margin_left = 509.0
-margin_top = -537.0
-margin_right = 509.0
-margin_bottom = -537.0
+[node name="ExitButton" parent="LevelEditorMenu" instance=ExtResource( 9 )]
+margin_left = 729.0
+margin_top = 6.00001
+margin_right = 889.0
+margin_bottom = 86.0
+script = null
 
 [connection signal="confirmed" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_confirmed"]
 [connection signal="hide" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_hide"]
