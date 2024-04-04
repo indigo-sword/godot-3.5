@@ -18,17 +18,14 @@ var is_dashing = false
 var time_last_dashed = 0.0
 
 # Tree nodes
-onready var _idle_sprite = $IdleSprite
-onready var _walk_sprite = $WalkSprite
-onready var _attack_sprite = $AttackSprite
-onready var _anim_player = $AnimationPlayer
+onready var _anim_tree = $AnimationTree
+onready var _anim_state = _anim_tree.get("parameters/playback")
 onready var _timer = $Timer
+onready var _sword_hitbox = $HitboxPivot/SwordHitbox
 
 func _ready():
 	$Camera2D.current = true
-	_idle_sprite.visible = true
-	_walk_sprite.visible = false
-	_attack_sprite.visible = false
+	_anim_tree.active = true
 
 func _physics_process(delta):
 	match state:
@@ -38,8 +35,6 @@ func _physics_process(delta):
 			on_attack_enter()
 
 func move(delta):
-	if (Input.is_action_just_pressed("attack")):
-		state = STATE.ATTACK
 	# elif (Input.is_action_just_pressed("dash")):
 		# if (can_dash()):
 		#	anim_player.play("Dash")
@@ -53,25 +48,26 @@ func move(delta):
 	input_vector.y = Input.get_action_strength("s") - Input.get_action_strength("w")
 	input_vector = input_vector.normalized()
 	
+	# if !timer.is_dashing():
 	if (input_vector != Vector2.ZERO):
-		_idle_sprite.flip_h = true if input_vector.x > 0 else false
-		_walk_sprite.flip_h = true if input_vector.x > 0 else false
-		_attack_sprite.flip_h = true if input_vector.x > 0 else false
-		velocity += input_vector * ACCELERATION * delta
-		velocity = velocity.clamped(MAX_SPEED * delta)
+		_sword_hitbox.knockback_vector = input_vector
+		_anim_tree.set("parameters/Idle/blend_position", input_vector.x)
+		_anim_tree.set("parameters/Walk/blend_position", input_vector.x)
+		_anim_tree.set("parameters/Attack/blend_position", input_vector.x)
+		_anim_state.travel("Walk")
+		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
 	else:
+		_anim_state.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
-	# if !timer.is_dashing():
-	if (input_vector == Vector2.ZERO):
-		play_anim("Idle")
-	else:
-		play_anim("Walk")
+	velocity = move_and_slide(velocity)
 	
-	move_and_collide(velocity)
+	if (Input.is_action_just_pressed("attack")):
+		state = STATE.ATTACK
 	
 func on_attack_enter():
-	play_anim("Attack")
+	velocity = Vector2.ZERO
+	_anim_state.travel("Attack")
 	
 func on_attack_exit():
 	state = STATE.MOVE
@@ -83,9 +79,3 @@ func can_dash():
 		return true
 	else:
 		return false
-
-func play_anim(anim: String):
-	_idle_sprite.visible = true if anim == "Idle" else false
-	_walk_sprite.visible = true if anim == "Walk" else false
-	_attack_sprite.visible = true if anim == "Attack" else false
-	_anim_player.play(anim)
