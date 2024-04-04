@@ -1,8 +1,7 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_idle.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/PlayerTimer.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_walk.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_attack.png" type="Texture" id=5]
 [ext_resource path="res://Objects/Hitbox.tscn" type="PackedScene" id=6]
@@ -835,37 +834,32 @@ height = 122.0
 [node name="Player" type="KinematicBody2D"]
 z_index = 1
 script = ExtResource( 2 )
-MAX_SPEED = 200
-ACCELERATION = 500
-FRICTION = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 5, 45 )
 z_index = 1
 shape = SubResource( 1 )
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-script = ExtResource( 3 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2( 0.7, 0.7 )
+zoom = Vector2( 0.5, 0.5 )
 
 [node name="IdleSprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 1 )
 flip_h = true
 hframes = 6
 region_rect = Rect2( 106.854, 105.37, 1, 0 )
 
 [node name="WalkSprite" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 4 )
+flip_h = true
 hframes = 6
 frame = 1
 
 [node name="AttackSprite" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 5 )
+flip_h = true
 hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -886,7 +880,7 @@ parameters/Idle/blend_position = 1.20745
 parameters/Walk/blend_position = 0
 
 [node name="HitboxPivot" type="Position2D" parent="."]
-position = Vector2( -20, 35 )
+position = Vector2( 20, 35 )
 __meta__ = {
 "_gizmo_extents_": 171.8
 }
@@ -895,13 +889,13 @@ __meta__ = {
 script = ExtResource( 7 )
 
 [node name="CollisionShape2D" parent="HitboxPivot/SwordHitbox" index="0"]
-rotation = 2.0944
+rotation = 1.0472
 shape = SubResource( 6 )
 disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitboxPivot/SwordHitbox"]
-position = Vector2( 20, -60 )
-rotation = -1.8326
+position = Vector2( -20, -60 )
+rotation = 1.65806
 shape = SubResource( 25 )
 disabled = true
 

@@ -3,6 +3,7 @@
 [ext_resource path="res://Scripts/Enemy/Robot.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Enemy/Robot.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Control/Stats.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -35,6 +36,30 @@ tracks/1/keys = {
 "method": "_on_attack_exit"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MoveSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=31]
 resource_name = "Attack_LEFT"
@@ -64,6 +89,30 @@ tracks/1/keys = {
 "args": [  ],
 "method": "_on_attack_exit"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MoveSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=33]
@@ -95,6 +144,30 @@ tracks/1/keys = {
 "method": "_on_attack_exit"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MoveSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=30]
 resource_name = "Attack_UP"
@@ -125,9 +198,34 @@ tracks/1/keys = {
 "method": "_on_attack_exit"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("MoveSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=47]
 resource_name = "Die"
+length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("MoveSprite:frame")
 tracks/0/interp = 1
@@ -139,6 +237,68 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 260, 261, 262, 263, 264, 265, 266, 267, 268, 269 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_on_die"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MoveSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Collidor:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=26]
@@ -184,6 +344,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 131, 132, 133, 134, 135, 136, 137, 138 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MoveSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=27]
 resource_name = "Walk_LEFT"
@@ -200,6 +384,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 118, 119, 120, 121, 122, 123, 124, 125 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MoveSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=29]
@@ -218,6 +426,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 144, 145, 146, 147, 148, 149, 150, 151 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MoveSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=25]
 resource_name = "Walk_UP"
@@ -234,6 +466,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 105, 106, 107, 108, 109, 110, 111, 112 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MoveSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=40]
@@ -295,18 +551,16 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=49]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=50]
-
 [sub_resource type="AnimationNodeStateMachine" id=18]
 states/Attack/node = SubResource( 44 )
 states/Attack/position = Vector2( 289.26, 136.057 )
 states/Die/node = SubResource( 48 )
-states/Die/position = Vector2( 182.76, 255.62 )
+states/Die/position = Vector2( 87.51, 240.12 )
 states/Walk/node = SubResource( 34 )
 states/Walk/position = Vector2( 88.26, 136.62 )
-transitions = [ "Walk", "Attack", SubResource( 45 ), "Attack", "Walk", SubResource( 46 ), "Walk", "Die", SubResource( 49 ), "Attack", "Die", SubResource( 50 ) ]
+transitions = [ "Walk", "Attack", SubResource( 45 ), "Attack", "Walk", SubResource( 46 ), "Walk", "Die", SubResource( 49 ) ]
 start_node = "Walk"
-graph_offset = Vector2( -517.778, 95.8275 )
+graph_offset = Vector2( -417.563, 83.5575 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=19]
 
@@ -330,6 +584,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 832, 1344 )
 
 [node name="AttackSprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 hframes = 8
 vframes = 12
@@ -352,6 +607,7 @@ anims/Walk_UP = SubResource( 25 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 18 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/playback = SubResource( 19 )
 parameters/Attack/blend_position = Vector2( 0.537278, -0.0991417 )
 parameters/Walk/blend_position = Vector2( 0, 0 )
@@ -364,6 +620,9 @@ parameters/Walk/blend_position = Vector2( 0, 0 )
 position = Vector2( 0, 8 )
 shape = SubResource( 52 )
 
+[node name="Stats" parent="." instance=ExtResource( 4 )]
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
 
 [editable path="Hurtbox"]

@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
 # Globals
-export var MAX_SPEED = 80
-export var ACCELERATION = 50
-export var FRICTION = 300
+export var MAX_SPEED = 200
+export var ACCELERATION = 500
+export var FRICTION = 500
 enum STATE {
 	MOVE, ATTACK
 }

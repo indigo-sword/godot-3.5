@@ -1,19 +1,14 @@
 extends KinematicBody2D
 
-export var health: int = 500
-export var attack: int = 50
-export var speed : int = 50
-export var is_moving: bool = true
-
-onready var _mov_sprite:  Sprite = get_node("MoveSprite")
-onready var _atk_sprite:  Sprite = get_node("AttackSprite")
 onready var _anim_tree:   AnimationTree = get_node("AnimationTree")
 onready var _anim_state:  AnimationNodeStateMachinePlayback = _anim_tree.get("parameters/playback")
+onready var _stats:       Node2D = get_node("Stats")
 
 enum STATE {
 	PATROL,
 	PURSUE,
-	ATTACK
+	ATTACK,
+	DEAD
 }
 var state
 
@@ -25,9 +20,6 @@ func _ready():
 	# TODO add control for attacking
 	_anim_tree.active = true
 	state = STATE.PATROL
-	is_moving = true
-	_mov_sprite.visible = true
-	_atk_sprite.visible = false
 
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, 400 * delta)
@@ -35,13 +27,13 @@ func _physics_process(delta):
 	
 	match state:
 		STATE.PATROL:
-			is_moving = true
 			_on_walk()
 		STATE.PURSUE:
 			pass
 		STATE.ATTACK:
-			is_moving = false
 			_on_attack_enter()
+		STATE.DEAD:
+			pass
 
 func _on_walk():
 	# Movement is controlled by parent PathFollow2D
@@ -54,15 +46,19 @@ func _on_walk():
 		state = STATE.ATTACK
 
 func _on_attack_enter():
-	_mov_sprite.visible = false
-	_atk_sprite.visible = true
 	_anim_state.travel("Attack")
 
 func _on_attack_exit():
-	_mov_sprite.visible = true
-	_atk_sprite.visible = false
 	_anim_state.travel("Walk")
 	state = STATE.PATROL
 
 func _on_Hurtbox_area_entered(area):
+	_stats.health -= area.damage
 	knockback = area.knockback_vector * 200
+
+func _on_die():
+	queue_free()
+
+func _on_Stats_no_health():
+	_anim_state.travel("Die")
+	state = STATE.DEAD
