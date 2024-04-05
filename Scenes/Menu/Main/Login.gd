@@ -30,8 +30,13 @@ func _on_createUser_button_pressed():
 		return
 	
 	uname.text = ""
+	uname.editable = false
+	
 	password.text = ""
+	password.editable = false
+	
 	email.text = ""
+	email.editable = false
 	
 	var createUser = $CreateUserRect/CreateUserTitle
 	createUser.text = "User Created"
@@ -52,13 +57,8 @@ func _on_login_button_pressed():
 	
 	uname.text = ""
 	password.text = ""
-	
-	# here you should go to some other scene
-	print("yay!!")
 
-
-	
-
+	get_tree().change_scene("res://Scenes/Menu/PlayerMain/PlayerMain.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -21,13 +21,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Octopus"
-run/main_scene="res://Scenes/Tests/Gameplay_test.tscn"
+run/main_scene="res://Scenes/Menu/Main/Init.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://Global.gd"
 Client="*res://Objects/Client/Client.tscn"
+Configs="*res://Scripts/Configs/Configs.gd"
 
 [display]
 
