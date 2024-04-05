@@ -1,11 +1,13 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_idle.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Objects/Control/Stats.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_walk.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_attack.png" type="Texture" id=5]
-[ext_resource path="res://Objects/Hitbox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Control/Hitbox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/Player/PlayerSwordHitbox.gd" type="Script" id=7]
+[ext_resource path="res://Objects/Control/Hurtbox.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 26.0
@@ -187,6 +189,18 @@ tracks/13/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -12, 50 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -374,6 +388,18 @@ tracks/14/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/15/type = "value"
+tracks/15/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 12, 50 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "Idle_LEFT"
@@ -451,6 +477,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -12, 50 ) ]
+}
 
 [sub_resource type="Animation" id=9]
 resource_name = "Idle_RIGHT"
@@ -527,6 +565,18 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 12, 50 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -692,6 +742,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Vector2( -5, 60 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -12, 50 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "Walk_RIGHT"
@@ -769,59 +831,104 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Vector2( 5, 60 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 12, 50 ) ]
+}
 
-[sub_resource type="AnimationNodeAnimation" id=20]
+[sub_resource type="AnimationNodeAnimation" id=37]
 animation = "Attack_LEFT"
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=38]
+animation = "Attack_LEFT"
+
+[sub_resource type="AnimationNodeAnimation" id=39]
 animation = "Attack_RIGHT"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id=22]
-blend_point_0/node = SubResource( 20 )
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource( 21 )
-blend_point_1/pos = 1.0
+[sub_resource type="AnimationNodeAnimation" id=40]
+animation = "Attack_RIGHT"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeBlendSpace2D" id=26]
+blend_point_0/node = SubResource( 37 )
+blend_point_0/pos = Vector2( -1, 1 )
+blend_point_1/node = SubResource( 38 )
+blend_point_1/pos = Vector2( -1, -1 )
+blend_point_2/node = SubResource( 39 )
+blend_point_2/pos = Vector2( 1, 1 )
+blend_point_3/node = SubResource( 40 )
+blend_point_3/pos = Vector2( 1, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=27]
 animation = "Idle_LEFT"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "Idle_LEFT"
+
+[sub_resource type="AnimationNodeAnimation" id=29]
 animation = "Idle_RIGHT"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id=12]
-blend_point_0/node = SubResource( 13 )
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource( 14 )
-blend_point_1/pos = 1.0
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "Idle_RIGHT"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeBlendSpace2D" id=31]
+blend_point_0/node = SubResource( 27 )
+blend_point_0/pos = Vector2( -1, 1 )
+blend_point_1/node = SubResource( 28 )
+blend_point_1/pos = Vector2( -1, -1 )
+blend_point_2/node = SubResource( 29 )
+blend_point_2/pos = Vector2( 1, 1 )
+blend_point_3/node = SubResource( 30 )
+blend_point_3/pos = Vector2( 1, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=41]
 animation = "Walk_LEFT"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeAnimation" id=42]
+animation = "Walk_LEFT"
+
+[sub_resource type="AnimationNodeAnimation" id=43]
 animation = "Walk_RIGHT"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id=17]
-blend_point_0/node = SubResource( 15 )
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource( 16 )
-blend_point_1/pos = 1.0
+[sub_resource type="AnimationNodeAnimation" id=44]
+animation = "Walk_RIGHT"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+[sub_resource type="AnimationNodeBlendSpace2D" id=32]
+blend_point_0/node = SubResource( 41 )
+blend_point_0/pos = Vector2( -1, 1 )
+blend_point_1/node = SubResource( 42 )
+blend_point_1/pos = Vector2( -1, -1 )
+blend_point_2/node = SubResource( 43 )
+blend_point_2/pos = Vector2( 1, 1 )
+blend_point_3/node = SubResource( 44 )
+blend_point_3/pos = Vector2( 1, -1 )
+blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
 
 [sub_resource type="AnimationNodeStateMachine" id=10]
-states/Attack/node = SubResource( 22 )
-states/Attack/position = Vector2( 310, 215 )
-states/Idle/node = SubResource( 12 )
-states/Idle/position = Vector2( 316.5, 103.5 )
-states/Walk/node = SubResource( 17 )
-states/Walk/position = Vector2( 505, 104 )
-transitions = [ "Idle", "Walk", SubResource( 18 ), "Walk", "Idle", SubResource( 19 ), "Idle", "Attack", SubResource( 23 ), "Attack", "Idle", SubResource( 24 ) ]
+states/Attack/node = SubResource( 26 )
+states/Attack/position = Vector2( 348.677, 229.25 )
+states/Idle/node = SubResource( 31 )
+states/Idle/position = Vector2( 349.427, 146.75 )
+states/Walk/node = SubResource( 32 )
+states/Walk/position = Vector2( 566.427, 145.75 )
+transitions = [ "Idle", "Walk", SubResource( 33 ), "Walk", "Idle", SubResource( 34 ), "Idle", "Attack", SubResource( 35 ), "Attack", "Idle", SubResource( 36 ) ]
 start_node = "Idle"
 graph_offset = Vector2( -150.323, 47.25 )
 
@@ -831,35 +938,35 @@ graph_offset = Vector2( -150.323, 47.25 )
 radius = 20.0
 height = 122.0
 
+[sub_resource type="CapsuleShape2D" id=45]
+radius = 15.0
+
 [node name="Player" type="KinematicBody2D"]
 z_index = 1
+collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 5, 45 )
 z_index = 1
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2( 0.5, 0.5 )
-
 [node name="IdleSprite" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 1 )
 flip_h = true
 hframes = 6
 region_rect = Rect2( 106.854, 105.37, 1, 0 )
 
 [node name="WalkSprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 4 )
-flip_h = true
 hframes = 6
 frame = 1
 
 [node name="AttackSprite" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 5 )
-flip_h = true
 hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -876,27 +983,45 @@ tree_root = SubResource( 10 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 11 )
 parameters/Attack/blend_position = 0
-parameters/Idle/blend_position = 1.20745
+parameters/Idle/blend_position = 0.0
 parameters/Walk/blend_position = 0
 
 [node name="HitboxPivot" type="Position2D" parent="."]
-position = Vector2( 20, 35 )
+visible = false
+position = Vector2( -20, 35 )
 __meta__ = {
 "_gizmo_extents_": 171.8
 }
 
 [node name="SwordHitbox" parent="HitboxPivot" instance=ExtResource( 6 )]
+collision_layer = 0
+collision_mask = 16
 script = ExtResource( 7 )
 
 [node name="CollisionShape2D" parent="HitboxPivot/SwordHitbox" index="0"]
-rotation = 1.0472
+rotation = 2.0944
 shape = SubResource( 6 )
 disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitboxPivot/SwordHitbox"]
-position = Vector2( -20, -60 )
-rotation = 1.65806
+position = Vector2( 20, -60 )
+rotation = -1.8326
 shape = SubResource( 25 )
 disabled = true
 
+[node name="Stats" parent="." instance=ExtResource( 3 )]
+max_health = 1000
+
+[node name="Hurtbox" parent="." instance=ExtResource( 8 )]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 12, 50 )
+shape = SubResource( 45 )
+
+[connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+
 [editable path="HitboxPivot/SwordHitbox"]
+[editable path="Hurtbox"]

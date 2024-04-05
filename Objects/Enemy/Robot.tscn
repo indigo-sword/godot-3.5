@@ -1,9 +1,12 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Robot.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Enemy/Robot.png" type="Texture" id=2]
-[ext_resource path="res://Objects/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Control/Hitbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Control/Stats.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Control/PlayerDetectionBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Control/Hurtbox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Control/EnemyReachBox.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -60,6 +63,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 20 ) ]
+}
 
 [sub_resource type="Animation" id=31]
 resource_name = "Attack_LEFT"
@@ -113,6 +140,30 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.4013, 0.503574 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -10, 8 ) ]
 }
 
 [sub_resource type="Animation" id=33]
@@ -168,6 +219,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.402217, 0.501281 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 10, 8 ) ]
+}
 
 [sub_resource type="Animation" id=30]
 resource_name = "Attack_UP"
@@ -221,6 +296,30 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.399883, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -10 ) ]
 }
 
 [sub_resource type="Animation" id=47]
@@ -277,24 +376,12 @@ tracks/3/keys = {
 "values": [ false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Collidor:disabled")
+tracks/4/path = NodePath("Hurtbox/CollisionShape2D:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Hurtbox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -326,6 +413,30 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 30, 0 ) ]
 }
 
 [sub_resource type="Animation" id=28]
@@ -368,6 +479,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 20 ) ]
+}
 
 [sub_resource type="Animation" id=27]
 resource_name = "Walk_LEFT"
@@ -408,6 +531,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -10, 8 ) ]
 }
 
 [sub_resource type="Animation" id=29]
@@ -450,6 +585,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 10, 8 ) ]
+}
 
 [sub_resource type="Animation" id=25]
 resource_name = "Walk_UP"
@@ -490,6 +637,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -10 ) ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=40]
@@ -564,18 +723,32 @@ graph_offset = Vector2( -417.563, 83.5575 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=19]
 
-[sub_resource type="CapsuleShape2D" id=52]
-radius = 24.0
-height = 32.0
+[sub_resource type="CircleShape2D" id=53]
+radius = 256.125
+
+[sub_resource type="CapsuleShape2D" id=56]
+radius = 15.0
+height = 40.0
+
+[sub_resource type="CapsuleShape2D" id=55]
+radius = 20.0
+
+[sub_resource type="CapsuleShape2D" id=57]
+radius = 25.0
+height = 30.0
 
 [node name="Robot" type="KinematicBody2D"]
+collision_layer = 4
 script = ExtResource( 1 )
 
 [node name="Collidor" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 10 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="MoveSprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 hframes = 13
 vframes = 21
@@ -584,7 +757,6 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 832, 1344 )
 
 [node name="AttackSprite" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 2 )
 hframes = 8
 vframes = 12
@@ -607,22 +779,50 @@ anims/Walk_UP = SubResource( 25 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 18 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 19 )
-parameters/Attack/blend_position = Vector2( 0.537278, -0.0991417 )
+parameters/Attack/blend_position = Vector2( 0, 0 )
 parameters/Walk/blend_position = Vector2( 0, 0 )
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="Hurtbox" parent="." instance=ExtResource( 3 )]
+[node name="Stats" parent="." instance=ExtResource( 4 )]
+
+[node name="PlayerDetectionBox" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[node name="CollisionShape2D" parent="PlayerDetectionBox" index="0"]
+shape = SubResource( 53 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 3 )]
+collision_layer = 0
+collision_mask = 8
+damage = 50
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 30, 0 )
+rotation = 1.5708
+shape = SubResource( 56 )
+disabled = true
+
+[node name="Hurtbox" parent="." instance=ExtResource( 6 )]
+collision_layer = 16
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, 8 )
-shape = SubResource( 52 )
+shape = SubResource( 55 )
 
-[node name="Stats" parent="." instance=ExtResource( 4 )]
+[node name="EnemyReachBox" parent="." instance=ExtResource( 7 )]
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[node name="CollisionShape2D" parent="EnemyReachBox" index="0"]
+position = Vector2( 0, 8 )
+rotation = 1.5708
+shape = SubResource( 57 )
+
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
+[editable path="PlayerDetectionBox"]
+[editable path="Hitbox"]
 [editable path="Hurtbox"]
+[editable path="EnemyReachBox"]

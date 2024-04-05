@@ -1,9 +1,7 @@
 extends Node2D
 
 export var max_health: int = 300
-export var attack:     int = 50
-export var speed:      int = 50
-var health: int = max_health setget set_health
+onready var health: int = max_health setget set_health
 
 signal no_health
 
