@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/GuiComponents/GUI.png" type="Texture" id=1]
+[ext_resource path="res://Assets/MinimalPixel v2.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 1 )
+region_rect = Rect2( 113, 81, 30, 14 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 1 )
+region_rect = Rect2( 113, 81, 30, 14 )
+
+[node name="VisibilityButton" type="Button"]
+anchor_top = 0.006
+anchor_right = 0.173
+anchor_bottom = 0.164
+margin_left = 13.0
+margin_top = -6.48
+margin_right = -169.16
+margin_bottom = -107.12
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/normal = SubResource( 7 )
+action_mode = 0
+text = "Visible"
+icon_align = 1
+expand_icon = true

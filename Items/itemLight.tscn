@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/SettingItems/28_neo_zero_props_and_items_01.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/ItemTexture.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/LevelEditor/ItemTexture.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Light.tscn" type="PackedScene" id=3]
 
 [node name="itemLight" instance=ExtResource( 2 )]

@@ -98,6 +98,7 @@ func save_level():
 	tile_map.owner = level
 	toSave.pack(level)
 	ResourceSaver.save(popup.current_path + ".tscn", toSave)
+	
 
 func load_level():
 	var toLoad : PackedScene = PackedScene.new()
@@ -105,6 +106,7 @@ func load_level():
 	var this_level = toLoad.instance()
 	get_parent().remove_child(level)
 	level.queue_free()
+	
 	get_parent().add_child(this_level)
 	# Add player to scene
 	var player = player_obj.instance()
