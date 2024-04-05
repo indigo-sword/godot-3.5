@@ -1,28 +1,29 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Assets/Player/SpriteSheet/Warrior_Sheet-Effect.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_idle.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerTimer.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_walk.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Player/SpriteSheet/Hero-Sheet_attack.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 7.0
-height = 2.0
+radius = 26.0
+height = 52.0
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
 resource_name = "Attack"
-length = 1.2
-loop = true
+length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("AttackSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 ]
+"values": [ 0, 1, 2, 3, 4, 5 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -31,7 +32,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1.2 ),
+"times": PoolRealArray( 0.6 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -39,47 +40,12 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Dash"
-length = 0.7
-loop = true
-step = 0.02
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 69, 70, 71, 72, 73, 74, 75 ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "Dash_Attack"
-length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 76, 77, 78, 79, 80, 81, 82, 83 ]
-}
-
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "Idle"
 length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("IdleSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -91,10 +57,10 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("IdleSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -103,74 +69,84 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WalkSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
 "values": [ 1 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
 
-[sub_resource type="Animation" id=7]
-resource_name = "Run"
-length = 0.8
+[sub_resource type="Animation" id=4]
+resource_name = "Walk"
+length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("WalkSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 6, 7, 8, 9, 10, 11, 12, 13 ]
+"values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=8]
-animation = "Idle"
-
-[sub_resource type="AnimationNodeAnimation" id=9]
-animation = "Run"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=10]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-
-[sub_resource type="AnimationNodeStateMachine" id=12]
-states/Idle/node = SubResource( 8 )
-states/Idle/position = Vector2( 362, 89.375 )
-states/Run/node = SubResource( 9 )
-states/Run/position = Vector2( 599, 88.75 )
-transitions = [ "Idle", "Run", SubResource( 10 ), "Run", "Idle", SubResource( 11 ) ]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=13]
-
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 150, 100 )
+z_index = 1
 script = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
-hframes = 6
-vframes = 17
-frame = 1
+MAX_SPEED = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -7, 13 )
+position = Vector2( -5, 45 )
+z_index = 1
 shape = SubResource( 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attack = SubResource( 2 )
-anims/Dash = SubResource( 3 )
-anims/Dash_Attack = SubResource( 4 )
-anims/Idle = SubResource( 5 )
-anims/RESET = SubResource( 6 )
-anims/Run = SubResource( 7 )
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 12 )
-anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 13 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 script = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2( 0.7, 0.7 )
+
+[node name="IdleSprite" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+hframes = 6
+
+[node name="WalkSprite" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 4 )
+hframes = 6
+frame = 1
+
+[node name="AttackSprite" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 5 )
+anims/Idle = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+anims/Walk = SubResource( 4 )

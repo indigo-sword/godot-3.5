@@ -5,9 +5,10 @@ const GODOT_CLIENT_ERRORS = preload("res://Scripts/Client/client_errors.gd")
 # ATTRIBUTES
 var LOGGED_IN: bool
 var UNAME: String
+var EMAIL: String
+var FOLLOWING: int
+var FOLLOWERS: int
 var BIO: String
-var ERROR: String
-var ERROR_CODE: int
 var _COOKIE: String
 var _URL: String
 
@@ -49,6 +50,10 @@ func _init():
 	self._COOKIE = ""
 	self._URL = "http://64.225.11.30:8080"
 	self.UNAME = ""
+	self.BIO = ""
+	self.EMAIL = ""
+	self.FOLLOWING = 0
+	self.FOLLOWERS = 0
 
 func _generate_boundary():
 	var boundary = ""
@@ -86,6 +91,10 @@ func _on_Login_request_completed(result, response_code, headers, body):
 	if response_code == 200:
 		self.LOGGED_IN = true
 		self.UNAME = output["username"]
+		self.BIO = output["bio"]
+		self.EMAIL = output["email"]
+		self.FOLLOWING = output["following"]
+		self.FOLLOWERS = output["followers"]
 
 		for header in headers:
 			if "Set-Cookie" in header:

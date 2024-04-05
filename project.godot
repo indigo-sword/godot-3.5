@@ -8,10 +8,20 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "IEnemy",
+"language": "GDScript",
+"path": "res://Scripts/Enemy/IEnemy.gd"
+} ]
+_global_script_class_icons={
+"IEnemy": ""
+}
+
 [application]
 
 config/name="Octopus"
-run/main_scene="res://Scenes/LevelEditor.tscn"
+run/main_scene="res://Scenes/Tests/Gameplay_test.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -23,9 +33,9 @@ Client="*res://Objects/Client/Client.tscn"
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
-window/size/test_width=1920
-window/size/test_height=1080
+window/size/resizable=false
+window/size/test_width=1280
+window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
