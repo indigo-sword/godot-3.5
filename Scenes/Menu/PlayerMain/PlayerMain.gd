@@ -35,8 +35,8 @@ func _ready():
 	manageButton.connect("pressed", self, "_on_manageButton_pressed")
 	
 	# followers
-	var findUserButton = $Background/Follows/Levels/FindUserButton
-	var seeFollowersButton = $Background/Follows/Levels/SeeFollowersButton
+	var findUserButton = $Background/Follows/FindUserButton
+	var seeFollowersButton = $Background/Follows/SeeFollowersButton
 
 	findUserButton.connect("pressed", self, "_on_findUserButton_pressed")
 	seeFollowersButton.connect("pressed", self, "_on_seeFollowersButton_pressed")
@@ -50,7 +50,7 @@ func _on_seeFollowersButton_pressed():
 
 # Your stuff
 func _on_createLevelButton_pressed():
-	get_tree().change_scene("res://Scripts/LevelEditor.tscn")
+	get_tree().change_scene("res://Scenes/LevelEditor.tscn")
 
 func _on_manageButton_pressed():
 	get_tree().change_scene("res://Scenes/Menu/MyStuff/Manage.tscn")
@@ -90,6 +90,7 @@ func _on_logoutButton_pressed():
 		print("server error: ", ret)
 		return
 		
+	Configs.clear()
 	get_tree().change_scene("res://Scenes/Menu/Main/Init.tscn")
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

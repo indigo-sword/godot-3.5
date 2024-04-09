@@ -26,14 +26,6 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Title" type="TextureRect" parent="Background"]
-margin_left = 40.0
-margin_top = 48.0
-margin_right = 714.0
-margin_bottom = 392.0
-texture = ExtResource( 3 )
-expand = true
-
 [node name="YourStuff" type="ColorRect" parent="Background"]
 margin_left = 872.0
 margin_top = 526.0
@@ -226,20 +218,11 @@ margin_right = 1840.0
 margin_bottom = 1022.0
 color = Color( 0.333333, 0.333333, 0.333333, 1 )
 
-[node name="Levels" type="Label" parent="Background/Follows"]
-margin_top = 62.0
-margin_right = 444.0
-margin_bottom = 126.0
-custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Followers"
-align = 1
-
-[node name="FindUserButton" type="Button" parent="Background/Follows/Levels"]
+[node name="FindUserButton" type="Button" parent="Background/Follows"]
 margin_left = 64.0
-margin_top = 96.0
+margin_top = 158.0
 margin_right = 384.0
-margin_bottom = 224.0
+margin_bottom = 286.0
 rect_min_size = Vector2( 200, 80 )
 rect_pivot_offset = Vector2( -1976, -648 )
 size_flags_horizontal = 4
@@ -252,11 +235,11 @@ custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 text = "Find User"
 
-[node name="SeeFollowersButton" type="Button" parent="Background/Follows/Levels"]
+[node name="SeeFollowersButton" type="Button" parent="Background/Follows"]
 margin_left = 64.0
-margin_top = 256.0
+margin_top = 318.0
 margin_right = 384.0
-margin_bottom = 384.0
+margin_bottom = 446.0
 rect_min_size = Vector2( 200, 80 )
 rect_pivot_offset = Vector2( -1976, -648 )
 size_flags_horizontal = 4
@@ -268,3 +251,17 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 text = "See Followers"
+
+[node name="Levels" type="Label" parent="Background/Follows"]
+margin_top = 62.0
+margin_right = 444.0
+margin_bottom = 126.0
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Followers"
+align = 1
+
+[node name="Logo" type="Sprite" parent="Background"]
+position = Vector2( 373, 249 )
+scale = Vector2( 0.203, 0.203 )
+texture = ExtResource( 3 )

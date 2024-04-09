@@ -1,0 +1,195 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Images/logoSmall.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Menu/Discover/FindLevels.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://Assets/Fonts/menufont.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 28
+font_data = SubResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.309804, 1, 0.0313726, 1 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="BackGround" type="ColorRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+margin_right = 1920.0
+margin_bottom = 110.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 30
+custom_constants/margin_bottom = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer"]
+margin_top = 30.0
+margin_right = 1890.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 0, 80 )
+alignment = 2
+
+[node name="GoBackButton" type="Button" parent="ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
+margin_left = 1690.0
+margin_right = 1890.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "Go Back"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 114.0
+margin_right = 1920.0
+margin_bottom = 215.0
+custom_constants/separation = 100
+alignment = 1
+
+[node name="FindLevelsLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 696.0
+margin_right = 1224.0
+margin_bottom = 101.0
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Find Levels"
+align = 1
+
+[node name="LogoSmall" type="Sprite" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+position = Vector2( 184, 46 )
+scale = Vector2( 0.15025, 0.15025 )
+texture = ExtResource( 2 )
+
+[node name="MarginContainer7" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 219.0
+margin_right = 1920.0
+margin_bottom = 299.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 30
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 30
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer7"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 1890.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 20 )
+alignment = 2
+
+[node name="MarginContainer8" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 303.0
+margin_right = 1920.0
+margin_bottom = 413.0
+custom_constants/margin_right = 100
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 30
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer8"]
+margin_left = 100.0
+margin_right = 1820.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 20 )
+alignment = 2
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2"]
+margin_right = 1516.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
+align = 1
+
+[node name="SearchButton" type="Button" parent="ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2"]
+margin_left = 1520.0
+margin_right = 1720.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "Search"
+
+[node name="MarginContainer3" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 417.0
+margin_right = 1920.0
+margin_bottom = 1027.0
+rect_min_size = Vector2( 0, 610 )
+custom_constants/margin_right = 100
+custom_constants/margin_left = 100
+
+[node name="Background" type="ColorRect" parent="ScrollContainer/VBoxContainer/MarginContainer3"]
+margin_left = 100.0
+margin_right = 1820.0
+margin_bottom = 610.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/VBoxContainer/MarginContainer3/Background"]
+margin_left = 24.0
+margin_top = 19.0
+margin_right = 1692.0
+margin_bottom = 589.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ScrollContainer/VBoxContainer/MarginContainer3/Background"]
+margin_left = 32.0
+margin_top = 27.0
+margin_right = 1684.0
+margin_bottom = 581.0
+scroll_horizontal_enabled = false
+
+[node name="Table" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer3/Background/ScrollContainer"]
