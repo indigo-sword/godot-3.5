@@ -2,6 +2,9 @@ extends Node2D
 
 const LEVEL_DIR: String = "res://SavedLevels/"
 onready var tab_container: CanvasLayer = get_node("/root/LevelEditor/ItemSelect")
+onready var level_editor: Node2D = get_node("/root/LevelEditor/")
+onready var level = get_node("/root/LevelEditor/Level")
+onready var tile_map : TileMap = level.get_node("TileMap")
 
 onready var visBtn: Button = $VisibilityButton
 onready var saveBtn: Button = $SaveButton
@@ -74,16 +77,42 @@ func _on_loadBtn_pressed():
 	
 	# TODO: add an interface to show all the nodes stored in the server
 	# load scenes from the server
-	# get_level("")
-	
-	# add it to current scene
 
+	Client.get_level("My awesome level")
 	
+	## imported from previous load method
+	# add it to current scene
+	if (err != ""):
+		print("Error in saving the level.")
+	
+	toLoad = ResourceLoader.load(load_path)
+	var this_level = toLoad.instance()
+	level_editor.remove_child(level)
+	level.queue_free()
+	
+	level_editor.add_child(this_level)
+	# Update attributes
+	tile_map = level_editor.get_node("Level/TileMap")
+	level = this_level
+
+	var node_id: String = ""
+	assert(Client.get_level(node_id) == "")
+	ret = yield(Client, "get_level_completed")
+	assert(ret.get("message", "error") == "level")
+		
+	# add it to current scene
+	# https://forum.godotengine.org/t/how-to-load-a-scene-from-a-filepath/9953/2
+	var level_path: String = "res://SavedLevels/" + node_id + ".tscn"
+	var loaded_level: PackedScene = load(level_path)
+	if loaded_level == null:
+		print("Error in loading level " + level_path)
+	else:
+		get_tree().root.add_child(loaded_level.instance())
 
 
 func _on_exitBtn_pressed():
 	print("Exit button pressed")
-	# Your existing or new logic here...
+	# connect to the main menu
 	
 func _on_request_completed(result, response_code, headers, body):
 	if response_code != 200:
@@ -101,3 +130,5 @@ func _on_request_completed(result, response_code, headers, body):
 		get_tree().change_scene_to(packed_scene)
 	else:
 		print("Failed to instance scene.")
+		
+	

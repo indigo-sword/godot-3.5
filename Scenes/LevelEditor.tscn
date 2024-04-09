@@ -37,7 +37,11 @@ position = Vector2( 5, 3 )
 [node name="Camera2D" type="Camera2D" parent="CamContainer"]
 position = Vector2( 942, 535 )
 
-[node name="LevelEditorMenu2" parent="." instance=ExtResource( 10 )]
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LevelEditorMenu2" parent="Control" instance=ExtResource( 10 )]
 
 [connection signal="confirmed" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_confirmed"]
 [connection signal="hide" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_hide"]

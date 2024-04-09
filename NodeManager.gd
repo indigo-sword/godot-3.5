@@ -10,7 +10,21 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func open_scene_in_editor(node_id):
+	# Construct the path to the .tscn file
+	var scene_path = str(node_id) + ".tscn"
+	
+	# Check if the scene file exists
+	if ResourceLoader.exists(scene_path):
+		# Load the scene
+		var scene = load(scene_path)
+		
+		# Ensure it's a valid PackedScene resource
+		if scene is PackedScene:
+			# Change to the desired scene in the editor
+			# This is pseudo-code; actual functionality depends on editor's API
+			editor_interface.open_scene_from_path(scene_path)
+		else:
+			print("The specified file is not a valid scene.")
+	else:
+		print("Scene file not found: " + scene_path)
