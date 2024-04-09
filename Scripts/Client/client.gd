@@ -42,6 +42,9 @@ signal update_path_title_completed
 signal update_path_description_completed
 signal get_user_paths_completed
 signal get_node_paths_completed
+signal query_users_completed
+signal query_nodes_completed
+signal query_paths_completed
 
 #### INTERNAL FUNCTIONS
 func _init(): 
@@ -148,8 +151,10 @@ func change_bio(new_bio: String):
 	
 func _on_ChangeBio_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)		
+	if output.get("code", "not found") == "200": 
+		self.BIO = output.get("bio", "bio not found")
+		
 	emit_signal("change_bio_completed", output)
-	
 	
 func get_user(username: String):
 	var headers = ["Content-Type: application/x-www-form-urlencoded"]
@@ -261,6 +266,9 @@ func create_node(title: String, description: String, is_initial: bool, is_final:
 	
 func _on_CreateNode_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 201, body)
+	if output.get("code", "not found") == "200":
+		Configs.add_level(self.UNAME, output["node_id"])
+		
 	emit_signal("create_node_completed", output)
 	
 	
@@ -607,3 +615,43 @@ func get_node_paths(node_id: String):
 func _on_GetNodePaths_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_node_paths_completed", output)
+	
+
+func query_users(query: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "query=" + query
+	
+	$QueryUsers.connect("request_completed", self, "_on_QueryUsers_request_completed")
+	$QueryUsers.request(self._URL + "/query_users", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+
+func _on_QueryUsers_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("query_users_completed", output)
+
+func query_nodes(query: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "query=" + query
+	
+	$QueryNodes.connect("request_completed", self, "_on_QueryNodes_request_completed")
+	$QueryNodes.request(self._URL + "/query_nodes", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_QueryNodes_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("query_nodes_completed", output)
+	
+func query_paths(query: String):
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	var body = "query=" + query
+	
+	$QueryPaths.connect("request_completed", self, "_on_QueryPaths_request_completed")
+	$QueryPaths.request(self._URL + "/query_paths", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_QueryPaths_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("query_paths_completed", output)
