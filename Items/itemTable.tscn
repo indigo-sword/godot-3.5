@@ -5,5 +5,6 @@
 [ext_resource path="res://Scenes/LevelEditor/ItemTexture.tscn" type="PackedScene" id=3]
 
 [node name="itemTable" instance=ExtResource( 3 )]
+rect_scale = Vector2( 10, 10 )
 texture = ExtResource( 2 )
 this_scene = ExtResource( 1 )

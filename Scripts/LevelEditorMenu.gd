@@ -2,6 +2,9 @@ extends Node2D
 
 const LEVEL_DIR: String = "res://SavedLevels/"
 onready var tab_container: CanvasLayer = get_node("/root/LevelEditor/ItemSelect")
+onready var level_editor: Node2D = get_node("/root/LevelEditor/")
+onready var level = get_node("/root/LevelEditor/Level")
+onready var tile_map : TileMap = level.get_node("TileMap")
 
 onready var visBtn: Button = $VisibilityButton
 onready var saveBtn: Button = $SaveButton
@@ -74,16 +77,29 @@ func _on_loadBtn_pressed():
 	
 	# TODO: add an interface to show all the nodes stored in the server
 	# load scenes from the server
-	# get_level("")
+	Client.get_level("My awesome level")
 	
+	## imported from previous load method
 	# add it to current scene
+	if (err != ""):
+		print("Error in saving the level.")
+	
+	toLoad = ResourceLoader.load(load_path)
+	var this_level = toLoad.instance()
+	level_editor.remove_child(level)
+	level.queue_free()
+	
+	level_editor.add_child(this_level)
+	# Update attributes
+	tile_map = level_editor.get_node("Level/TileMap")
+	level = this_level
 
 	
 
 
 func _on_exitBtn_pressed():
 	print("Exit button pressed")
-	# Your existing or new logic here...
+	# connect to the main menu
 	
 func _on_request_completed(result, response_code, headers, body):
 	if response_code != 200:
@@ -101,3 +117,5 @@ func _on_request_completed(result, response_code, headers, body):
 		get_tree().change_scene_to(packed_scene)
 	else:
 		print("Failed to instance scene.")
+		
+	
