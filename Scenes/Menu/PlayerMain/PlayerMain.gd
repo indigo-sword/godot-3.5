@@ -25,7 +25,7 @@ func _ready():
 	popularLevelsButton.connect("pressed", self, "_on_popularLevelsButton_pressed")
 	findLevelsButton.connect("pressed", self, "_on_findLevelsButton_pressed")
 	popularPathsButton.connect("pressed", self, "_on_popularPathsButton_pressed")
-	findLevelsButton.connect("pressed", self, "_on_findPathsButton_pressed")
+	findPathsButton.connect("pressed", self, "_on_findPathsButton_pressed")
 
 	# your stuff
 	var createLevelButton = $Background/YourStuff/Levels/CreateButton

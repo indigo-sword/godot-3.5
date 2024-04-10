@@ -311,4 +311,18 @@ func _on_login_pressed():
 	ret = yield(Client, "query_paths_completed")
 	assert(ret.get("code", "error") == "200")
 	print("ok")
+	
+	#### test get popular nodes -- SUCCESS
+	print("test get popular nodes -- SUCCESS")
+	assert(Client.get_popular_nodes() == "")
+	ret = yield(Client, "get_popular_nodes_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test get popular paths -- SUCCESS
+	print("test get popular paths -- SUCCESS")
+	assert(Client.get_popular_paths() == "")
+	ret = yield(Client, "get_popular_paths_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
 

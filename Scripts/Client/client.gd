@@ -45,6 +45,8 @@ signal get_node_paths_completed
 signal query_users_completed
 signal query_nodes_completed
 signal query_paths_completed
+signal get_popular_nodes_completed
+signal get_popular_paths_completed
 
 #### INTERNAL FUNCTIONS
 func _init(): 
@@ -655,3 +657,33 @@ func query_paths(query: String):
 func _on_QueryPaths_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("query_paths_completed", output)
+
+
+func get_popular_nodes():
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	
+	var body = ""
+	
+	$GetPopularNodes.connect("request_completed", self, "_on_GetPopularNodes_request_completed")
+	$GetPopularNodes.request(self._URL + "/get_popular_nodes", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetPopularNodes_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_popular_nodes_completed", output)
+	
+	
+func get_popular_paths():
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	
+	var body = ""
+	
+	$GetPopularPaths.connect("request_completed", self, "_on_GetPopularPaths_request_completed")
+	$GetPopularPaths.request(self._URL + "/get_popular_paths", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetPopularPaths_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_popular_paths_completed", output)
