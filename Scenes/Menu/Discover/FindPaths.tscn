@@ -31,7 +31,7 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color( 0.309804, 1, 0.0313726, 1 )
 
-[node name="Control" type="Control"]
+[node name="Control3" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -49,8 +49,8 @@ size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1920.0
-margin_bottom = 1080.0
+margin_right = 1908.0
+margin_bottom = 1027.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
