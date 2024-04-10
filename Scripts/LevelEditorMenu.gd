@@ -5,7 +5,6 @@ onready var tab_container: CanvasLayer = get_node("/root/LevelEditor/ItemSelect"
 onready var level_editor: Node2D = get_node("/root/LevelEditor/")
 onready var level = get_node("/root/LevelEditor/Level")
 onready var tile_map : TileMap = level.get_node("TileMap")
-onready var editor_cam = $Camera2D
 
 onready var visBtn: Button = $VisibilityButton
 onready var saveBtn: Button = $SaveButton
@@ -115,6 +114,7 @@ func _on_loadBtn_pressed():
 func _on_exitBtn_pressed():
 	print("Exit button pressed")
 	# connect to the main menu
+	get_tree().change_scene("res://Scenes/Menu/PlayerMain/PlayerMain.tscn")
 	
 func _on_request_completed(result, response_code, headers, body):
 	if response_code != 200:
