@@ -5,4 +5,5 @@
 [node name="ItemTexture" type="TextureRect"]
 margin_right = 190.0
 margin_bottom = 180.0
+rect_scale = Vector2( 5, 5 )
 script = ExtResource( 1 )

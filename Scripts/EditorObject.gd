@@ -8,6 +8,7 @@ var do_save = false
 
 onready var level = get_node("/root/LevelEditor/Level")
 onready var editor = get_node("/root/LevelEditor/CamContainer")
+onready var leveleditormenu = get_node("/root/LevelEditor/LevelEditorMenu")
 onready var editor_cam = editor.get_node("Camera2D")
 
 onready var tile_map : TileMap = level.get_node("TileMap")
@@ -66,16 +67,15 @@ func remove_tile():
 	
 func move_editor():
 	# FIXME: fix moving editor (currently compromising player movement)
-#	if (!Global.filesystem_shown):
-#		if Input.is_action_pressed("w"):
-#			editor.global_position.y -= cam_spd
-#		if Input.is_action_pressed("a"):
-#			editor.global_position.x -= cam_spd
-#		if Input.is_action_pressed("s"):
-#			editor.global_position.y += cam_spd
-#		if Input.is_action_pressed("d"):
-#			editor.global_position.x += cam_spd
-		pass
+	if (!Global.filesystem_shown):
+		if Input.is_action_pressed("w"):
+			editor.global_position.y -= cam_spd
+		if Input.is_action_pressed("a"):
+			editor.global_position.x -= cam_spd
+		if Input.is_action_pressed("s"):
+			editor.global_position.y += cam_spd
+		if Input.is_action_pressed("d"):
+			editor.global_position.x += cam_spd
 	
 func _unhandled_input(event):
 	if (!Global.filesystem_shown):

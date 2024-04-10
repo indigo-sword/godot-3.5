@@ -6,33 +6,38 @@
 [ext_resource path="res://Items/GUI/itemSaveButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/LevelEditorMenu.gd" type="Script" id=5]
 
-[node name="LevelEditorMenu" type="Node2D"]
-position = Vector2( 1143, -1 )
+[node name="LevelEditorMenu" type="CanvasLayer"]
 script = ExtResource( 5 )
 
 [node name="VisibilityButton" parent="." instance=ExtResource( 2 )]
-margin_left = 410.0
-margin_top = 6.0
-margin_right = 570.0
-margin_bottom = 86.0
+anchor_right = 0.0
+anchor_bottom = 0.006
+margin_left = 1556.0
+margin_top = 17.52
+margin_right = 1716.0
+margin_bottom = 97.52
 
 [node name="SaveButton" parent="." instance=ExtResource( 4 )]
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 66.0
-margin_top = 6.0
-margin_right = 226.0
-margin_bottom = 86.0
+margin_left = 1196.0
+margin_top = 24.0
+margin_right = 1356.0
+margin_bottom = 104.0
 
 [node name="LoadButton" parent="." instance=ExtResource( 1 )]
-margin_left = 238.0
-margin_top = 7.0
-margin_right = 398.0
-margin_bottom = 87.0
+anchor_right = 0.0
+anchor_bottom = 0.006
+margin_left = 1376.0
+margin_top = 17.52
+margin_right = 1536.0
+margin_bottom = 97.52
 
 [node name="ExitButton" parent="." instance=ExtResource( 3 )]
-margin_left = 580.0
-margin_top = 6.0
-margin_right = 740.0
-margin_bottom = 86.0
+anchor_right = 0.0
+anchor_bottom = 0.006
+margin_left = 1736.0
+margin_top = 17.52
+margin_right = 1896.0
+margin_bottom = 97.52
