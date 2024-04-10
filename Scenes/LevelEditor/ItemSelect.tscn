@@ -67,8 +67,7 @@ script = ExtResource( 2 )
 [node name="Items" type="Tabs" parent="TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 100.0
-margin_bottom = -100.0
+margin_top = 62.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Items"]
 anchor_right = 1.0
@@ -77,35 +76,41 @@ margin_left = 72.0
 margin_top = 126.0
 margin_right = -78.0
 margin_bottom = -62.0
+rect_min_size = Vector2( 450, 550 )
 script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/ScrollContainer"]
-margin_right = 400.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 400, 500 )
+margin_right = 204.0
+margin_bottom = 100.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Items/ScrollContainer/VBoxContainer"]
-margin_right = 400.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 400, 500 )
+margin_right = 204.0
+margin_bottom = 100.0
 
 [node name="itemLight" parent="TabContainer/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 0.0
 margin_top = 0.0
-margin_right = 16.0
-margin_bottom = 53.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
 rect_scale = Vector2( 1, 1 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
+expand = true
+stretch_mode = 6
 
 [node name="itemTable" parent="TabContainer/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
-margin_left = 20.0
-margin_right = 36.0
-margin_bottom = 500.0
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
 rect_scale = Vector2( 1, 1 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+expand = true
+stretch_mode = 6
 
 [node name="Builings" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 50.0
@@ -116,10 +121,12 @@ margin_bottom = -4.0
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Builings"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 156.0
-margin_right = -132.0
-margin_bottom = -58.0
+margin_left = 72.0
+margin_top = 126.0
+margin_right = -70.0
+margin_bottom = -88.0
+rect_min_size = Vector2( 450, 550 )
+scroll_horizontal_enabled = false
 script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Builings/ScrollContainer"]
@@ -132,8 +139,8 @@ margin_bottom = 64.0
 
 [node name="ItemTexture2" parent="TabContainer/Builings/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 17 )]
 margin_right = 48.0
-margin_bottom = 16.0
-rect_scale = Vector2( 2, 2 )
+margin_bottom = 64.0
+rect_scale = Vector2( 1, 1 )
 
 [node name="ItemTexture" parent="TabContainer/Builings/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
 margin_left = 52.0
@@ -142,7 +149,6 @@ margin_bottom = 64.0
 rect_scale = Vector2( 1, 1 )
 
 [node name="Tiles" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -152,20 +158,22 @@ margin_bottom = 28.0
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Tiles"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 70.0
-margin_top = 135.0
-margin_right = -292.0
-margin_bottom = -379.0
-rect_scale = Vector2( 2, 2 )
+margin_left = 72.0
+margin_top = 126.0
+margin_right = -78.0
+margin_bottom = -62.0
+rect_min_size = Vector2( 450, 550 )
+scroll_horizontal_enabled = false
 script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Tiles/ScrollContainer"]
-margin_right = 56.0
-margin_bottom = 56.0
+margin_right = 176.0
+margin_bottom = 16.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer"]
-margin_right = 56.0
+margin_right = 176.0
 margin_bottom = 16.0
+rect_clip_content = true
 
 [node name="itemTile0" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 0.0
@@ -198,15 +206,10 @@ this_scene = null
 tile = true
 tile_id = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer"]
-margin_top = 20.0
-margin_right = 56.0
-margin_bottom = 36.0
-
-[node name="itemTile3" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer2" instance=ExtResource( 1 )]
-margin_left = 0.0
+[node name="itemTile3" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 60.0
 margin_top = 0.0
-margin_right = 16.0
+margin_right = 76.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 6 )
@@ -214,9 +217,9 @@ this_scene = null
 tile = true
 tile_id = 3
 
-[node name="itemTile4" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer2" instance=ExtResource( 3 )]
-margin_left = 20.0
-margin_right = 36.0
+[node name="itemTile4" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 80.0
+margin_right = 96.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 11 )
@@ -224,10 +227,10 @@ this_scene = null
 tile = true
 tile_id = 4
 
-[node name="itemTile5" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer2" instance=ExtResource( 1 )]
-margin_left = 40.0
+[node name="itemTile5" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 100.0
 margin_top = 0.0
-margin_right = 56.0
+margin_right = 116.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 9 )
@@ -235,15 +238,10 @@ this_scene = null
 tile = true
 tile_id = 5
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer"]
-margin_top = 40.0
-margin_right = 56.0
-margin_bottom = 56.0
-
-[node name="itemTile6" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer3" instance=ExtResource( 1 )]
-margin_left = 0.0
+[node name="itemTile6" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 120.0
 margin_top = 0.0
-margin_right = 16.0
+margin_right = 136.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 7 )
@@ -251,9 +249,9 @@ this_scene = null
 tile = true
 tile_id = 6
 
-[node name="itemTile7" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer3" instance=ExtResource( 3 )]
-margin_left = 20.0
-margin_right = 36.0
+[node name="itemTile7" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 140.0
+margin_right = 156.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 13 )
@@ -261,10 +259,10 @@ this_scene = null
 tile = true
 tile_id = 7
 
-[node name="itemTile8" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer3" instance=ExtResource( 1 )]
-margin_left = 40.0
+[node name="itemTile8" parent="TabContainer/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 160.0
 margin_top = 0.0
-margin_right = 56.0
+margin_right = 176.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 14 )
