@@ -1,10 +1,11 @@
-extends Node2D
+extends CanvasLayer
 
 const LEVEL_DIR: String = "res://SavedLevels/"
 onready var tab_container: CanvasLayer = get_node("/root/LevelEditor/ItemSelect")
 onready var level_editor: Node2D = get_node("/root/LevelEditor/")
 onready var level = get_node("/root/LevelEditor/Level")
 onready var tile_map : TileMap = level.get_node("TileMap")
+onready var editor_cam = $Camera2D
 
 onready var visBtn: Button = $VisibilityButton
 onready var saveBtn: Button = $SaveButton
@@ -18,6 +19,7 @@ func _ready():
 	saveBtn.connect("pressed", self, "_on_saveBtn_pressed")
 	loadBtn.connect("pressed", self, "_on_loadBtn_pressed")
 	exitBtn.connect("pressed", self, "_on_exitBtn_pressed")
+
 
 func _on_visBtn_pressed():
 	print("Visibility button pressed")
