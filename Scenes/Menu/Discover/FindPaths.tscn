@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Assets/Images/logoSmall.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Menu/Discover/FindLevels.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Menu/Discover/FindPaths.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Images/logoSmall.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=5]
 size = 32
@@ -34,7 +34,7 @@ border_color = Color( 0.309804, 1, 0.0313726, 1 )
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 
 [node name="BackGround" type="ColorRect" parent="."]
 margin_right = 1920.0
@@ -92,18 +92,18 @@ custom_constants/separation = 100
 alignment = 1
 
 [node name="FindLevelsLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 696.0
-margin_right = 1224.0
+margin_left = 720.0
+margin_right = 1200.0
 margin_bottom = 101.0
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 7 )
-text = "Find Levels"
+text = "Find Paths"
 align = 1
 
 [node name="LogoSmall" type="Sprite" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 position = Vector2( 184, 46 )
 scale = Vector2( 0.15025, 0.15025 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="MarginContainer7" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 219.0
