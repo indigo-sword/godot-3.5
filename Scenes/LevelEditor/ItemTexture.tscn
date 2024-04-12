@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/ItemTexture.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/LevelEditor/ItemTexture.gd" type="Script" id=1]
 
 [node name="ItemTexture" type="TextureRect"]
 margin_right = 190.0

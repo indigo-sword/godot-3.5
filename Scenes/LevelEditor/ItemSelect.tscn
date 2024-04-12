@@ -1,9 +1,9 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Items/itemLight.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/TabContainer.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/LevelEditor/TabContainer.gd" type="Script" id=2]
 [ext_resource path="res://Items/itemTable.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/ScrollContainer.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/LevelEditor/ScrollContainer.gd" type="Script" id=4]
 [ext_resource path="res://Items/itemSwordBasic.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/TilesBuildings/f_tile003.png" type="Texture" id=6]
 [ext_resource path="res://Assets/TilesBuildings/f_tile006.png" type="Texture" id=7]
