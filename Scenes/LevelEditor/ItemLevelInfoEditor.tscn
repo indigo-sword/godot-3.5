@@ -1,0 +1,145 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditor.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+
+[sub_resource type="DynamicFont" id=2]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="LevelInfoEditor" type="Node2D"]
+position = Vector2( 118, 82 )
+script = ExtResource( 2 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1020.0
+margin_bottom = 1000.0
+rect_pivot_offset = Vector2( 1040, 109 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 123.0
+margin_top = 98.0
+margin_right = 504.0
+margin_bottom = 342.0
+custom_fonts/font = SubResource( 1 )
+
+[node name="Title" type="Label" parent="."]
+margin_top = 62.0
+margin_right = 1020.0
+margin_bottom = 267.0
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Title
+"
+align = 1
+valign = 1
+
+[node name="Description" type="Label" parent="."]
+margin_left = 2.0
+margin_top = 348.0
+margin_right = 1022.0
+margin_bottom = 484.0
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Description"
+align = 1
+valign = 1
+
+[node name="TextEditBgDescription" type="ColorRect" parent="."]
+margin_left = 60.0
+margin_top = 500.0
+margin_right = 960.0
+margin_bottom = 800.0
+
+[node name="TextEditDescription" type="TextEdit" parent="TextEditBgDescription"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = 40.0
+margin_right = -40.0
+margin_bottom = -40.0
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+wrap_enabled = true
+
+[node name="TextEditBgTitle" type="ColorRect" parent="."]
+margin_left = 60.0
+margin_top = 194.0
+margin_right = 960.0
+margin_bottom = 344.0
+
+[node name="TextEditTitle" type="TextEdit" parent="TextEditBgTitle"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 37.0
+margin_top = 43.0
+margin_right = -43.0
+margin_bottom = -41.0
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+wrap_enabled = true
+
+[node name="DiscardButton" type="Button" parent="."]
+margin_left = 400.0
+margin_top = 860.0
+margin_right = 656.0
+margin_bottom = 940.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Discard"
+
+[node name="SaveButton" type="Button" parent="."]
+margin_left = 702.0
+margin_top = 860.0
+margin_right = 958.0
+margin_bottom = 940.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Save"

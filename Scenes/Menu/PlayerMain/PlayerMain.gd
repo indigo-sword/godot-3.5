@@ -50,7 +50,7 @@ func _on_seeFollowersButton_pressed():
 
 # Your stuff
 func _on_createLevelButton_pressed():
-	get_tree().change_scene("res://Scenes/LevelEditor.tscn")
+	get_tree().change_scene("res://Scenes/LevelEditor/LevelEditor.tscn")
 
 func _on_manageButton_pressed():
 	get_tree().change_scene("res://Scenes/Menu/MyStuff/Manage.tscn")
