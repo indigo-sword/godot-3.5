@@ -48,7 +48,10 @@ position = Vector2( 942, 535 )
 
 [node name="LevelEditorMenu" parent="." instance=ExtResource( 1 )]
 
-[node name="LevelInfoEditor" parent="." instance=ExtResource( 6 )]
+[node name="LevelInfoCanvas" type="CanvasLayer" parent="."]
+
+[node name="LevelInfoEditor" parent="LevelInfoCanvas" instance=ExtResource( 6 )]
+position = Vector2( 181, 33 )
 z_index = 1000
 
 [connection signal="confirmed" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_confirmed"]

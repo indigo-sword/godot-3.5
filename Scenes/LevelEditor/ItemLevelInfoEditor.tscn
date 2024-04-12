@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditor.gd" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -29,6 +30,7 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [node name="LevelInfoEditor" type="Node2D"]
 position = Vector2( 118, 82 )
+script = ExtResource( 2 )
 
 [node name="Background" type="ColorRect" parent="."]
 margin_right = 1020.0
