@@ -41,29 +41,20 @@ func open_configs(user: String):
 	
 	return ""
 
-func save_configs(user: String, configs: Dictionary):
-	var config_path = "res://Scripts/Configs/" + user + ".json"
-	var config_file = File.new()
+func add_level(level_id: String):
+	if self.username == "": return "configs not open"
 	
-	config_file.open(config_path, File.WRITE)
-	var json_string = JSON.print(configs)
-	config_file.store_string(json_string)
-	config_file.close()
-
-	return ""
-	
-func add_level(user: String, level_id: String):
 	var json_string
 	var config_json
 	
-	var config_path = "res://Scripts/Configs/" + user + ".json"
+	var config_path = "res://Scripts/Configs/" + self.username + ".json"
 	var config_file = File.new()
 	
 	# if file does not exist
 	if not config_file.file_exists(config_path):
 		# create configs
 		config_json = {
-			"username": user,
+			"username": self.username,
 			"levels": [level_id]
 		}
 		json_string = JSON.print(config_json)

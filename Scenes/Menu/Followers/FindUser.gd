@@ -146,7 +146,7 @@ func new_label(prop: String, row_container, color, prop_name: String):
 	lbl.autowrap = true
 	
 	var dynfont = DynamicFont.new()
-	dynfont.font_data = load("res://Assets/Fonts/menufont.ttf")
+	dynfont.font_data = load("res://Assets/Fonts/Audiowide-en4g.ttf")
 	dynfont.size = 25
 	
 	lbl.add_font_override("font", dynfont)
@@ -164,7 +164,7 @@ func make_button(text, function, arr):
 	b.add_stylebox_override("normal", sb)
 	
 	var dynfont = DynamicFont.new()
-	dynfont.font_data = load("res://Assets/Fonts/menufont.ttf")
+	dynfont.font_data = load("res://Assets/Fonts/Audiowide-en4g.ttf")
 	dynfont.size = 25
 	
 	b.add_font_override("font", dynfont)
