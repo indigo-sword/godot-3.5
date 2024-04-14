@@ -16,7 +16,7 @@ func RANDOM_EMAIL():
 func _on_login_pressed():
 	randomize()
 	
-	var SAMPLE_UNAME = "LsZCFWRNMl"
+	var SAMPLE_UNAME = "jvphenares"
 	var NEW_USER_1 = RANDOM_UNAME()
 	var SAMPLE_PASS = "PASS"
 	var err = ""
@@ -290,3 +290,25 @@ func _on_login_pressed():
 	ret = yield(Client, "get_node_paths_completed")
 	assert(ret.get("code", "error") == "200")
 	print("ok")
+	
+	#### test query users -- SUCCESS
+	print("test query users -- SUCCESS")
+	assert(Client.query_users(SAMPLE_UNAME) == "")
+	ret = yield(Client, "query_users_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test query nodes -- SUCCESS
+	print("test query nodes -- SUCCESS")
+	assert(Client.query_nodes(SAMPLE_UNAME) == "")
+	ret = yield(Client, "query_nodes_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test query paths -- SUCCESS
+	print("test query paths -- SUCCESS")
+	assert(Client.query_paths(SAMPLE_UNAME) == "")
+	ret = yield(Client, "query_paths_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+

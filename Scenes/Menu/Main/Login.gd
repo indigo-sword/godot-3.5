@@ -1,12 +1,5 @@
 extends Control
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	var loginButton = $LoginRect/LoginForm/Login
 	loginButton.connect("pressed", self, "_on_login_button_pressed")
@@ -30,8 +23,13 @@ func _on_createUser_button_pressed():
 		return
 	
 	uname.text = ""
+	uname.editable = false
+	
 	password.text = ""
+	password.editable = false
+	
 	email.text = ""
+	email.editable = false
 	
 	var createUser = $CreateUserRect/CreateUserTitle
 	createUser.text = "User Created"
@@ -41,7 +39,7 @@ func _on_login_button_pressed():
 	var password = $LoginRect/LoginForm/Password
 	
 	var err = Client.login(uname.text, password.text)
-	if err != "": 
+	if err: 
 		print("error: ", err)
 		return
 	
@@ -50,16 +48,15 @@ func _on_login_button_pressed():
 		print("server error: ", ret)
 		return
 	
+	err = Configs.open_configs(uname.text)
+	if err:
+		print("configs error: ", err)
+		return
+	
 	uname.text = ""
+	uname.editable = false
+	
 	password.text = ""
-	
-	# here you should go to some other scene
-	print("yay!!")
+	password.editable = false
 
-
-	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	get_tree().change_scene("res://Scenes/Menu/PlayerMain/PlayerMain.tscn")
