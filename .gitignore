@@ -17,3 +17,6 @@ mono_crash.*.json
 *.import
 SavedLevels
 SavedLevels/*
+
+# configs
+Scripts/Configs/*.json
