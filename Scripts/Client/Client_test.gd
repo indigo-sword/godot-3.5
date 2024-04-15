@@ -21,7 +21,7 @@ func _on_login_pressed():
 	var SAMPLE_PASS = "PASS"
 	var err = ""
 	var ret = ""
-	
+
 	if Client.LOGGED_IN: 
 		assert(Client.logout() == "")
 		assert(yield(Client, "logout_completed")["code"] == "200")
@@ -95,7 +95,7 @@ func _on_login_pressed():
 	ret = yield(Client, "get_user_completed")
 	assert(ret.get("username", "not found" == SAMPLE_UNAME))
 	print("ok")
-	
+
 	#### test follow user -- SUCCESS
 	print("test follow user -- SUCCESS")
 	assert(Client.follow_user(NEW_USER_1) == "")
@@ -127,15 +127,16 @@ func _on_login_pressed():
 	
 	#### test create node -- SUCCESS
 	print("test create node -- SUCCESS")
-	err = Client.create_node("title", "description", true, false, "res://SavedLevels/test1.tscn")
-	print(err)
-	return
+	err = Client.create_node("THIS ONE SHOULD WORK", "description", true, false, "res://SavedLevels/test1.tscn")
 	assert(err == "")
 	ret = yield(Client, "create_node_completed")
 	assert(ret.get("message", "not found") == "node created")
 	print("ok")
-
+	
+	print(err)
+	print(ret)
 	var node_id = ret["node_id"]
+	print(node_id)
 	
 	#### test get level -- SUCCESS
 	print("test get level -- SUCCESS")
@@ -216,7 +217,7 @@ func _on_login_pressed():
 	
 	#### test update node title -- SUCCESS
 	print("test update node title -- SUCCESS")
-	assert(Client.update_node_title(node_id, "a new title") == "")
+	assert(Client.update_node_title(node_id, "DONT UDPATE MY TITLE LOL") == "")
 	ret = yield(Client, "update_node_title_completed")
 	assert(ret.get("code", "error") == "200")
 	print("ok")
@@ -247,19 +248,28 @@ func _on_login_pressed():
 	print("ok")
 	
 	#### test create path from nodes -- SUCCESS
-	err = Client.create_node("title", "description", true, false, "res://SavedLevels/test1.tscn")
+	err = Client.create_node("THIS ONE", "description", true, false, "res://SavedLevels/test1.tscn")
 	assert(err == "")
 	ret = yield(Client, "create_node_completed")
 	assert(ret.get("message", "not found") == "node created")
 	
 	var node3_id = ret["node_id"]
 	
-	err = Client.create_node("title", "description", true, false, "res://SavedLevels/test1.tscn")
+	err = Client.create_node("THIS TOO", "description", true, false, "res://SavedLevels/test1.tscn")
 	assert(err == "")
 	ret = yield(Client, "create_node_completed")
 	assert(ret.get("message", "not found") == "node created")
 	
 	var node4_id = ret["node_id"]
+	
+	assert(Client.get_level(node2_id) == "")
+	ret = yield(Client, "get_level_completed")
+	
+	assert(Client.get_level(node3_id) == "")
+	ret = yield(Client, "get_level_completed")
+	
+	assert(Client.get_level(node4_id) == "")
+	ret = yield(Client, "get_level_completed")
 	
 	print("test create path from nodes -- SUCCESS")
 	assert(Client.create_path_from_nodes("a more complex path", "description", [node_id, node2_id, node4_id, node3_id], [0, 1, 2, 1]) == "")
