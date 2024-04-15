@@ -1,28 +1,23 @@
 extends Node
 # class that manage nodes
 
-var player = preload("res://Objects/Player.tscn").instance()
+var player = preload("res://Objects/Player.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	clear_saved_levels()
 	
 func play(node_id):
-	var scene_path = "res://Scenes/SavedLevels/" + str(node_id) + ".tscn"
+	var scene_path = "res://SavedLevels/" + str(node_id) + ".tscn"
 	get_tree().change_scene(scene_path)
-	get_tree().root.add_child(player)
-	var cam = Camera2D.new()
-	cam.zoom = Vector2(.5, .5)
-	cam.current = true
-	cam.global_position = player.global_position
-	get_tree().root.add_child(cam)
+	get_tree().root.add_child(player.instance())
 	#TODO
 	
 # open a scene 
 func open_scene_in_editor(node_id):
 	# Construct the path to the .tscn file
 	get_tree().change_scene("res://Scenes/LevelEditor/LevelEditor.tscn")
-	var scene_path = "res://Scenes/SavedLevels/" + str(node_id) + ".tscn"
+	var scene_path = "res://SavedLevels/" + str(node_id) + ".tscn"
 	# Check if the scene file exists
 	if ResourceLoader.exists(scene_path):
 		# Load the scene
@@ -39,7 +34,7 @@ func open_scene_in_editor(node_id):
 func edit_level(node_id):
 	# Construct the path to the .tscn file
 	get_tree().change_scene("res://Scenes/LevelEditor/LevelEditor.tscn")
-	var scene_path = "res://Scenes/SavedLevels/" + str(node_id) + ".tscn"
+	var scene_path = "res://SavedLevels/" + str(node_id) + ".tscn"
 	# Check if the scene file exists
 	if ResourceLoader.exists(scene_path):
 		# Load the scene
@@ -76,7 +71,7 @@ func create_level(title: String, description: String, level: Node2D):
 
 func clear_saved_levels():
 	var dir = Directory.new()
-	var folder_path = "res://Scenes/SavedLevels"
+	var folder_path = "res://SavedLevels"
 	var err = dir.open(folder_path)
 	
 	if err != OK:
@@ -88,8 +83,7 @@ func clear_saved_levels():
 	var file_name = dir.get_next()
 	while file_name != "":
 		var file_path = folder_path + "/" + file_name
-		var result = File.new()
-		result.remove(file_path)
+		dir.remove(file_path)
 		file_name = dir.get_next()
 
 	dir.list_dir_end()

@@ -1,6 +1,10 @@
 extends Control
 
+onready var loginFailedLabel = $LoginRect/LoginFailedLabel
+
 func _ready():
+	loginFailedLabel.visible = false
+	
 	var loginButton = $LoginRect/LoginForm/Login
 	loginButton.connect("pressed", self, "_on_login_button_pressed")
 	
@@ -8,9 +12,9 @@ func _ready():
 	createUserButton.connect("pressed", self, "_on_createUser_button_pressed")
 	
 func _on_createUser_button_pressed(): 
-	var uname = $CreateUserRect/CreateUserForm/Username
-	var password = $CreateUserRect/CreateUserForm/Password
-	var email = $CreateUserRect/CreateUserForm/Email
+	var uname = $CreateUserRect/CreateUserForm/Username/LineText
+	var password = $CreateUserRect/CreateUserForm/Password/LineText
+	var email = $CreateUserRect/CreateUserForm/Email/LineText
 	
 	var err = Client.create_user(uname.text, password.text, email.text)
 	if err != "": 
@@ -35,8 +39,8 @@ func _on_createUser_button_pressed():
 	createUser.text = "User Created"
 	
 func _on_login_button_pressed():
-	var uname = $LoginRect/LoginForm/Username
-	var password = $LoginRect/LoginForm/Password
+	var uname = $LoginRect/LoginForm/Username/LineText
+	var password = $LoginRect/LoginForm/Password/LineText
 	
 	var err = Client.login(uname.text, password.text)
 	if err: 
@@ -45,6 +49,7 @@ func _on_login_button_pressed():
 	
 	var ret = yield(Client, "login_completed")
 	if ret.get("code", "not found") != "200":
+		loginFailedLabel.visible = true
 		print("server error: ", ret)
 		return
 	

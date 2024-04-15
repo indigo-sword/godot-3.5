@@ -23,9 +23,11 @@ onready var _anim_tree = get_node("AnimationTree")
 onready var _anim_state = _anim_tree.get("parameters/playback")
 onready var _sword_hitbox = get_node("HitboxPivot/SwordHitbox")
 onready var _stats = get_node("Stats")
+onready var _cam = get_node("Camera2D")
 
 func _ready():
 	_anim_tree.active = true
+	_cam.current = true
 
 func _physics_process(delta):
 	match state:
@@ -84,4 +86,8 @@ func _on_Hurtbox_area_entered(area):
 	_stats.health -= area.damage
 
 func _on_Stats_no_health():
+	var lastCamGlbPos = _cam.global_position
+	remove_child(_cam)
+	get_parent().add_child(_cam)
+	_cam.global_position = lastCamGlbPos
 	queue_free()
