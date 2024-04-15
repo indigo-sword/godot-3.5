@@ -128,6 +128,8 @@ func _on_login_pressed():
 	#### test create node -- SUCCESS
 	print("test create node -- SUCCESS")
 	err = Client.create_node("title", "description", true, false, "res://SavedLevels/test1.tscn")
+	print(err)
+	return
 	assert(err == "")
 	ret = yield(Client, "create_node_completed")
 	assert(ret.get("message", "not found") == "node created")

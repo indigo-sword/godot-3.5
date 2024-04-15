@@ -196,8 +196,8 @@ func _on_playNodeButton_pressed(idx):
 	print(nodes[idx])
 	
 func _on_editNodeButton_pressed(idx):
-	print(paths[idx])
-	NodeManager.edit_level(idx)
+	print(nodes[idx])
+	NodeManager.edit_level(nodes[idx]["id"])
 	MenuVariables.MenuVariables["selected_node"] = nodes[idx]
 
 func new_label(prop: String, row_container, color, prop_name: String):

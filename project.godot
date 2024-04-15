@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Octopus"
-run/main_scene="res://Scenes/LevelEditor/LevelEditor.tscn"
+run/main_scene="res://Scenes/Menu/Main/Init.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -31,7 +31,6 @@ Client="*res://Objects/Client/Client.tscn"
 Configs="*res://Scripts/Configs/Configs.gd"
 MenuVariables="*res://Scripts/Configs/MenuVariables.gd"
 NodeManager="*res://Scripts/NodeManager.gd"
-<<<<<<<HEADNodeManager="*res://Scripts/NodeManager.gd"
 
 [display]
 
