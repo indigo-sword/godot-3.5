@@ -11,8 +11,14 @@ func _ready():
 	
 func play(node_id):
 	var scene_path = "res://SavedLevels/" + str(node_id) + ".tscn"
-	get_tree().change_scene(scene_path)
-	_add_player_unique()
+	if ResourceLoader.exists(scene_path):
+		var err = get_tree().change_scene(scene_path)
+		if err == OK:
+			_add_player_unique()
+		else:
+			print("Error in loading saved level " + scene_path)
+	else:
+		print("Scene file not found: " + scene_path)
 	
 func play_test():
 	_add_player_unique()
