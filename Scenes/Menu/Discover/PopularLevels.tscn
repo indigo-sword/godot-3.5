@@ -1,16 +1,37 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Fonts/Aquire-BW0ox.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Images/logoSmall.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Menu/Discover/PopularLevels.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=5]
 size = 32
 use_filter = true
-font_data = ExtResource( 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=9]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="DynamicFont" id=7]
 size = 80
@@ -34,8 +55,8 @@ size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1908.0
-margin_bottom = 1003.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -66,20 +87,22 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
 custom_styles/normal = SubResource( 6 )
 text = "Go Back"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 114.0
 margin_right = 1920.0
-margin_bottom = 215.0
+margin_bottom = 185.0
 custom_constants/separation = 100
 alignment = 1
 
 [node name="PopularLevelsLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 624.0
-margin_right = 1296.0
-margin_bottom = 101.0
+margin_left = 581.0
+margin_right = 1338.0
+margin_bottom = 71.0
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 7 )
 text = "Popular Levels"
@@ -91,9 +114,9 @@ scale = Vector2( 0.15025, 0.15025 )
 texture = ExtResource( 2 )
 
 [node name="MarginContainer7" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 219.0
+margin_top = 189.0
 margin_right = 1920.0
-margin_bottom = 299.0
+margin_bottom = 269.0
 custom_constants/margin_right = 30
 custom_constants/margin_top = 30
 custom_constants/margin_left = 30
@@ -108,9 +131,9 @@ rect_min_size = Vector2( 0, 20 )
 alignment = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 303.0
+margin_top = 273.0
 margin_right = 1920.0
-margin_bottom = 1003.0
+margin_bottom = 973.0
 rect_min_size = Vector2( 0, 700 )
 custom_constants/margin_right = 100
 custom_constants/margin_left = 100

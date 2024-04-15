@@ -30,6 +30,7 @@ Global="*res://Global.gd"
 Client="*res://Objects/Client/Client.tscn"
 Configs="*res://Scripts/Configs/Configs.gd"
 NodeManager="*res://Scripts/NodeManager.gd"
+<<<<<<<HEADNodeManager="*res://Scripts/NodeManager.gd"
 
 [display]
 
