@@ -107,7 +107,7 @@ func set_nodes_table():
 	
 	nodes = ret.get("nodes", [])
 	nodes.invert()
-	
+	print(nodes[0])
 	var title_row = HBoxContainer.new()
 	title_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
