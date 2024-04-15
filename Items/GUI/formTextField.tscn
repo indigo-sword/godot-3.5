@@ -21,7 +21,6 @@ rect_min_size = Vector2( 0, 50 )
 texture = ExtResource( 1 )
 region_rect = Rect2( 607, 1200, 567, 175 )
 patch_margin_left = 60
-patch_margin_top = 1
 patch_margin_right = 60
 
 [node name="LineText" type="LineEdit" parent="."]

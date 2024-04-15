@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditor.gd" type="Script" id=2]
 [ext_resource path="res://Assets/GuiComponents/GUI-cyberpunk.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/Aquire-BW0ox.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Items/GUI/formTextField.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CanvasItemMaterial" id=7]
 
@@ -100,6 +101,12 @@ custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 wrap_enabled = true
 
+[node name="Background" parent="TextEditBgDescription" instance=ExtResource( 6 )]
+margin_left = -19.0
+margin_top = -35.0
+margin_right = 923.0
+margin_bottom = 341.0
+
 [node name="TextEditBgTitle" type="ColorRect" parent="."]
 margin_left = 60.0
 margin_top = 194.0
@@ -119,6 +126,12 @@ custom_fonts/font = SubResource( 3 )
 custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 wrap_enabled = true
+
+[node name="Background" parent="TextEditBgTitle" instance=ExtResource( 6 )]
+margin_left = -21.0
+margin_top = -22.0
+margin_right = 922.0
+margin_bottom = 172.0
 
 [node name="DiscardButton" type="Button" parent="."]
 margin_left = 400.0
