@@ -20,6 +20,44 @@ We are migrating code from [godot-build](https://github.com/indigo-sword/godot-b
 
 - When you put the server online, you can change the `_URL` attribute in the `_init()` method in the `Scripts/Client/client.gd` file to your server's URL. Just be sure to change it back when you make a PR.
 
+- If you need ANY help, contact the devs in our [Discord server](https://discord.gg/abQa2a3Dc5)
+
+- I will list here some of the things that need to be done in the game, as well as highlight some of them as "easy first tasks" to get familiar with the codebase or the project
+
+### Code Tasks
+
+- Implementing the "see more" page for the users you are following (easy)
+
+- Implementing the "see more" page for nodes (i.e. when you look for them)
+
+- Implementing the "configs" page with stuff like resolution (easy)
+
+- Interfacing the menus and gameplay / level editor (hard)
+
+- Implementing different enemy behaviors (medium)
+
+- Implementing the mechanic of shooting (harder, will need to talk to @DannyTDS in our [Discord server](https://discord.gg/abQa2a3Dc5))
+
+- Implementing the mechanic of magic (harder, will need to talk to @DannyTDS in our [Discord server](https://discord.gg/abQa2a3Dc5))
+
+### Non-Code Tasks
+
+- Building scenarios / background for the game (easy)
+
+  - We need some landscapes related to a cyberpunk medieval world, like rooms, streets, and buildings. They will be "tiles" for the level editor
+
+- Building weapons for the game (medium)
+
+  - We need some weapons for the game, like swords, guns, and magic staffs. They will be "items" for the level editor. If you want to go the extra mile, also implement some code for them! Talk to @DannyTDS in our [Discord server](https://discord.gg/abQa2a3Dc5)
+
+- Building NPCs and enemies for the game (easiest)
+
+  - We need some enemies for the game, like knights, mages, and robots. They will be "objects" for the level editor. If you want something REALLY easy to make, just make one possible NPC for us in [this character creator](https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light)
+
+- Building the game's UI (easy)
+
+  - We need some UI components for the game, like buttons, windows, and menus. They will be "gui components" for the game. Talk to @jpireshe in our [Discord server](https://discord.gg/abQa2a3Dc5)
+
 # Implementation
 
 - Check an overview of how the game is implemented:
