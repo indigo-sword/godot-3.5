@@ -289,7 +289,6 @@ func _on_GetLevel_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	
 	if response_code == 200:
-		ensureDirectoryExists("res://SavedLevels/")
 		var file_path = "res://SavedLevels/" + output["node_id"] + ".tscn"
 		var file = File.new()
 		file.open(file_path, File.WRITE)
@@ -691,18 +690,3 @@ func get_popular_paths():
 func _on_GetPopularPaths_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("get_popular_paths_completed", output)
-
-
-func ensureDirectoryExists(dir_path: String):
-	var dir = Directory.new()
-	
-	# Check if the directory exists
-	if not dir.dir_exists(dir_path):
-		# Directory doesn't exist, create it
-		var result = dir.make_dir(dir_path)
-		if result == OK:
-			print("Directory created:", dir_path)
-		else:
-			print("Failed to create directory:", dir_path)
-	else:
-		print("Directory already exists:", dir_path)
