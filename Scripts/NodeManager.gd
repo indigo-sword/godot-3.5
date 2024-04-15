@@ -47,8 +47,27 @@ func edit_level(node_id):
 	else:
 		print("Scene file not found: " + scene_path)
 
-func create_level(node_id):
-	pass
+func create_level(title: String, description: String, level: Node2D):
+	var is_initial	: bool = false
+	var is_final		: bool = true
+	# Pack scene and save
+	var save_path	: String = "res://SavedLevels/temp.tscn"
+	var toSave 		: PackedScene = PackedScene.new()
+	toSave.pack(level)
+	ResourceSaver.save(save_path, toSave)
+	# Request to save to server
+	var err = "";
+	var ret = "";
+	
+	err = Client.create_node(title, description, is_initial, is_final, save_path)
+	if err != "":
+		print("error: ", err)
+		return
+	
+	ret = yield(Client, "create_node_completed")
+	if ret.get("code", "not found") != "200":
+		print("server error: ", ret)
+		return
 
 func clear_saved_levels():
 	var dir = Directory.new()

@@ -44,22 +44,9 @@ func _on_loadBtn_pressed():
 	var toLoad 		: PackedScene = PackedScene.new()
 	var err = "";
 	var ret = "";
-	
-	if (!Client.LOGGED_IN):
-		err = Client.login("LsZCFWRNMl", "PASS")
-		ret = yield(Client, "login_completed")
-		print(ret.get("code", "not found"))
-		# TODO add visual error handling
-		if (err != "" or ret.get("code", "not found") != "200"):
-			print("Error in logging in.")
-	
 	# TODO: add an interface to show all the nodes stored in the server
 	# load scenes from the server
-
 	Client.get_level("My awesome level")
-	
-	## imported from previous load method
-	# add it to current scene
 	if (err != ""):
 		print("Error in saving the level.")
 	
