@@ -29,8 +29,8 @@ config/icon="res://icon.png"
 Global="*res://Global.gd"
 Client="*res://Objects/Client/Client.tscn"
 Configs="*res://Scripts/Configs/Configs.gd"
-MenuVariables="*res://Scripts/Configs/MenuVariables.gd"
 NodeManager="*res://Scripts/NodeManager.gd"
+MenuVariables="*res://Scripts/Configs/MenuVariables.gd"
 <<<<<<<HEADNodeManager="*res://Scripts/NodeManager.gd"
 
 [display]
