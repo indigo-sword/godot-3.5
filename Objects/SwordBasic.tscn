@@ -10,4 +10,5 @@
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" parent="." index="1"]
-animation = "sword_basic"
+position = Vector2( 0, 0 )
+animation = "building_2"

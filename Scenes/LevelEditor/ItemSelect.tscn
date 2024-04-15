@@ -65,6 +65,7 @@ tab_align = 0
 script = ExtResource( 2 )
 
 [node name="Items" type="Tabs" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 62.0
@@ -111,7 +112,6 @@ expand = true
 stretch_mode = 6
 
 [node name="Builings" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 50.0

@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Objects/SwordBasic.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/TilesBuildings/b_tile014.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/LevelEditor/ItemTexture.tscn" type="PackedScene" id=3]
+
+[node name="ItemTexture" instance=ExtResource( 3 )]
+texture = ExtResource( 2 )
+this_scene = ExtResource( 1 )
