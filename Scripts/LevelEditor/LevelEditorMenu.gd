@@ -24,12 +24,13 @@ func _ready():
 
 func _on_visBtn_pressed():
 	print("Visibility button pressed")
-	if (!Global.filesystem_shown):
+	if (!Global.save_editor_shown):
 			Global.playing = !Global.playing
 			tab_container.visible = !Global.playing
 
 func _on_saveBtn_pressed():
 	print("Save button pressed")
+	Global.save_editor_shown = true
 	title_popup.show()
 
 func _on_loadBtn_pressed():

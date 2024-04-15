@@ -8,7 +8,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	if (!Global.filesystem_shown):
+	if (!Global.save_editor_shown):
 		if Input.is_action_just_pressed("toggle_editor"):
 			Global.playing = !Global.playing
 			visible = !Global.playing

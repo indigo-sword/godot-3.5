@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Menu/Main/Login.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/GuiComponents/GUI-cyberpunk.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 79
@@ -28,8 +29,25 @@ size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxTexture" id=11]
+texture = ExtResource( 4 )
+region_rect = Rect2( 600, 220, 570, 170 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 4 )
+region_rect = Rect2( 600, 220, 570, 170 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 4 )
+region_rect = Rect2( 10, 220, 560, 170 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 4 )
+region_rect = Rect2( 610, 220, 560, 170 )
+
+[sub_resource type="StyleBoxTexture" id=10]
+texture = ExtResource( 4 )
+region_rect = Rect2( 10, 220, 560, 170 )
 
 [node name="Control2" type="Control"]
 anchor_right = 1.0
@@ -91,13 +109,23 @@ rect_min_size = Vector2( 0, 50 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color_pressed = Color( 0, 0, 0, 1 )
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_uneditable = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 6 )
 custom_styles/normal = SubResource( 3 )
 align = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="LoginRect/LoginForm/Username"]
+margin_left = -21.0
+margin_top = -9.0
+margin_right = 717.0
+margin_bottom = 58.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 610, 1200, 560, 180 )
+patch_margin_left = 10
+patch_margin_right = 10
 
 [node name="PasswordTitle" type="Label" parent="LoginRect/LoginForm"]
 margin_top = 175.0
@@ -116,7 +144,7 @@ rect_min_size = Vector2( 0, 50 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color_pressed = Color( 0, 0, 0, 1 )
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_uneditable = Color( 0, 0, 0, 1 )
@@ -125,6 +153,16 @@ custom_styles/normal = SubResource( 3 )
 align = 1
 secret = true
 
+[node name="NinePatchRect" type="NinePatchRect" parent="LoginRect/LoginForm/Password"]
+margin_left = -21.0
+margin_top = -9.0
+margin_right = 717.0
+margin_bottom = 58.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 610, 1200, 560, 180 )
+patch_margin_left = 10
+patch_margin_right = 10
+
 [node name="Login" type="Button" parent="LoginRect/LoginForm"]
 margin_left = 252.0
 margin_top = 350.0
@@ -132,13 +170,15 @@ margin_right = 452.0
 margin_bottom = 430.0
 rect_min_size = Vector2( 200, 80 )
 size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 5 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
 text = "Login"
 
 [node name="CreateUserRect" type="ColorRect" parent="."]
@@ -185,13 +225,23 @@ rect_min_size = Vector2( 0, 50 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color_pressed = Color( 0, 0, 0, 1 )
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_uneditable = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 6 )
 custom_styles/normal = SubResource( 3 )
 align = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CreateUserRect/CreateUserForm/Email"]
+margin_left = -21.0
+margin_top = -9.0
+margin_right = 717.0
+margin_bottom = 58.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 610, 1200, 560, 180 )
+patch_margin_left = 10
+patch_margin_right = 10
 
 [node name="UsernameTitle" type="Label" parent="CreateUserRect/CreateUserForm"]
 margin_top = 191.0
@@ -210,13 +260,23 @@ rect_min_size = Vector2( 0, 50 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color_pressed = Color( 0, 0, 0, 1 )
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_uneditable = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 6 )
 custom_styles/normal = SubResource( 3 )
 align = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CreateUserRect/CreateUserForm/Username"]
+margin_left = -21.0
+margin_top = -9.0
+margin_right = 717.0
+margin_bottom = 58.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 610, 1200, 560, 180 )
+patch_margin_left = 10
+patch_margin_right = 10
 
 [node name="PasswordTitle" type="Label" parent="CreateUserRect/CreateUserForm"]
 margin_top = 382.0
@@ -235,7 +295,7 @@ rect_min_size = Vector2( 0, 50 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/cursor_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color_pressed = Color( 0, 0, 0, 1 )
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/clear_button_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_uneditable = Color( 0, 0, 0, 1 )
@@ -244,6 +304,16 @@ custom_styles/normal = SubResource( 3 )
 align = 1
 secret = true
 
+[node name="NinePatchRect" type="NinePatchRect" parent="CreateUserRect/CreateUserForm/Password"]
+margin_left = -21.0
+margin_top = -9.0
+margin_right = 717.0
+margin_bottom = 58.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 610, 1200, 560, 180 )
+patch_margin_left = 10
+patch_margin_right = 10
+
 [node name="CreateUser" type="Button" parent="CreateUserRect/CreateUserForm"]
 margin_left = 252.0
 margin_top = 573.0
@@ -251,11 +321,13 @@ margin_right = 452.0
 margin_bottom = 653.0
 rect_min_size = Vector2( 200, 80 )
 size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 5 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 text = "Create"
