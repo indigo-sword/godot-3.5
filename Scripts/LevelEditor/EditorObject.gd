@@ -77,7 +77,6 @@ func move_editor():
 			editor.global_position.y += cam_spd
 		if Input.is_action_pressed("d"):
 			editor.global_position.x += cam_spd
-			NodeManager.play_test()
 	
 func _unhandled_input(event):
 	if (!Global.save_editor_shown):

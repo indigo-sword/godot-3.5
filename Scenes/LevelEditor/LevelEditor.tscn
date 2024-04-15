@@ -9,13 +9,6 @@
 
 [node name="LevelEditor" type="Node2D"]
 
-[node name="Background" type="ColorRect" parent="."]
-margin_left = -299.0
-margin_top = -164.0
-margin_right = 2188.0
-margin_bottom = 1331.0
-color = Color( 0, 0, 0, 1 )
-
 [node name="Level" type="Node2D" parent="."]
 position = Vector2( 1, -3 )
 

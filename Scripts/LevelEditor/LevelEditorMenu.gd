@@ -27,6 +27,10 @@ func _on_visBtn_pressed():
 	if (!Global.save_editor_shown):
 			Global.playing = !Global.playing
 			tab_container.visible = !Global.playing
+	if (Global.playing):
+		NodeManager.play_test()
+	else:
+		NodeManager.end_play_test()
 
 func _on_saveBtn_pressed():
 	print("Save button pressed")
