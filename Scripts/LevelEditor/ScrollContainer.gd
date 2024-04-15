@@ -1,10 +1,9 @@
 extends ScrollContainer
 
-var ITEM_PER_ROW = 5
+var ITEM_PER_ROW = 4
 
 onready var object_cursor = get_node("/root/LevelEditor/EditorObject")
 onready var row_container = get_node("VBoxContainer")
-onready var item_container = get_node("VBoxContainer/HBoxContainer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +12,7 @@ func _ready():
 	self.scroll_horizontal_enabled = true
 	self.scroll_vertical_enabled = true
 	scale_textures()
+	print_tree_pretty()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,7 +32,25 @@ func mouse_leave():
 func scale_textures():
 	var container_width: int = self.rect_min_size.x
 	var item_size: Vector2 = Vector2(container_width / ITEM_PER_ROW, container_width / ITEM_PER_ROW)
-	for item in item_container.get_children():
+	var n_items: int = row_container.get_child_count()
+	var all_items = row_container.get_children()
+	var item_row: Array = []
+	for i in range(n_items):
+		var item = all_items[i]
 		item.expand = true
 		item.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		item.rect_min_size = item_size
+		# Group items by row
+		if i > 0 and i % ITEM_PER_ROW == 0:
+			group_item_row(item_row)
+			item_row = []
+		item_row.append(item)
+	if item_row:
+		group_item_row(item_row)
+
+func group_item_row(item_row: Array):
+	var h_container = HBoxContainer.new()
+	for item in item_row:
+		row_container.remove_child(item)
+		h_container.add_child(item)
+	row_container.add_child(h_container)

@@ -27,6 +27,12 @@ script = ExtResource( 4 )
 
 [node name="ItemSelect" parent="." instance=ExtResource( 2 )]
 
+[node name="Items" parent="ItemSelect/TabContainer" index="0"]
+visible = true
+
+[node name="Tiles" parent="ItemSelect/TabContainer" index="2"]
+visible = false
+
 [node name="FileDialog" type="FileDialog" parent="ItemSelect"]
 margin_left = 661.0
 margin_top = 346.0
@@ -38,7 +44,7 @@ script = ExtResource( 5 )
 [node name="CamContainer" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="CamContainer"]
-position = Vector2( 942, 535 )
+position = Vector2( 960, 540 )
 
 [node name="LevelEditorMenu" parent="." instance=ExtResource( 1 )]
 
@@ -49,3 +55,5 @@ visible = false
 
 [connection signal="confirmed" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_confirmed"]
 [connection signal="hide" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_hide"]
+
+[editable path="ItemSelect"]
