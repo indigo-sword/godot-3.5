@@ -98,7 +98,9 @@ func _clear_saved_levels():
 func _add_player_unique():
 	if (!currPlayer):
 		currPlayer = player.instance()
-		currPlayer.global_position = getCurrentCamera2D().global_position
+		var currCam = getCurrentCamera2D()
+		if (currCam):
+			currPlayer.global_position = getCurrentCamera2D().global_position
 		get_tree().root.add_child(currPlayer)
 
 func _del_player():
