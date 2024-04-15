@@ -14,4 +14,4 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" parent="." index="1"]
 position = Vector2( -1, 0 )
 scale = Vector2( 7.3125, 7.3125 )
-animation = "vending_machine"
+animation = "building_3"

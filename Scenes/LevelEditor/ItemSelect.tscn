@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Items/itemLight.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/LevelEditor/TabContainer.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Items/itemBuilding1.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Assets/TilesBuildings/b_tile014.png" type="Texture" id=18]
 [ext_resource path="res://Items/itemVendingMachine.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Items/itemBuilding3.tscn" type="PackedScene" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -142,11 +143,11 @@ scroll_horizontal_enabled = false
 script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Builings/ScrollContainer"]
-margin_right = 100.0
+margin_right = 152.0
 margin_bottom = 32.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Builings/ScrollContainer/VBoxContainer"]
-margin_right = 100.0
+margin_right = 152.0
 margin_bottom = 32.0
 
 [node name="ItemTexture2" parent="TabContainer/Builings/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 17 )]
@@ -160,6 +161,12 @@ margin_right = 100.0
 margin_bottom = 32.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 18 )
+
+[node name="ItemTexture3" parent="TabContainer/Builings/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 20 )]
+margin_left = 104.0
+margin_right = 152.0
+margin_bottom = 32.0
+rect_scale = Vector2( 1, 1 )
 
 [node name="Tiles" type="Tabs" parent="TabContainer"]
 visible = false
