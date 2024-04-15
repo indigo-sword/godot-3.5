@@ -15,7 +15,7 @@ mono_crash.*.json
 .DS_Store
 
 *.import
-#SavedLevels/*
+SavedLevels/*
 
 # configs
 Scripts/Configs/*.json
