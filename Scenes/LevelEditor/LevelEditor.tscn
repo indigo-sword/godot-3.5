@@ -36,7 +36,6 @@ rect_min_size = Vector2( 400, 140 )
 script = ExtResource( 5 )
 
 [node name="CamContainer" type="Node2D" parent="."]
-position = Vector2( 5, 3 )
 
 [node name="Camera2D" type="Camera2D" parent="CamContainer"]
 position = Vector2( 942, 535 )
@@ -46,7 +45,7 @@ position = Vector2( 942, 535 )
 [node name="LevelInfoCanvas" type="CanvasLayer" parent="."]
 
 [node name="LevelInfoEditor" parent="LevelInfoCanvas" instance=ExtResource( 6 )]
-position = Vector2( 2, 135 )
+visible = false
 
 [connection signal="confirmed" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_confirmed"]
 [connection signal="hide" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_hide"]
