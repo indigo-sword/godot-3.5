@@ -1020,6 +1020,9 @@ collision_mask = 0
 position = Vector2( 12, 50 )
 shape = SubResource( 45 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2( 0.5, 0.5 )
+
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
