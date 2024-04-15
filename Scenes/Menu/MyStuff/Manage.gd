@@ -184,7 +184,6 @@ func make_button(text, function, idx):
 	return b
 	
 func _on_playPathButton_pressed(idx):
-	NodeManager.play(idx)
 	print(paths[idx])
 
 signal edit_path_selected
@@ -193,12 +192,12 @@ func _on_editPathButton_pressed(idx):
 	get_tree().change_scene("Scenes/Menu/MyStuff/EditPath/EditPath.tscn")
 	
 func _on_playNodeButton_pressed(idx):
-	print(nodes[idx])
+	NodeManager.play(nodes[idx]["id"])
 	
 func _on_editNodeButton_pressed(idx):
 	print(nodes[idx])
-	NodeManager.edit_level(nodes[idx]["id"])
 	MenuVariables.MenuVariables["selected_node"] = nodes[idx]
+	NodeManager.edit_level(nodes[idx]["id"])
 
 func new_label(prop: String, row_container, color, prop_name: String):
 	var lbl = Label.new()

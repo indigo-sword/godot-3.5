@@ -77,6 +77,7 @@ func create_level(title: String, description: String, level: Node2D):
 		return
 
 func _clear_saved_levels():
+	return
 	var dir = Directory.new()
 	var folder_path = "res://SavedLevels"
 	var err = dir.open(folder_path)
