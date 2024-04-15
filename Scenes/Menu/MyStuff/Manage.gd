@@ -10,16 +10,22 @@ extends Control
 var nodes = []
 var paths = []
 
-func _ready():
-	set_nodes_table()
-	set_paths_table()
+func _ready():	
+	var newPathButton = $ScrollContainer/VBoxContainer/MarginContainer7/HBoxContainer2/NewPathButton
+	newPathButton.connect("pressed", self, "_on_newPathButton_pressed")
 	
 	var goBackButton = $ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer2/GoBackButton
 	goBackButton.connect("pressed", self, "_on_goBackButton_pressed")
 	
 	goBackButton = $ScrollContainer/VBoxContainer/MarginContainer6/HBoxContainer2/GoBackButton 
 	goBackButton.connect("pressed", self, "_on_goBackButton_pressed")
+	
+	set_nodes_table()
+	set_paths_table()
 
+func _on_newPathButton_pressed():
+	pass
+	
 func _on_goBackButton_pressed():
 	get_tree().change_scene("res://Scenes/Menu/PlayerMain/PlayerMain.tscn")
 	
@@ -38,6 +44,7 @@ func set_paths_table():
 		return
 		
 	paths = ret.get("paths", [])
+	paths.invert()
 	
 	var title_row = HBoxContainer.new()
 	title_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -99,6 +106,7 @@ func set_nodes_table():
 		return
 	
 	nodes = ret.get("nodes", [])
+	nodes.invert()
 	
 	var title_row = HBoxContainer.new()
 	title_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -165,7 +173,7 @@ func make_button(text, function, idx):
 	b.add_stylebox_override("normal", sb)
 	
 	var dynfont = DynamicFont.new()
-	dynfont.font_data = load("res://Assets/Fonts/menufont.ttf")
+	dynfont.font_data = load("res://Assets/Fonts/Audiowide-en4g.ttf")
 	dynfont.size = 25
 	
 	b.add_font_override("font", dynfont)
@@ -177,15 +185,17 @@ func make_button(text, function, idx):
 	
 func _on_playPathButton_pressed(idx):
 	print(paths[idx])
-	
+
+signal edit_path_selected
 func _on_editPathButton_pressed(idx):
-	print(paths[idx])
+	MenuVariables.MenuVariables["selected_path"] = paths[idx]
+	get_tree().change_scene("Scenes/Menu/MyStuff/EditPath/EditPath.tscn")
 	
 func _on_playNodeButton_pressed(idx):
 	print(nodes[idx])
 	
 func _on_editNodeButton_pressed(idx):
-	print(nodes[idx])
+	MenuVariables.MenuVariables["selected_node"] = nodes[idx]
 
 func new_label(prop: String, row_container, color, prop_name: String):
 	var lbl = Label.new()
@@ -196,7 +206,7 @@ func new_label(prop: String, row_container, color, prop_name: String):
 	lbl.autowrap = true
 	
 	var dynfont = DynamicFont.new()
-	dynfont.font_data = load("res://Assets/Fonts/menufont.ttf")
+	dynfont.font_data = load("res://Assets/Fonts/Audiowide-en4g.ttf")
 	dynfont.size = 25
 	
 	lbl.add_font_override("font", dynfont)
