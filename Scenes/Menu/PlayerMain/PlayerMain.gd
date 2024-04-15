@@ -8,35 +8,35 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var configButton = $Background/ConfigButton
-	var userInfoButton = $Background/UserInfoButton
-	var logoutButton = $Background/LogoutButton
+	var configButton = $ConfigButton
+	var userInfoButton = $UserInfoButton
+	var logoutButton = $LogoutButton
 	
 	configButton.connect("pressed", self, "_on_configButton_pressed")
 	userInfoButton.connect("pressed", self, "_on_userInfoButton_pressed")
 	logoutButton.connect("pressed", self, "_on_logoutButton_pressed")
 	
 	# Discover
-	var popularLevelsButton = $Background/Discover/Levels/PopularLevelsButton
-	var findLevelsButton = $Background/Discover/Levels/FindLevelsButton
-	var popularPathsButton = $Background/Discover/Levels/PopularPathsButton
-	var findPathsButton = $Background/Discover/Levels/FindPathsButton
+	var popularLevelsButton = $Levels/PopularLevelsButton
+	var findLevelsButton = $Levels/FindLevelsButton
+	var popularPathsButton = $Levels/PopularPathsButton
+	var findPathsButton = $Levels/FindPathsButton
 	
 	popularLevelsButton.connect("pressed", self, "_on_popularLevelsButton_pressed")
 	findLevelsButton.connect("pressed", self, "_on_findLevelsButton_pressed")
 	popularPathsButton.connect("pressed", self, "_on_popularPathsButton_pressed")
-	findLevelsButton.connect("pressed", self, "_on_findPathsButton_pressed")
+	findPathsButton.connect("pressed", self, "_on_findPathsButton_pressed")
 
 	# your stuff
-	var createLevelButton = $Background/YourStuff/Levels/CreateButton
-	var manageButton = $Background/YourStuff/Levels/ManageButton
+	var createLevelButton = $YourStuff/CreateButton
+	var manageButton = $YourStuff/ManageButton
 	
 	createLevelButton.connect("pressed", self, "_on_createLevelButton_pressed")
 	manageButton.connect("pressed", self, "_on_manageButton_pressed")
 	
 	# followers
-	var findUserButton = $Background/Follows/FindUserButton
-	var seeFollowersButton = $Background/Follows/SeeFollowersButton
+	var findUserButton = $Followers/FindUserButton
+	var seeFollowersButton = $Followers/SeeFollowersButton
 
 	findUserButton.connect("pressed", self, "_on_findUserButton_pressed")
 	seeFollowersButton.connect("pressed", self, "_on_seeFollowersButton_pressed")

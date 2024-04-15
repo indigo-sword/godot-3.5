@@ -221,7 +221,7 @@ func _on_login_pressed():
 
 	#### test create path -- SUCCESS
 	print("test create path -- SUCCESS")
-	assert(Client.create_path("title", "description") == "")
+	assert(Client.create_path("complex path", "description") == "")
 	ret = yield(Client, "create_path_completed")
 	assert(ret.get("code", "error") == "201")
 	print("ok")
@@ -235,6 +235,8 @@ func _on_login_pressed():
 	assert(ret.get("code", "error") == "200")
 	print("ok")
 	
+	
+	
 	#### test get path info -- SUCCESS
 	print("test get path info -- SUCCESS")
 	assert(Client.get_path_info(path_id) == "")
@@ -243,8 +245,22 @@ func _on_login_pressed():
 	print("ok")
 	
 	#### test create path from nodes -- SUCCESS
+	err = Client.create_node("title", "description", true, false, "res://SavedLevels/test1.tscn")
+	assert(err == "")
+	ret = yield(Client, "create_node_completed")
+	assert(ret.get("message", "not found") == "node created")
+	
+	var node3_id = ret["node_id"]
+	
+	err = Client.create_node("title", "description", true, false, "res://SavedLevels/test1.tscn")
+	assert(err == "")
+	ret = yield(Client, "create_node_completed")
+	assert(ret.get("message", "not found") == "node created")
+	
+	var node4_id = ret["node_id"]
+	
 	print("test create path from nodes -- SUCCESS")
-	assert(Client.create_path_from_nodes("title", "description", [node_id, node2_id]) == "")
+	assert(Client.create_path_from_nodes("a more complex path", "description", [node_id, node2_id, node4_id, node3_id], [0, 1, 2, 1]) == "")
 	ret = yield(Client, "create_path_from_nodes_completed")
 	assert(ret.get("code", "error") == "201")
 	print("ok")
@@ -309,6 +325,20 @@ func _on_login_pressed():
 	print("test query paths -- SUCCESS")
 	assert(Client.query_paths(SAMPLE_UNAME) == "")
 	ret = yield(Client, "query_paths_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test get popular nodes -- SUCCESS
+	print("test get popular nodes -- SUCCESS")
+	assert(Client.get_popular_nodes() == "")
+	ret = yield(Client, "get_popular_nodes_completed")
+	assert(ret.get("code", "error") == "200")
+	print("ok")
+	
+	#### test get popular paths -- SUCCESS
+	print("test get popular paths -- SUCCESS")
+	assert(Client.get_popular_paths() == "")
+	ret = yield(Client, "get_popular_paths_completed")
 	assert(ret.get("code", "error") == "200")
 	print("ok")
 

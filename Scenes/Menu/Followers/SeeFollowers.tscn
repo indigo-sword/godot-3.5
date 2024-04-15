@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Menu/Followers/SeeFollowers.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Images/logoSmall.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/Aquire-BW0ox.otf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -14,9 +15,9 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 80
-font_data = ExtResource( 2 )
+font_data = ExtResource( 4 )
 
-[node name="Control" type="Control"]
+[node name="Control3" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -35,7 +36,7 @@ scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 1908.0
-margin_bottom = 2048.0
+margin_bottom = 1958.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -72,14 +73,14 @@ text = "Go Back"
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 114.0
 margin_right = 1908.0
-margin_bottom = 215.0
+margin_bottom = 185.0
 custom_constants/separation = 100
 alignment = 1
 
 [node name="FollowersLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 738.0
-margin_right = 1170.0
-margin_bottom = 101.0
+margin_left = 690.0
+margin_right = 1218.0
+margin_bottom = 71.0
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Followers"
@@ -91,9 +92,9 @@ scale = Vector2( 0.15025, 0.15025 )
 texture = ExtResource( 3 )
 
 [node name="MarginContainer7" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 219.0
+margin_top = 189.0
 margin_right = 1908.0
-margin_bottom = 299.0
+margin_bottom = 269.0
 custom_constants/margin_right = 30
 custom_constants/margin_top = 30
 custom_constants/margin_left = 30
@@ -108,9 +109,9 @@ rect_min_size = Vector2( 0, 20 )
 alignment = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 303.0
+margin_top = 273.0
 margin_right = 1908.0
-margin_bottom = 913.0
+margin_bottom = 883.0
 rect_min_size = Vector2( 0, 610 )
 custom_constants/margin_right = 100
 custom_constants/margin_left = 100
@@ -137,9 +138,9 @@ scroll_horizontal_enabled = false
 [node name="Table" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer3/Background/ScrollContainer"]
 
 [node name="MarginContainer9" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 917.0
+margin_top = 887.0
 margin_right = 1908.0
-margin_bottom = 997.0
+margin_bottom = 967.0
 custom_constants/margin_right = 30
 custom_constants/margin_top = 30
 custom_constants/margin_left = 30
@@ -154,16 +155,16 @@ rect_min_size = Vector2( 0, 20 )
 alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 1001.0
+margin_top = 971.0
 margin_right = 1908.0
-margin_bottom = 1206.0
+margin_bottom = 1116.0
 custom_constants/separation = 100
 alignment = 1
 
 [node name="FollowingLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 738.0
-margin_right = 1170.0
-margin_bottom = 205.0
+margin_left = 712.0
+margin_right = 1195.0
+margin_bottom = 145.0
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Following
@@ -171,9 +172,9 @@ text = "Following
 align = 1
 
 [node name="MarginContainer4" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 1210.0
+margin_top = 1120.0
 margin_right = 1908.0
-margin_bottom = 1820.0
+margin_bottom = 1730.0
 rect_min_size = Vector2( 0, 610 )
 custom_constants/margin_right = 100
 custom_constants/margin_left = 100
@@ -200,9 +201,9 @@ scroll_horizontal_enabled = false
 [node name="Table" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer4/Background/ScrollContainer"]
 
 [node name="MarginContainer10" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 1824.0
+margin_top = 1734.0
 margin_right = 1908.0
-margin_bottom = 1904.0
+margin_bottom = 1814.0
 custom_constants/margin_right = 30
 custom_constants/margin_top = 30
 custom_constants/margin_left = 30
@@ -217,9 +218,9 @@ rect_min_size = Vector2( 0, 20 )
 alignment = 2
 
 [node name="MarginContainer6" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
-margin_top = 1908.0
+margin_top = 1818.0
 margin_right = 1908.0
-margin_bottom = 2048.0
+margin_bottom = 1958.0
 custom_constants/margin_right = 30
 custom_constants/margin_top = 30
 custom_constants/margin_left = 30

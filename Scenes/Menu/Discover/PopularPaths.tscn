@@ -1,26 +1,26 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assets/Fonts/Aquire-BW0ox.otf" type="DynamicFontData" id=1]
-[ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Menu/Discover/PopularPaths.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/Aquire-BW0ox.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Images/logoSmall.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Menu/Config/Config.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
 use_filter = true
-font_data = ExtResource( 2 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 80
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 4 )
+script = ExtResource( 1 )
 
 [node name="BackGround" type="ColorRect" parent="."]
 margin_right = 1920.0
@@ -77,13 +77,13 @@ margin_bottom = 185.0
 custom_constants/separation = 100
 alignment = 1
 
-[node name="ConfigsLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 783.0
-margin_right = 1137.0
+[node name="PopularPathsLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 606.0
+margin_right = 1313.0
 margin_bottom = 71.0
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Configs"
+text = "Popular Paths"
 align = 1
 
 [node name="LogoSmall" type="Sprite" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
@@ -107,3 +107,32 @@ margin_right = 1890.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 20 )
 alignment = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 273.0
+margin_right = 1920.0
+margin_bottom = 973.0
+rect_min_size = Vector2( 0, 700 )
+custom_constants/margin_right = 100
+custom_constants/margin_left = 100
+
+[node name="Background" type="ColorRect" parent="ScrollContainer/VBoxContainer/MarginContainer3"]
+margin_left = 100.0
+margin_right = 1820.0
+margin_bottom = 700.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/VBoxContainer/MarginContainer3/Background"]
+margin_left = 24.0
+margin_top = 19.0
+margin_right = 1692.0
+margin_bottom = 681.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ScrollContainer/VBoxContainer/MarginContainer3/Background"]
+margin_left = 32.0
+margin_top = 27.0
+margin_right = 1684.0
+margin_bottom = 673.0
+scroll_horizontal_enabled = false
+
+[node name="Table" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer3/Background/ScrollContainer"]

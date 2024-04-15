@@ -45,6 +45,8 @@ signal get_node_paths_completed
 signal query_users_completed
 signal query_nodes_completed
 signal query_paths_completed
+signal get_popular_nodes_completed
+signal get_popular_paths_completed
 
 #### INTERNAL FUNCTIONS
 func _init(): 
@@ -102,6 +104,8 @@ func _on_Login_request_completed(result, response_code, headers, body):
 		for header in headers:
 			if "Set-Cookie" in header:
 				self._COOKIE = header.split(" ")[1].split(";")[0]
+				
+	Configs.open_configs(self.UNAME)
 	
 	emit_signal("login_completed", output)
 	
@@ -267,7 +271,7 @@ func create_node(title: String, description: String, is_initial: bool, is_final:
 func _on_CreateNode_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 201, body)
 	if output.get("code", "not found") == "200":
-		Configs.add_level(self.UNAME, output["node_id"])
+		Configs.add_level(output["node_id"])
 		
 	emit_signal("create_node_completed", output)
 	
@@ -504,8 +508,9 @@ func _on_GetPath_request_completed(result, response_code, headers, body):
 	emit_signal("get_path_info_completed", output)
 
 
-func create_path_from_nodes(title: String, description: String, nodes: Array):
+func create_path_from_nodes(title: String, description: String, nodes: Array, positions: Array):
 	if len(nodes) == 0: return "must be non-empty array"
+	if len(positions) != len(nodes): return "nodes and positions size must match"
 	if not self.LOGGED_IN: return "Not logged in"
 	
 	var headers = ["Content-Type: application/x-www-form-urlencoded", "Cookie: " + self._COOKIE]
@@ -514,8 +519,8 @@ func create_path_from_nodes(title: String, description: String, nodes: Array):
 	for node in nodes:
 		body += "&node_ids=" + node
 		
-	for i in range(nodes.size()):
-		body += "&positions=" + String(i)
+	for position in positions:
+		body += "&positions=" + String(position)
 		
 	$CreatePathFromNodes.connect("request_completed", self, "_on_CreatePathFromNodes_request_completed")
 	$CreatePathFromNodes.request(self._URL + "/create_path_from_nodes", headers, true, HTTPClient.METHOD_POST, body)
@@ -655,3 +660,33 @@ func query_paths(query: String):
 func _on_QueryPaths_request_completed(result, response_code, headers, body):
 	var output = _default_request_processing(result, response_code, 200, body)
 	emit_signal("query_paths_completed", output)
+
+
+func get_popular_nodes():
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	
+	var body = ""
+	
+	$GetPopularNodes.connect("request_completed", self, "_on_GetPopularNodes_request_completed")
+	$GetPopularNodes.request(self._URL + "/get_popular_nodes", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetPopularNodes_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_popular_nodes_completed", output)
+	
+	
+func get_popular_paths():
+	var headers = ["Content-Type: application/x-www-form-urlencoded"]
+	
+	var body = ""
+	
+	$GetPopularPaths.connect("request_completed", self, "_on_GetPopularPaths_request_completed")
+	$GetPopularPaths.request(self._URL + "/get_popular_paths", headers, true, HTTPClient.METHOD_GET, body)
+	
+	return ""
+	
+func _on_GetPopularPaths_request_completed(result, response_code, headers, body):
+	var output = _default_request_processing(result, response_code, 200, body)
+	emit_signal("get_popular_paths_completed", output)

@@ -1,39 +1,29 @@
 extends Control
 
-var nodes = []
+var paths = []
 
 func _ready():
-	var inLine = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/LineEdit
-	inLine.connect("text_entered", self, "_on_inLine_text_entered")
+	var err = Client.get_popular_paths()
+	if err != "":
+		print("error: ", err)
+		return
 	
-	var searchButton = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/SearchButton
-	searchButton.connect("pressed", self, "_on_inLine_text_entered", [inLine.text])
+	var ret = yield(Client, "get_popular_paths_completed")
+	if ret.get("code", "not found") != "200":
+		print("server error: ", ret)
+		return
+		
+	paths = ret.get("paths", [])
+
+	set_paths_table(paths)
 	
 	var goBackButton = $ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer2/GoBackButton
 	goBackButton.connect("pressed", self, "_on_goBackButton_pressed")
 
 func _on_goBackButton_pressed():
 	get_tree().change_scene("res://Scenes/Menu/PlayerMain/PlayerMain.tscn")
-	
-func _on_inLine_text_entered(text):
-	var inLine = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/LineEdit
-	if inLine.text == "": 
-		return
-		
-	var err = Client.query_nodes(inLine.text)
-	if err != "":
-		print("error: ", err)
-		return
-	
-	var ret = yield(Client, "query_nodes_completed")
-	if ret.get("code", "not found") != "200":
-		print("server error: ", ret)
-		return
-	
-	nodes = ret.get("nodes", [])
-	set_levels_table(nodes)
 
-func set_levels_table(nodes: Array):
+func set_paths_table(paths: Array):
 	var table = $ScrollContainer/VBoxContainer/MarginContainer3/Background/ScrollContainer/Table
 
 	for child in table.get_children():
@@ -49,15 +39,13 @@ func set_levels_table(nodes: Array):
 	new_label("Description", title_row, Color(0, 1, 0), "description")
 	new_label("Playcount", title_row, Color(0, 1, 0), "playcount")
 	new_label("Rating", title_row, Color(0, 1, 0), "rating")
-	new_label("Is initial?", title_row, Color(0, 1, 0), "is_initial")
-	new_label("Is final?", title_row, Color(0, 1, 0), "is_final")
 	new_label(" ", title_row, Color(0, 1, 0), "play")
 	new_label(" ", title_row, Color(0,1,0), "see more")
 	
 	table.add_child(title_row)
 	
 	var row_num = 1
-	for node in nodes:
+	for path in paths:
 		var line = ColorRect.new()
 		line.color = Color(1,1,1)
 		line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -70,23 +58,13 @@ func set_levels_table(nodes: Array):
 		row_container.connect("mouse_entered", self, "_on_rowContainer_mouse_entered", [row_container])
 		row_container.connect("mouse_exited", self, "_on_rowContainer_mouse_exited", [row_container])
 		
-		new_label(node.title, row_container, Color(1, 1, 1), "title")
-		new_label(node.user_id, row_container, Color(1, 1, 1), "user")
-		new_label(node.description, row_container, Color(1, 1, 1), "description")
-		new_label(String(node.playcount), row_container, Color(1, 1, 1), "playcount")
-		new_label(String(node.rating), row_container, Color(1, 1, 1), "rating")
+		new_label(path.title, row_container, Color(1, 1, 1), "title")
+		new_label(path.user_id, row_container, Color(1, 1, 1), "user")
+		new_label(path.description, row_container, Color(1, 1, 1), "description")
+		new_label(String(path.playcount), row_container, Color(1, 1, 1), "playcount")
+		new_label(String(path.rating), row_container, Color(1, 1, 1), "rating")
 		
-		if node.is_initial:
-			new_label("Yes", row_container, Color(1, 1, 1), "is_initial")
-		else:
-			new_label("No", row_container, Color(1, 1, 1), "is_initial")
-			
-		if node.is_final:
-			new_label("Yes", row_container, Color(1, 1, 1), "is_final")
-		else:
-			new_label("No", row_container, Color(1, 1, 1), "is_final")
-		
-		var playButton = make_button("Play", "_on_playNodeButton_pressed", [row_num - 1])
+		var playButton = make_button("Play", "_on_playPathButton_pressed", [row_num - 1])
 		row_container.add_child(playButton)
 		
 		var seeMoreButton = make_button("See More", "_on_seeMoreButton_pressed", [row_num - 1])
@@ -95,11 +73,11 @@ func set_levels_table(nodes: Array):
 		table.add_child(row_container)
 		row_num += 1
 
-func _on_playNodeButton_pressed(idx):
-	print(nodes[idx])
+func _on_playPathButton_pressed(idx):
+	print(paths[idx])
 	
 func _on_seeMoreButton_pressed(idx):
-	print(nodes[idx])
+	print(paths[idx])
 
 func _on_rowContainer_mouse_entered(row_container):
 	row_container.modulate = Color(0, 1, 0)
@@ -143,4 +121,5 @@ func make_button(text, function, arr):
 	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	
 	return b
+
 

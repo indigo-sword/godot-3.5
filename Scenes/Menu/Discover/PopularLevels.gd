@@ -3,35 +3,24 @@ extends Control
 var nodes = []
 
 func _ready():
-	var inLine = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/LineEdit
-	inLine.connect("text_entered", self, "_on_inLine_text_entered")
+	var err = Client.get_popular_nodes()
+	if err != "":
+		print("error: ", err)
+		return
 	
-	var searchButton = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/SearchButton
-	searchButton.connect("pressed", self, "_on_inLine_text_entered", [inLine.text])
+	var ret = yield(Client, "get_popular_nodes_completed")
+	if ret.get("code", "not found") != "200":
+		print("server error: ", ret)
+		return
+		
+	nodes = ret.get("nodes", [])
+	set_levels_table(nodes)
 	
 	var goBackButton = $ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer2/GoBackButton
 	goBackButton.connect("pressed", self, "_on_goBackButton_pressed")
 
 func _on_goBackButton_pressed():
 	get_tree().change_scene("res://Scenes/Menu/PlayerMain/PlayerMain.tscn")
-	
-func _on_inLine_text_entered(text):
-	var inLine = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/LineEdit
-	if inLine.text == "": 
-		return
-		
-	var err = Client.query_nodes(inLine.text)
-	if err != "":
-		print("error: ", err)
-		return
-	
-	var ret = yield(Client, "query_nodes_completed")
-	if ret.get("code", "not found") != "200":
-		print("server error: ", ret)
-		return
-	
-	nodes = ret.get("nodes", [])
-	set_levels_table(nodes)
 
 func set_levels_table(nodes: Array):
 	var table = $ScrollContainer/VBoxContainer/MarginContainer3/Background/ScrollContainer/Table

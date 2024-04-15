@@ -1,22 +1,23 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://SavedLevels/Aquire-BW0ox.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Menu/PlayerMain/PlayerMain.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Images/logo.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 50
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 32
-use_filter = true
-font_data = ExtResource( 1 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 1, 1, 1, 1 )
-
-[node name="Control" type="Control"]
+[node name="Control3" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -26,141 +27,7 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="YourStuff" type="ColorRect" parent="Background"]
-margin_left = 872.0
-margin_top = 526.0
-margin_right = 1320.0
-margin_bottom = 1022.0
-color = Color( 0.333333, 0.333333, 0.333333, 1 )
-
-[node name="Levels" type="Label" parent="Background/YourStuff"]
-margin_left = 60.0
-margin_top = 67.0
-margin_right = 380.0
-margin_bottom = 131.0
-custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Your stuff"
-align = 1
-
-[node name="CreateButton" type="Button" parent="Background/YourStuff/Levels"]
-margin_top = 96.0
-margin_right = 320.0
-margin_bottom = 224.0
-rect_min_size = Vector2( 200, 80 )
-rect_pivot_offset = Vector2( -1976, -648 )
-size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Create Level"
-
-[node name="ManageButton" type="Button" parent="Background/YourStuff/Levels"]
-margin_top = 256.0
-margin_right = 320.0
-margin_bottom = 384.0
-rect_min_size = Vector2( 200, 80 )
-rect_pivot_offset = Vector2( -1976, -648 )
-size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Manage"
-
-[node name="Discover" type="ColorRect" parent="Background"]
-margin_left = 872.0
-margin_top = 48.0
-margin_right = 1844.0
-margin_bottom = 488.0
-color = Color( 0.333333, 0.333333, 0.333333, 1 )
-
-[node name="Levels" type="Label" parent="Background/Discover"]
-margin_left = 16.0
-margin_top = 19.0
-margin_right = 960.0
-margin_bottom = 83.0
-custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Discover"
-align = 1
-
-[node name="PopularLevelsButton" type="Button" parent="Background/Discover/Levels"]
-margin_left = 44.0
-margin_top = 96.0
-margin_right = 428.0
-margin_bottom = 224.0
-rect_min_size = Vector2( 200, 80 )
-rect_pivot_offset = Vector2( -1976, -648 )
-size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Popular Levels"
-
-[node name="PopularPathsButton" type="Button" parent="Background/Discover/Levels"]
-margin_left = 508.0
-margin_top = 96.0
-margin_right = 892.0
-margin_bottom = 224.0
-rect_min_size = Vector2( 200, 80 )
-rect_pivot_offset = Vector2( -1976, -648 )
-size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Popular Paths"
-
-[node name="FindPathsButton" type="Button" parent="Background/Discover/Levels"]
-margin_left = 508.0
-margin_top = 256.0
-margin_right = 892.0
-margin_bottom = 384.0
-rect_min_size = Vector2( 200, 80 )
-rect_pivot_offset = Vector2( -1976, -648 )
-size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Find Paths"
-
-[node name="FindLevelsButton" type="Button" parent="Background/Discover/Levels"]
-margin_left = 44.0
-margin_top = 256.0
-margin_right = 428.0
-margin_bottom = 384.0
-rect_min_size = Vector2( 200, 80 )
-rect_pivot_offset = Vector2( -1976, -648 )
-size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Find Levels"
-
-[node name="UserInfoButton" type="Button" parent="Background"]
+[node name="UserInfoButton" type="Button" parent="."]
 margin_left = 100.0
 margin_top = 654.0
 margin_right = 676.0
@@ -177,7 +44,7 @@ custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 text = "User Info"
 
-[node name="ConfigButton" type="Button" parent="Background"]
+[node name="ConfigButton" type="Button" parent="."]
 margin_left = 100.0
 margin_top = 550.0
 margin_right = 676.0
@@ -192,9 +59,9 @@ custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
-text = "Config"
+text = "Configs"
 
-[node name="LogoutButton" type="Button" parent="Background"]
+[node name="LogoutButton" type="Button" parent="."]
 margin_left = 100.0
 margin_top = 758.0
 margin_right = 676.0
@@ -211,35 +78,26 @@ custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 text = "Logout"
 
-[node name="Follows" type="ColorRect" parent="Background"]
+[node name="Logo" type="Sprite" parent="."]
+position = Vector2( 373, 249 )
+scale = Vector2( 0.203, 0.203 )
+texture = ExtResource( 3 )
+
+[node name="Followers" type="Label" parent="."]
 margin_left = 1396.0
-margin_top = 531.0
+margin_top = 593.0
 margin_right = 1840.0
-margin_bottom = 1022.0
-color = Color( 0.333333, 0.333333, 0.333333, 1 )
+margin_bottom = 657.0
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Followers"
+align = 1
 
-[node name="FindUserButton" type="Button" parent="Background/Follows"]
+[node name="SeeFollowersButton" type="Button" parent="Followers"]
 margin_left = 64.0
-margin_top = 158.0
+margin_top = 256.0
 margin_right = 384.0
-margin_bottom = 286.0
-rect_min_size = Vector2( 200, 80 )
-rect_pivot_offset = Vector2( -1976, -648 )
-size_flags_horizontal = 4
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-text = "Find User"
-
-[node name="SeeFollowersButton" type="Button" parent="Background/Follows"]
-margin_left = 64.0
-margin_top = 318.0
-margin_right = 384.0
-margin_bottom = 446.0
+margin_bottom = 384.0
 rect_min_size = Vector2( 200, 80 )
 rect_pivot_offset = Vector2( -1976, -648 )
 size_flags_horizontal = 4
@@ -252,16 +110,139 @@ custom_fonts/font = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 text = "See Followers"
 
-[node name="Levels" type="Label" parent="Background/Follows"]
-margin_top = 62.0
-margin_right = 444.0
-margin_bottom = 126.0
+[node name="FindUserButton" type="Button" parent="Followers"]
+margin_left = 64.0
+margin_top = 96.0
+margin_right = 384.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Find User"
+
+[node name="Levels" type="Label" parent="."]
+margin_left = 888.0
+margin_top = 67.0
+margin_right = 1832.0
+margin_bottom = 131.0
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "Followers"
+text = "Discover"
 align = 1
 
-[node name="Logo" type="Sprite" parent="Background"]
-position = Vector2( 373, 249 )
-scale = Vector2( 0.203, 0.203 )
-texture = ExtResource( 3 )
+[node name="PopularLevelsButton" type="Button" parent="Levels"]
+margin_left = 44.0
+margin_top = 96.0
+margin_right = 428.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Popular Levels"
+
+[node name="PopularPathsButton" type="Button" parent="Levels"]
+margin_left = 508.0
+margin_top = 96.0
+margin_right = 892.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Popular Paths"
+
+[node name="FindPathsButton" type="Button" parent="Levels"]
+margin_left = 508.0
+margin_top = 256.0
+margin_right = 892.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Find Paths"
+
+[node name="FindLevelsButton" type="Button" parent="Levels"]
+margin_left = 44.0
+margin_top = 256.0
+margin_right = 428.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Find Levels"
+
+[node name="YourStuff" type="Label" parent="."]
+margin_left = 932.0
+margin_top = 593.0
+margin_right = 1267.0
+margin_bottom = 657.0
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Your stuff"
+align = 1
+
+[node name="CreateButton" type="Button" parent="YourStuff"]
+margin_top = 96.0
+margin_right = 320.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Create Level"
+
+[node name="ManageButton" type="Button" parent="YourStuff"]
+margin_top = 256.0
+margin_right = 320.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 200, 80 )
+rect_pivot_offset = Vector2( -1976, -648 )
+size_flags_horizontal = 4
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "Manage"

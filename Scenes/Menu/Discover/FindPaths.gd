@@ -1,8 +1,6 @@
 extends Control
 
-var users = []
-var following = []
-var followers = []
+var paths = []
 
 func _ready():
 	var inLine = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/LineEdit
@@ -19,38 +17,23 @@ func _on_goBackButton_pressed():
 	
 func _on_inLine_text_entered(text):
 	var inLine = $ScrollContainer/VBoxContainer/MarginContainer8/HBoxContainer2/LineEdit
-
 	if inLine.text == "": 
 		return
 		
-	var err = Client.query_users(inLine.text)
+	var err = Client.query_paths(inLine.text)
 	if err != "":
 		print("error: ", err)
 		return
 	
-	var ret = yield(Client, "query_users_completed")
+	var ret = yield(Client, "query_paths_completed")
 	if ret.get("code", "not found") != "200":
 		print("server error: ", ret)
 		return
 	
-	users = ret.get("users", [])
-	
-	err = Client.get_follows(Client.UNAME)
-	if err != "":
-		print("error: ", err)
-		return
-	
-	ret = yield(Client, "get_follows_completed")
-	if ret.get("code", "not found") != "200":
-		print("server error: ", ret)
-		return
-	
-	followers = ret.get("followed", [])
-	following = ret.get("following", [])
-	
-	set_users_table(users, followers, following)
+	paths = ret.get("paths", [])
+	set_paths_table(paths)
 
-func set_users_table(users: Array, followers: Array, following: Array):
+func set_paths_table(paths: Array):
 	var table = $ScrollContainer/VBoxContainer/MarginContainer3/Background/ScrollContainer/Table
 
 	for child in table.get_children():
@@ -61,14 +44,18 @@ func set_users_table(users: Array, followers: Array, following: Array):
 	var title_row = HBoxContainer.new()
 	title_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
-	new_label("Row", title_row, Color(0, 1, 0), "row")
+	new_label("Title", title_row, Color(0, 1, 0), "title")
 	new_label("User", title_row, Color(0, 1, 0), "user")
-	new_label(" ", title_row, Color(0, 1, 0), "follows_you")
-	new_label(" ", title_row, Color(0, 1, 0), "follow_or_unfollow")
+	new_label("Description", title_row, Color(0, 1, 0), "description")
+	new_label("Playcount", title_row, Color(0, 1, 0), "playcount")
+	new_label("Rating", title_row, Color(0, 1, 0), "rating")
+	new_label(" ", title_row, Color(0, 1, 0), "play")
+	new_label(" ", title_row, Color(0,1,0), "see more")
+	
 	table.add_child(title_row)
 	
 	var row_num = 1
-	for user in users:
+	for path in paths:
 		var line = ColorRect.new()
 		line.color = Color(1,1,1)
 		line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -81,56 +68,27 @@ func set_users_table(users: Array, followers: Array, following: Array):
 		row_container.connect("mouse_entered", self, "_on_rowContainer_mouse_entered", [row_container])
 		row_container.connect("mouse_exited", self, "_on_rowContainer_mouse_exited", [row_container])
 		
-		new_label(String(row_num), row_container, Color(1, 1, 1), "row")
-		new_label(user.username, row_container, Color(1, 1, 1), "user")
-		if user.username in followers:
-			new_label("Follows you", row_container, Color(1, 1, 1), "follows_you")
-		else: 
-			new_label(" ", row_container, Color(1, 1, 1), "follows_you")
+		new_label(path.title, row_container, Color(1, 1, 1), "title")
+		new_label(path.user_id, row_container, Color(1, 1, 1), "user")
+		new_label(path.description, row_container, Color(1, 1, 1), "description")
+		new_label(String(path.playcount), row_container, Color(1, 1, 1), "playcount")
+		new_label(String(path.rating), row_container, Color(1, 1, 1), "rating")
 		
-		if user.username in following:
-			var unfollowButton = make_button("Unfollow", "_on_unfollowButton_pressed", [row_num - 1])
-			row_container.add_child(unfollowButton)
-			
-		else:
-			var followButton = make_button("Follow", "_on_followButton_pressed", [row_num - 1])
-			row_container.add_child(followButton)
+		var playButton = make_button("Play", "_on_playPathButton_pressed", [row_num - 1])
+		row_container.add_child(playButton)
+		
+		var seeMoreButton = make_button("See More", "_on_seeMoreButton_pressed", [row_num - 1])
+		row_container.add_child(seeMoreButton)
 		
 		table.add_child(row_container)
 		row_num += 1
-		
-func _on_followButton_pressed(idx, button):
-	var uname = users[idx].username
-	var err = Client.follow_user(uname)
-	if err != "":
-		print("error: ", err)
-		return
+
+func _on_playPathButton_pressed(idx):
+	print(paths[idx])
 	
-	var ret = yield(Client, "follow_user_completed")
-	if ret.get("code", "not found") != "200":
-		print("server error: ", ret)
-		return
-		
-	button.text = "Unfollow"
-	button.disconnect("pressed", self, "_on_followButton_pressed")
-	button.connect("pressed", self, "_on_unfollowButton_pressed", [idx, self])
-	
-func _on_unfollowButton_pressed(idx, button):
-	var uname = users[idx].username
-	var err = Client.unfollow_user(uname)
-	if err != "":
-		print("error: ", err)
-		return
-	
-	var ret = yield(Client, "unfollow_user_completed")
-	if ret.get("code", "not found") != "200":
-		print("server error: ", ret)
-		return
-		
-	button.text = "Follow"
-	button.disconnect("pressed", self, "_on_unfollowButton_pressed")
-	button.connect("pressed", self, "_on_followButton_pressed", [idx, self])
-		
+func _on_seeMoreButton_pressed(idx):
+	print(paths[idx])
+
 func _on_rowContainer_mouse_entered(row_container):
 	row_container.modulate = Color(0, 1, 0)
 	
@@ -158,7 +116,7 @@ func make_button(text, function, arr):
 	var b = Button.new()
 	b.text = text
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	b.connect("pressed", self, function, arr + [b])
+	b.connect("pressed", self, function, arr)
 	
 	var sb = load("res://Assets/GuiComponents/buttonStyle.tres")
 	b.add_stylebox_override("normal", sb)
