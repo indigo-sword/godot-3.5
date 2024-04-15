@@ -6,8 +6,6 @@ onready var discardBtn: Button = $DiscardButton
 
 onready var titleTextEdit		: TextEdit = $TextEditBgTitle/TextEditTitle
 onready var descriptionTextEdit	: TextEdit= $TextEditBgDescription/TextEditDescription
-onready var title		: String = titleTextEdit.text
-onready var description	: String = descriptionTextEdit.text
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +15,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _on_saveBtn_pressed():
+	var title = titleTextEdit.text
+	if title == "":
+		return "no title"
+		
+	var description = descriptionTextEdit.text
+	
 	Global.save_editor_shown = false
 	print("Save button in Level Info Editor pressed")
 	var level		: Node2D = get_node("/root/LevelEditor/Level")
@@ -28,7 +32,5 @@ func _on_discardBtn_pressed():
 	print("Discard button in Level Info Editor pressed")
 	titleTextEdit.text = ""
 	descriptionTextEdit.text = ""
-	title = ""
-	description = ""
 	self.hide()
 	

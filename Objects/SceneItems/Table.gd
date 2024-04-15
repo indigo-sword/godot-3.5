@@ -11,7 +11,7 @@ func _process(delta):
 	if !init:
 		start_pos = global_position
 		init = true
-	
+	return
 	if(Global.playing):
 		global_position.x += 0.3
 	else:

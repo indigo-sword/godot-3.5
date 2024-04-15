@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 66, 22 )
 
-[node name="Building1" instance=ExtResource( 1 )]
+[node name="Building3" instance=ExtResource( 1 )]
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource( 1 )
@@ -13,4 +13,4 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" parent="." index="1"]
 position = Vector2( 0, -5.96046e-08 )
 scale = Vector2( 2.75, 2.75 )
-animation = "vending_machine"
+animation = "building_3"
