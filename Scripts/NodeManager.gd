@@ -4,6 +4,8 @@ extends Node
 var player = preload("res://Objects/Player.tscn")
 var currPlayer: Node2D = null
 
+signal load_level_failed(msg)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ensureDirectoryExists("res://SavedLevels/")
@@ -16,9 +18,9 @@ func play(node_id):
 		if err == OK:
 			_add_player_unique()
 		else:
-			print("Error in loading saved level " + scene_path)
+			emit_signal("load_level_failed", "Error in loading saved level " + scene_path)
 	else:
-		print("Scene file not found: " + scene_path)
+		emit_signal("load_level_failed","Scene file not found: " + scene_path)
 	
 func play_test():
 	_add_player_unique()
