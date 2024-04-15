@@ -67,7 +67,7 @@ We are migrating code from [godot-build](https://github.com/indigo-sword/godot-b
 
 ## Scripts
 
-- These are loadable scripts used by Objects in the game. They are organized into many subfolders, but each object calls them in their manner.
+- These are loadable scripts used by Objects in the game. They are organized into many subfolders, but each object calls them in their manner. They are organized within folders depending on who they relate to (i.e. the client scripts are in the Client folder)
 
 ---------------------------- OLD README -----------------------------
 
