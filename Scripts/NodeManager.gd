@@ -6,6 +6,7 @@ var currPlayer: Node2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	ensureDirectoryExists("res://SavedLevels/")
 	_clear_saved_levels()
 	
 func play(node_id):
@@ -126,3 +127,17 @@ func getCurrentCamera2D():
 		if camera is Camera2D and camera.current:
 			return camera
 	return null
+
+func ensureDirectoryExists(dir_path: String):
+	var dir = Directory.new()
+	
+	# Check if the directory exists
+	if not dir.dir_exists(dir_path):
+		# Directory doesn't exist, create it
+		var result = dir.make_dir(dir_path)
+		if result == OK:
+			print("Directory created:", dir_path)
+		else:
+			print("Failed to create directory:", dir_path)
+	else:
+		print("Directory already exists:", dir_path)
