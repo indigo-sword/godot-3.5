@@ -184,7 +184,7 @@ func make_button(text, function, idx):
 	return b
 	
 func _on_playPathButton_pressed(idx):
-	NodeManager.play(idx)
+	NodeManager.play("test1")
 	print(paths[idx])
 
 signal edit_path_selected
@@ -193,6 +193,8 @@ func _on_editPathButton_pressed(idx):
 	get_tree().change_scene("Scenes/Menu/MyStuff/EditPath/EditPath.tscn")
 	
 func _on_playNodeButton_pressed(idx):
+	#FIXME: this is a hardcoded code for demo purpose
+	NodeManager.play("test1")
 	print(nodes[idx])
 	
 func _on_editNodeButton_pressed(idx):
