@@ -63,9 +63,7 @@ func edit_level(node_id):
 		print("Scene file not found: " + scene_path)
 
 
-func create_level(title: String, description: String, level: Node2D):
-	var is_initial	: bool = false
-	var is_final		: bool = true
+func create_level(level: Node2D, title: String, description: String, is_initial: bool, is_final: bool):
 	# Pack scene and save
 	var save_path	: String = "res://SavedLevels/temp.tscn"
 	var toSave 		: PackedScene = PackedScene.new()

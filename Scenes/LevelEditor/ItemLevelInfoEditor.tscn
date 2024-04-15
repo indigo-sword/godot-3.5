@@ -1,34 +1,30 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Assets/Fonts/menufont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditorTogglePressed.tres" type="StyleBox" id=1]
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditor.gd" type="Script" id=2]
 [ext_resource path="res://Assets/GuiComponents/GUI-cyberpunk.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/Aquire-BW0ox.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://Assets/Fonts/Audiowide-en4g.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Items/GUI/formTextField.tscn" type="PackedScene" id=6]
-
-[sub_resource type="CanvasItemMaterial" id=7]
-
-[sub_resource type="Theme" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-size = 80
+[ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditorToggleNormal.tres" type="StyleBox" id=7]
 
 [sub_resource type="DynamicFont" id=2]
-size = 80
+size = 48
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 30
-font_data = ExtResource( 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="Theme" id=11]
 
 [sub_resource type="DynamicFont" id=6]
+size = 40
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+
+[sub_resource type="DynamicFont" id=10]
 size = 32
 use_filter = true
 font_data = ExtResource( 5 )
@@ -38,106 +34,112 @@ texture = ExtResource( 3 )
 region_rect = Rect2( 10, 220, 570, 170 )
 
 [node name="LevelInfoEditor" type="Node2D"]
-position = Vector2( 118, 82 )
 script = ExtResource( 2 )
 
-[node name="Background" type="ColorRect" parent="."]
-material = SubResource( 7 )
-margin_right = 1020.0
-margin_bottom = 1000.0
-rect_pivot_offset = Vector2( 1040, 109 )
-theme = SubResource( 8 )
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="."]
-margin_left = 123.0
-margin_top = 98.0
-margin_right = 504.0
-margin_bottom = 342.0
-custom_fonts/font = SubResource( 1 )
-
 [node name="Title" type="Label" parent="."]
-margin_top = 62.0
-margin_right = 1020.0
-margin_bottom = 267.0
+margin_right = 600.0
+margin_bottom = 71.0
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Title
-"
-align = 1
+text = "Title"
+align = 2
 valign = 1
 
+[node name="TitleEdit" parent="Title" instance=ExtResource( 6 )]
+margin_left = 650.0
+margin_top = -50.0
+margin_right = 1550.0
+margin_bottom = 125.0
+
+[node name="LineText" parent="Title/TitleEdit" index="0"]
+margin_right = 770.0
+
 [node name="Description" type="Label" parent="."]
-margin_left = 2.0
-margin_top = 348.0
-margin_right = 1022.0
-margin_bottom = 484.0
+margin_top = 250.0
+margin_right = 600.0
+margin_bottom = 321.0
+rect_pivot_offset = Vector2( 572, 55 )
+theme = SubResource( 11 )
 custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Description"
-align = 1
+align = 2
 valign = 1
 
-[node name="TextEditBgDescription" type="ColorRect" parent="."]
-margin_left = 60.0
-margin_top = 500.0
-margin_right = 960.0
-margin_bottom = 800.0
+[node name="DescriptionEdit" type="NinePatchRect" parent="Description"]
+margin_left = 650.0
+margin_top = -50.0
+margin_right = 1550.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 567, 175 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 607, 1200, 567, 175 )
+patch_margin_left = 60
+patch_margin_top = 30
+patch_margin_right = 60
+patch_margin_bottom = 30
 
-[node name="TextEditDescription" type="TextEdit" parent="TextEditBgDescription"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 40.0
-margin_top = 40.0
-margin_right = -40.0
-margin_bottom = -40.0
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
-wrap_enabled = true
+[node name="LineText" type="TextEdit" parent="Description/DescriptionEdit"]
+margin_left = 28.0
+margin_top = 30.0
+margin_right = 773.0
+margin_bottom = 271.0
+rect_min_size = Vector2( 0, 30 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
 
-[node name="Background" parent="TextEditBgDescription" instance=ExtResource( 6 )]
-margin_left = -19.0
-margin_top = -35.0
-margin_right = 923.0
-margin_bottom = 341.0
+[node name="IsInitial" type="Label" parent="."]
+margin_top = 625.0
+margin_right = 600.0
+margin_bottom = 696.0
+rect_pivot_offset = Vector2( 572, 55 )
+theme = SubResource( 11 )
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Is Initial"
+align = 2
+valign = 1
 
-[node name="TextEditBgTitle" type="ColorRect" parent="."]
-margin_left = 60.0
-margin_top = 194.0
-margin_right = 960.0
-margin_bottom = 344.0
+[node name="InitialToggle" type="Button" parent="IsInitial"]
+margin_left = 650.0
+margin_top = -50.0
+margin_right = 848.0
+margin_bottom = 119.0
+custom_styles/hover = ExtResource( 7 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/normal = ExtResource( 7 )
+toggle_mode = true
 
-[node name="TextEditTitle" type="TextEdit" parent="TextEditBgTitle"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 37.0
-margin_top = 43.0
-margin_right = -43.0
-margin_bottom = -41.0
-custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
-wrap_enabled = true
+[node name="IsFinal" type="Label" parent="."]
+margin_left = 700.0
+margin_top = 625.0
+margin_right = 1300.0
+margin_bottom = 696.0
+rect_pivot_offset = Vector2( 572, 55 )
+theme = SubResource( 11 )
+custom_colors/font_color = Color( 0.945098, 0.937255, 0.905882, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Is Final"
+align = 2
+valign = 1
 
-[node name="Background" parent="TextEditBgTitle" instance=ExtResource( 6 )]
-margin_left = -21.0
-margin_top = -22.0
-margin_right = 922.0
-margin_bottom = 172.0
+[node name="FinalToggle" type="Button" parent="IsFinal"]
+margin_left = 650.0
+margin_top = -50.0
+margin_right = 848.0
+margin_bottom = 119.0
+custom_styles/hover = ExtResource( 7 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/normal = ExtResource( 7 )
+toggle_mode = true
 
 [node name="DiscardButton" type="Button" parent="."]
-margin_left = 400.0
-margin_top = 860.0
-margin_right = 656.0
-margin_bottom = 940.0
+margin_left = 990.0
+margin_top = 819.0
+margin_right = 1246.0
+margin_bottom = 899.0
 rect_min_size = Vector2( 200, 80 )
 rect_pivot_offset = Vector2( -1976, -648 )
 size_flags_horizontal = 4
@@ -146,15 +148,15 @@ custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 10 )
 custom_styles/normal = SubResource( 9 )
 text = "Discard"
 
 [node name="SaveButton" type="Button" parent="."]
-margin_left = 702.0
-margin_top = 860.0
-margin_right = 958.0
-margin_bottom = 940.0
+margin_left = 1292.0
+margin_top = 819.0
+margin_right = 1548.0
+margin_bottom = 899.0
 rect_min_size = Vector2( 200, 80 )
 rect_pivot_offset = Vector2( -1976, -648 )
 size_flags_horizontal = 4
@@ -163,6 +165,16 @@ custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 10 )
 custom_styles/normal = SubResource( 9 )
 text = "Save"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.45098 )
+show_behind_parent = true
+margin_top = 47.0
+margin_right = 1920.0
+margin_bottom = 847.0
+
+[editable path="Title/TitleEdit"]
