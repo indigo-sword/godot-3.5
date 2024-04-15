@@ -13,6 +13,10 @@ func play(node_id):
 	get_tree().root.add_child(player.instance())
 	#TODO
 	
+func play_test():
+	get_tree().root.add_child(player.instance())
+	
+	
 # open a scene 
 func open_scene_in_editor(node_id):
 	# Construct the path to the .tscn file

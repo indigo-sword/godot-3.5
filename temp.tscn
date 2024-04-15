@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Objects/Table.gd" type="Script" id=1]
-[ext_resource path="res://Objects/Table.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/SceneItems/Table.gd" type="Script" id=1]
+[ext_resource path="res://Objects/SceneItems/Table.tscn" type="PackedScene" id=2]
 
 [node name="Level" type="Node2D"]
 position = Vector2( 1, -3 )
