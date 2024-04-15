@@ -72,10 +72,16 @@ func create_level(title: String, description: String, level: Node2D):
 		return
 	
 	ret = yield(Client, "create_node_completed")
-	if ret.get("code", "not found") != "200":
+	if ret.get("code", "not found") != "201":
 		print("server error: ", ret)
 		return
-
+	
+	# rename temp.tscn to [node_id].tscn
+	var node_id = ret["node_id"]
+	var new_save_path = "res://SavedLevels/" + node_id + ".tscn"
+	
+	ResourceSaver.save(new_save_path, toSave)
+	
 
 func _clear_saved_levels():
 	return
