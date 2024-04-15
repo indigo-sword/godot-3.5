@@ -11,6 +11,11 @@ func play(node_id):
 	var scene_path = "res://Scenes/SavedLevels/" + str(node_id) + ".tscn"
 	get_tree().change_scene(scene_path)
 	get_tree().root.add_child(player)
+	var cam = Camera2D.new()
+	cam.zoom = Vector2(.5, .5)
+	cam.current = true
+	cam.global_position = player.global_position
+	get_tree().root.add_child(cam)
 	#TODO
 	
 # open a scene 
