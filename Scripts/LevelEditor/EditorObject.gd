@@ -28,14 +28,14 @@ func _process(delta):
 	global_position = get_global_mouse_position()
 
 	if !Global.place_tile:
-		if (!Global.filesystem_shown):
+		if (!Global.save_editor_shown):
 			if (current_item != null and can_place and Input.is_action_just_pressed("mb_left")):
 				var new_item = current_item.instance()
 				level.add_child(new_item)
 				new_item.owner = level
 				new_item.global_position = global_position
 	else:
-		if (!Global.filesystem_shown):
+		if (!Global.save_editor_shown):
 			if (can_place):
 				if Input.is_action_pressed("mb_left"):
 					place_tile()
@@ -45,12 +45,12 @@ func _process(delta):
 	move_editor()
 	
 	if Input.is_action_pressed("save"):
-		Global.filesystem_shown = true
+		Global.save_editor_shown = true
 		do_save = true
 		popup.mode = 4
 		popup.show()
 	if Input.is_action_pressed("load"):
-		Global.filesystem_shown = true
+		Global.save_editor_shown = true
 		do_save = true
 		popup.mode = 0
 		popup.show()
@@ -68,7 +68,7 @@ func remove_tile():
 	
 func move_editor():
 	# FIXME: fix moving editor (currently compromising player movement)
-	if (!Global.filesystem_shown):
+	if (!Global.save_editor_shown):
 		if Input.is_action_pressed("w"):
 			editor.global_position.y -= cam_spd
 		if Input.is_action_pressed("a"):
@@ -79,7 +79,7 @@ func move_editor():
 			editor.global_position.x += cam_spd
 	
 func _unhandled_input(event):
-	if (!Global.filesystem_shown):
+	if (!Global.save_editor_shown):
 		if (event.is_action_pressed("zoom_in")):
 			editor_cam.zoom -= Vector2(0.1, 0.1)
 		if (event.is_action_pressed("zoom_out")):
@@ -129,6 +129,6 @@ func _on_FileDialog_confirmed():
 
 
 func _on_FileDialog_hide():
-	Global.filesystem_shown = false
+	Global.save_editor_shown = false
 	do_save = false
 	pass 

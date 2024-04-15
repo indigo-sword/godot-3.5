@@ -180,6 +180,7 @@ func _on_playPathButton_pressed(idx):
 	
 func _on_editPathButton_pressed(idx):
 	print(paths[idx])
+	NodeManager.edit_level(idx)
 	
 func _on_playNodeButton_pressed(idx):
 	print(nodes[idx])

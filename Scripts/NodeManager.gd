@@ -23,6 +23,7 @@ func open_scene_in_editor(node_id):
 			print("The specified file is not a valid scene.")
 	else:
 		print("Scene file not found: " + scene_path)
+	
 		
 func edit_level(node_id):
 	# Construct the path to the .tscn file
