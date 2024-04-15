@@ -188,13 +188,10 @@ func _on_playPathButton_pressed(idx):
 
 signal edit_path_selected
 func _on_editPathButton_pressed(idx):
-<<<<<<< HEAD
 	print(paths[idx])
 	NodeManager.edit_level(idx)
-=======
 	MenuVariables.MenuVariables["selected_path"] = paths[idx]
 	get_tree().change_scene("Scenes/Menu/MyStuff/EditPath/EditPath.tscn")
->>>>>>> e3500b785c6725f7f407f31f38d4d3829bf52e68
 	
 func _on_playNodeButton_pressed(idx):
 	print(nodes[idx])

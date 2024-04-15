@@ -96,7 +96,16 @@ func set_levels_table(nodes: Array):
 		row_num += 1
 
 func _on_playNodeButton_pressed(idx):
-	print(nodes[idx])
+	var node_id: String = nodes[idx].id
+	var error: String = Client.get_level(node_id)
+	if error != "":
+		print("Error in getting level " + node_id)
+		return
+	var ret = yield(Client, "get_level_completed")
+	if ret.get("message", "error") != "level":
+		print("Error in getting level " + node_id)
+		return
+	NodeManager.play(node_id)
 	
 func _on_seeMoreButton_pressed(idx):
 	print(nodes[idx])
