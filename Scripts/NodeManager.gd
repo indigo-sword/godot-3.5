@@ -2,20 +2,22 @@ extends Node
 # class that manage nodes
 
 var player = preload("res://Objects/Player.tscn")
+var currPlayer: Node2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	clear_saved_levels()
+	_clear_saved_levels()
 	
 func play(node_id):
 	var scene_path = "res://SavedLevels/" + str(node_id) + ".tscn"
 	get_tree().change_scene(scene_path)
-	get_tree().root.add_child(player.instance())
-	#TODO
+	_add_player_unique()
 	
 func play_test():
-	get_tree().root.add_child(player.instance())
-	
+	_add_player_unique()
+
+func end_play_test():
+	_del_player()
 	
 # open a scene 
 func open_scene_in_editor(node_id):
@@ -51,6 +53,7 @@ func edit_level(node_id):
 	else:
 		print("Scene file not found: " + scene_path)
 
+
 func create_level(title: String, description: String, level: Node2D):
 	var is_initial	: bool = false
 	var is_final		: bool = true
@@ -73,9 +76,8 @@ func create_level(title: String, description: String, level: Node2D):
 		print("server error: ", ret)
 		return
 
-func clear_saved_levels():
+func _clear_saved_levels():
 	return
-	
 	var dir = Directory.new()
 	var folder_path = "res://SavedLevels"
 	var err = dir.open(folder_path)
@@ -93,3 +95,27 @@ func clear_saved_levels():
 		file_name = dir.get_next()
 
 	dir.list_dir_end()
+
+func _add_player_unique():
+	if (!currPlayer):
+		currPlayer = player.instance()
+		var currCam = getCurrentCamera2D()
+		if (currCam):
+			currPlayer.global_position = getCurrentCamera2D().global_position
+		get_tree().root.add_child(currPlayer)
+
+func _del_player():
+	if (currPlayer):
+		currPlayer.queue_free()
+		currPlayer = null
+
+func getCurrentCamera2D():
+	var viewport = get_viewport()
+	if not viewport:
+		return null
+	var camerasGroupName = "__cameras_%d" % viewport.get_viewport_rid().get_id()
+	var cameras = get_tree().get_nodes_in_group(camerasGroupName)
+	for camera in cameras:
+		if camera is Camera2D and camera.current:
+			return camera
+	return null

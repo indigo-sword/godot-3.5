@@ -13,7 +13,7 @@ onready var editor_cam = editor.get_node("Camera2D")
 
 onready var tile_map : TileMap = level.get_node("TileMap")
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
-onready var save_popup = $LevelInfoEditor
+onready var save_popup = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
 
 onready var player_obj = preload("res://Objects/Player.tscn")
 
@@ -77,7 +77,6 @@ func move_editor():
 			editor.global_position.y += cam_spd
 		if Input.is_action_pressed("d"):
 			editor.global_position.x += cam_spd
-			NodeManager.play_test()
 	
 func _unhandled_input(event):
 	if (!Global.save_editor_shown):

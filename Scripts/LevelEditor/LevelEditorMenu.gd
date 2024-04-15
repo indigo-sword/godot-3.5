@@ -2,6 +2,7 @@ extends CanvasLayer
 
 const LEVEL_DIR: String = "res://SavedLevels/"
 onready var tab_container: CanvasLayer = get_node("/root/LevelEditor/ItemSelect")
+onready var editor_cam: Camera2D = get_node("/root/LevelEditor/CamContainer/Camera2D")
 onready var level_editor: Node2D = get_node("/root/LevelEditor/")
 onready var level = get_node("/root/LevelEditor/Level")
 onready var tile_map : TileMap = level.get_node("TileMap")
@@ -27,6 +28,12 @@ func _on_visBtn_pressed():
 	if (!Global.save_editor_shown):
 			Global.playing = !Global.playing
 			tab_container.visible = !Global.playing
+	if (Global.playing):
+		NodeManager.play_test()
+		editor_cam.current = false
+	else:
+		NodeManager.end_play_test()
+		editor_cam.current = true
 
 func _on_saveBtn_pressed():
 	print("Save button pressed")
