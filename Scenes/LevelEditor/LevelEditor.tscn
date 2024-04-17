@@ -12,7 +12,11 @@
 [node name="LevelEditor" type="Node2D"]
 
 [node name="Level" type="Node2D" parent="."]
-position = Vector2( 1, -3 )
+
+[node name="Grid" type="TileMap" parent="Level"]
+scale = Vector2( 3, 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
 
 [node name="Ground" type="TileMap" parent="Level"]
 scale = Vector2( 3, 3 )
@@ -32,15 +36,16 @@ format = 1
 
 [node name="Decors" type="TileMap" parent="Level"]
 scale = Vector2( 3, 3 )
+z_index = 2
 tile_set = ExtResource( 8 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
 [node name="EditorObject" type="Node2D" parent="."]
-position = Vector2( -1, 0 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="EditorObject"]
+scale = Vector2( 3, 3 )
 
 [node name="ItemSelect" parent="." instance=ExtResource( 2 )]
 

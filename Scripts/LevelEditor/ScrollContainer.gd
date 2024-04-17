@@ -1,6 +1,7 @@
 extends ScrollContainer
 
 var ITEM_PER_ROW = 4
+var MARGIN = 20
 
 onready var object_cursor = get_node("/root/LevelEditor/EditorObject")
 onready var row_container = get_node("VBoxContainer")
@@ -31,7 +32,7 @@ func mouse_leave():
 func scale_textures():
 	if row_container == null:
 		row_container = get_node("VBoxContainer")
-	var container_width: int = self.rect_min_size.x
+	var container_width: int = self.rect_size.x - MARGIN
 	var item_size: Vector2 = Vector2(container_width / ITEM_PER_ROW, container_width / ITEM_PER_ROW)
 	var n_items: int = row_container.get_child_count()
 	var all_items = row_container.get_children()

@@ -5,8 +5,8 @@ export (PackedScene) var this_scene
 onready var object_cursor = get_node("/root/LevelEditor/EditorObject")
 onready var cursor_sprite = object_cursor.get_node("Sprite")
 
-export (bool) var tile = false
-export var tile_id = 0
+var tile_id
+var tile_type
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,15 +16,7 @@ func _ready():
 
 func _item_clicked(event):
 	# Only operate on mouse pressed events
-	if (event is InputEvent):
-		if (!tile):
-			if(event.is_action_pressed("mb_left")):
-				object_cursor.current_item = this_scene
-				cursor_sprite.texture = texture
-				Global.place_tile = false
-		else:
-			if (event.is_action_pressed("mb_left")):
-				Global.place_tile = true
-				Global.current_tile = tile_id
-				cursor_sprite.texture = null
-	pass
+	if (event is InputEvent and event.is_action_pressed("mb_left")):
+		Global.current_tile = tile_id
+		Global.current_tile_type = tile_type
+		cursor_sprite.texture = texture
