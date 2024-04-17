@@ -117,14 +117,14 @@ rect_min_size = Vector2( 100, 100 )
 rect_scale = Vector2( 1, 1 )
 stretch_mode = 6
 
-[node name="Builings" type="Tabs" parent="TabContainer"]
+[node name="Buildings" type="Tabs" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 64.0
 margin_bottom = -1.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Builings"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Buildings"]
 margin_left = 50.0
 margin_top = 50.0
 margin_right = 550.0
@@ -133,23 +133,23 @@ rect_min_size = Vector2( 500, 650 )
 scroll_horizontal_enabled = false
 script = ExtResource( 4 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Builings/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Buildings/ScrollContainer"]
 margin_right = 48.0
 margin_bottom = 88.0
 
-[node name="ItemTexture2" parent="TabContainer/Builings/ScrollContainer/VBoxContainer" instance=ExtResource( 17 )]
+[node name="ItemTexture2" parent="TabContainer/Buildings/ScrollContainer/VBoxContainer" instance=ExtResource( 17 )]
 margin_right = 48.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1, 1 )
 
-[node name="ItemTexture" parent="TabContainer/Builings/ScrollContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="ItemTexture" parent="TabContainer/Buildings/ScrollContainer/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 20.0
 margin_right = 48.0
 margin_bottom = 52.0
 rect_scale = Vector2( 1, 1 )
 texture = ExtResource( 18 )
 
-[node name="ItemTexture3" parent="TabContainer/Builings/ScrollContainer/VBoxContainer" instance=ExtResource( 20 )]
+[node name="ItemTexture3" parent="TabContainer/Buildings/ScrollContainer/VBoxContainer" instance=ExtResource( 20 )]
 margin_top = 56.0
 margin_right = 48.0
 margin_bottom = 88.0

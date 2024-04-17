@@ -9,10 +9,9 @@ onready var row_container = get_node("VBoxContainer")
 func _ready():
 	connect("mouse_entered", self, "mouse_enter")
 	connect("mouse_exited", self, "mouse_leave")
+	# Put all tiles in tab container once they are all initialized
 	self.scroll_horizontal_enabled = true
 	self.scroll_vertical_enabled = true
-	scale_textures()
-	print_tree_pretty()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,6 +29,8 @@ func mouse_leave():
 	pass
 
 func scale_textures():
+	if row_container == null:
+		row_container = get_node("VBoxContainer")
 	var container_width: int = self.rect_min_size.x
 	var item_size: Vector2 = Vector2(container_width / ITEM_PER_ROW, container_width / ITEM_PER_ROW)
 	var n_items: int = row_container.get_child_count()

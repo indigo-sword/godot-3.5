@@ -12,19 +12,36 @@ onready var editor = get_node("/root/LevelEditor/CamContainer")
 onready var leveleditormenu = get_node("/root/LevelEditor/LevelEditorMenu")
 onready var editor_cam = editor.get_node("Camera2D")
 
+# Tilemaps
 onready var ground_tm: TileMap = level.get_node("Ground")
 onready var buildings_tm: TileMap = level.get_node("Buildings")
 onready var decors_tm: TileMap = level.get_node("Decors")
+
+# Item menu containers
+onready var ground_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Tiles/ScrollContainer")
+onready var buildings_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Buildings/ScrollContainer")
+onready var decors_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Items/ScrollContainer")
+
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
 onready var save_popup = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
 
 onready var player_obj = preload("res://Objects/Player.tscn")
 
+# Emits when all tiles in all tile maps 
+signal all_tiles_added_to_tree
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	editor_cam.current = true
-	_init_select_menu_from_tm(ground_tm)
-	
+	# Initialize tile nodes
+	_init_tiles_tree_from_tm(ground_tm, ground_container)
+	_init_tiles_tree_from_tm(buildings_tm, buildings_container)
+	_init_tiles_tree_from_tm(decors_tm, decors_container)
+	# Evoke container function to scale textures
+	self.connect("all_tiles_added_to_tree", ground_container, "scale_textures")
+	self.connect("all_tiles_added_to_tree", buildings_container, "scale_textures")
+	self.connect("all_tiles_added_to_tree", decors_container, "scale_textures")
+	emit_signal("all_tiles_added_to_tree")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -156,5 +173,11 @@ func _get_current_tm():
 			return decors_tm
 	return null
 
-func _init_select_menu_from_tm(tm: TileMap):
+func _init_tiles_tree_from_tm(tm: TileMap, c: ScrollContainer):
 	var all_tile_ids = tm.tile_set.get_tiles_ids()
+	for tile_id in all_tile_ids:
+		var tile_texture = tm.tile_set.tile_get_texture(tile_id)
+		var tile_texture_rect: TextureRect = TextureRect.new()
+		tile_texture_rect.texture = tile_texture
+		# All other attributes will be handled by the corresponding container
+		
