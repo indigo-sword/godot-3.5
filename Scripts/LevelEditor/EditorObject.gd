@@ -70,15 +70,30 @@ func _process(delta):
 	is_planning = Input.is_action_pressed("mb_middle")
 	
 	if $Sprite.texture != null:
-		var sprite_pos = grid.world_to_map(get_global_mouse_position() / grid.scale)
-		sprite_pos = sprite_pos * grid.cell_size * grid.scale
-		$Sprite.global_position = sprite_pos
+		if Input.is_key_pressed(KEY_ESCAPE):
+			# Abort
+			$Sprite.texture = null
+			can_place = false
+		else:
+			var grid_pos = grid.world_to_map(get_global_mouse_position() / grid.scale)
+			# Account for tiles larger than one cell
+			var grid_unit_x = $Sprite.texture.get_width() / grid.cell_size.x
+			var grid_unit_y = $Sprite.texture.get_height() / grid.cell_size.y
+			grid_pos.x = (int(grid_pos.x) / int(grid_unit_x)) * grid_unit_x
+			grid_pos.y = (int(grid_pos.y) / int(grid_unit_y)) * grid_unit_y
+			var sprite_pos = grid_pos * grid.cell_size * grid.scale
+			$Sprite.global_position = sprite_pos
 
 func place_tile():
 	var tm = _get_current_tm()
 	if (tm):
-		var mousepos = tm.world_to_map(get_global_mouse_position() / tm.scale)
-		tm.set_cell(mousepos.x, mousepos.y, Global.current_tile)
+		var tm_pos = tm.world_to_map(get_global_mouse_position() / tm.scale)
+		# Account for tiles larger than one cell
+		var tm_unit_x = $Sprite.texture.get_width() / tm.cell_size.x
+		var tm_unit_y = $Sprite.texture.get_height() / tm.cell_size.y
+		tm_pos.x = (int(tm_pos.x) / int(tm_unit_x)) * tm_unit_x
+		tm_pos.y = (int(tm_pos.y) / int(tm_unit_y)) * tm_unit_y
+		tm.set_cellv(tm_pos, Global.current_tile)
 		# Allow zooping for ground tiles
 		if Global.current_tile_type != Global.LevelEditorItemType.GROUND:
 			$Sprite.texture = null
