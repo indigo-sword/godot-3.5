@@ -71,7 +71,7 @@ func _process(delta):
 	
 	if $Sprite.texture != null:
 		var sprite_pos = grid.world_to_map(get_global_mouse_position() / grid.scale)
-		sprite_pos *= grid.cell_size
+		sprite_pos = sprite_pos * grid.cell_size * grid.scale
 		$Sprite.global_position = sprite_pos
 
 func place_tile():
@@ -79,13 +79,15 @@ func place_tile():
 	if (tm):
 		var mousepos = tm.world_to_map(get_global_mouse_position() / tm.scale)
 		tm.set_cell(mousepos.x, mousepos.y, Global.current_tile)
-		$Sprite.texture = null
+		# Allow zooping for ground tiles
+		if Global.current_tile_type != Global.LevelEditorItemType.GROUND:
+			$Sprite.texture = null
 	
 func remove_tile():
 	var tm = _get_current_tm()
 	if (tm):
 		var mousepos = tm.world_to_map(get_global_mouse_position() / tm.scale)
-		tm.set_cell(mousepos.x, mousepos.y, -1)	
+		tm.set_cell(mousepos.x, mousepos.y, -1)
 	
 func move_editor():
 	# FIXME: fix moving editor (currently compromising player movement)
