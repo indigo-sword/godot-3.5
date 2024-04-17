@@ -17,8 +17,6 @@ tile_set = ExtResource( 3 )
 cell_size = Vector2( 160, 160 )
 cell_quadrant_size = 128
 cell_clip_uv = true
-collision_layer = 0
-collision_mask = 0
 format = 1
 
 [node name="EditorObject" type="Node2D" parent="."]
@@ -28,12 +26,6 @@ script = ExtResource( 4 )
 [node name="Sprite" type="Sprite" parent="EditorObject"]
 
 [node name="ItemSelect" parent="." instance=ExtResource( 2 )]
-
-[node name="Items" parent="ItemSelect/TabContainer" index="0"]
-visible = true
-
-[node name="Tiles" parent="ItemSelect/TabContainer" index="2"]
-visible = false
 
 [node name="FileDialog" type="FileDialog" parent="ItemSelect"]
 margin_left = 661.0
