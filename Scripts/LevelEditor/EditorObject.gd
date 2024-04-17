@@ -11,7 +11,7 @@ onready var editor = get_node("/root/LevelEditor/CamContainer")
 onready var leveleditormenu = get_node("/root/LevelEditor/LevelEditorMenu")
 onready var editor_cam = editor.get_node("Camera2D")
 
-onready var tile_map : TileMap = level.get_node("TileMap")
+onready var tile_map : TileMap = level.get_node("Ground")    #FIXME
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
 onready var save_popup = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
 

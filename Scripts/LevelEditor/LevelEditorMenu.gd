@@ -5,7 +5,7 @@ onready var tab_container: CanvasLayer = get_node("/root/LevelEditor/ItemSelect"
 onready var editor_cam: Camera2D = get_node("/root/LevelEditor/CamContainer/Camera2D")
 onready var level_editor: Node2D = get_node("/root/LevelEditor/")
 onready var level = get_node("/root/LevelEditor/Level")
-onready var tile_map : TileMap = level.get_node("TileMap")
+onready var tile_map : TileMap = level.get_node("Ground")  #FIXME
 onready var title_popup: Node2D = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
 
 onready var visBtn: Button = $VisibilityButton
