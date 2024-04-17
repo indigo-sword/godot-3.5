@@ -3,6 +3,7 @@ extends Node2D
 var can_place = true
 var is_planning = true
 var current_item
+var current_item_type
 export var cam_spd = 10
 var do_save = false
 
@@ -11,7 +12,9 @@ onready var editor = get_node("/root/LevelEditor/CamContainer")
 onready var leveleditormenu = get_node("/root/LevelEditor/LevelEditorMenu")
 onready var editor_cam = editor.get_node("Camera2D")
 
-onready var tile_map : TileMap = level.get_node("Ground")    #FIXME
+onready var ground_tm: TileMap = level.get_node("Ground")
+onready var buildings_tm: TileMap = level.get_node("Buildings")
+onready var decors_tm: TileMap = level.get_node("Decors")
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
 onready var save_popup = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
 
@@ -20,7 +23,8 @@ onready var player_obj = preload("res://Objects/Player.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	editor_cam.current = true
-	pass # Replace with function body.
+	_init_select_menu_from_tm(ground_tm)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -59,12 +63,16 @@ func _process(delta):
 	pass
 
 func place_tile():
-	var mousepos = tile_map.world_to_map(get_global_mouse_position())
-	tile_map.set_cell(mousepos.x, mousepos.y, Global.current_tile)
+	var tm = _get_current_tm()
+	if (tm):
+		var mousepos = tm.world_to_map(get_global_mouse_position())
+		tm.set_cell(mousepos.x, mousepos.y, Global.current_tile)
 	
 func remove_tile():
-	var mousepos = tile_map.world_to_map(get_global_mouse_position())
-	tile_map.set_cell(mousepos.x, mousepos.y, -1)	
+	var tm = _get_current_tm()
+	if (tm):
+		var mousepos = tm.world_to_map(get_global_mouse_position())
+		tm.set_cell(mousepos.x, mousepos.y, -1)	
 	
 func move_editor():
 	# FIXME: fix moving editor (currently compromising player movement)
@@ -96,7 +104,9 @@ func _unhandled_input(event):
 
 func save_level():
 	var toSave : PackedScene = PackedScene.new()
-	tile_map.owner = level
+	ground_tm.owner = level
+	buildings_tm.owner = level
+	decors_tm.owner = level
 	toSave.pack(level)
 	ResourceSaver.save(popup.current_path + ".tscn", toSave)
 	
@@ -116,7 +126,9 @@ func load_level():
 	# Use player camera
 	player.get_node("Camera2D").current = true
 	# Update attributes
-	tile_map = get_parent().get_node("Level/TileMap")
+	ground_tm = get_parent().get_node("Level/Ground")
+	buildings_tm = get_parent().get_node("Level/Buildings")
+	decors_tm = get_parent().get_node("Level/Decors")
 	level = this_level
 	
 
@@ -132,3 +144,17 @@ func _on_FileDialog_hide():
 	Global.save_editor_shown = false
 	do_save = false
 	pass 
+
+func _get_current_tm():
+	# Match and return the correct tilemap to place (or remove) the current tile
+	match (current_item_type):
+		Global.LevelEditorItemType.GROUND:
+			return ground_tm
+		Global.LevelEditorItemType.BULDING:
+			return buildings_tm
+		Global.LevelEditorItemType.DECOR:
+			return decors_tm
+	return null
+
+func _init_select_menu_from_tm(tm: TileMap):
+	var all_tile_ids = tm.tile_set.get_tiles_ids()

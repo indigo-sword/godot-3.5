@@ -7,3 +7,9 @@ var place_tile = false
 var save_editor_shown = false
 
 var uname = ""
+
+enum LevelEditorItemType {
+	GROUND,
+	BULDING,
+	DECOR
+}
