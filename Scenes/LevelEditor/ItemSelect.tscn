@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
+[ext_resource path="res://Scenes/LevelEditor/Tab.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/LevelEditor/TabContainer.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/LevelEditor/ScrollContainer.gd" type="Script" id=4]
 [ext_resource path="res://Assets/MinimalPixel v2.ttf" type="DynamicFontData" id=15]
@@ -56,6 +57,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
 margin_top = 64.0
+script = ExtResource( 1 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Items"]
 margin_left = 50.0

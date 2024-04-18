@@ -7,6 +7,7 @@ onready var level_editor: Node2D = get_node("/root/LevelEditor/")
 onready var level = get_node("/root/LevelEditor/Level")
 onready var tile_map : TileMap = level.get_node("Ground")  #FIXME
 onready var title_popup: Node2D = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
+onready var object_cursor = get_node("/root/LevelEditor/EditorObject")
 
 onready var visBtn: Button = $VisibilityButton
 onready var saveBtn: Button = $SaveButton
@@ -20,6 +21,15 @@ func _ready():
 	saveBtn.connect("pressed", self, "_on_saveBtn_pressed")
 	loadBtn.connect("pressed", self, "_on_loadBtn_pressed")
 	exitBtn.connect("pressed", self, "_on_exitBtn_pressed")
+	visBtn.connect("mouse_entered", self, "_mouse_enter")
+	saveBtn.connect("mouse_entered", self, "_mouse_enter")
+	loadBtn.connect("mouse_entered", self, "_mouse_enter")
+	exitBtn.connect("mouse_entered", self, "_mouse_enter")
+	visBtn.connect("mouse_exited", self, "_mouse_leave")
+	saveBtn.connect("mouse_exited", self, "_mouse_leave")
+	loadBtn.connect("mouse_exited", self, "_mouse_leave")
+	exitBtn.connect("mouse_exited", self, "_mouse_leave")
+	
 	title_popup.hide()
 
 
@@ -42,6 +52,8 @@ func _on_saveBtn_pressed():
 
 func _on_loadBtn_pressed():
 	print("Load button pressed")
+	get_tree().change_scene("res://Scenes/Menu/Discover/FindLevels.tscn")
+	return
 	var title		: String = ""
 	var description	: String = ""
 	var is_initial	: bool = false
@@ -104,4 +116,12 @@ func _on_request_completed(result, response_code, headers, body):
 	else:
 		print("Failed to instance scene.")
 		
+		
+func _mouse_enter():
+	object_cursor.can_place = false
+	object_cursor.hide()
+	
+func _mouse_leave():
+	object_cursor.can_place = true
+	object_cursor.show()
 	

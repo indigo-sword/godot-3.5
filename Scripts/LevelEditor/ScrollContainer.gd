@@ -8,8 +8,8 @@ onready var row_container = get_node("VBoxContainer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("mouse_entered", self, "mouse_enter")
-	connect("mouse_exited", self, "mouse_leave")
+	connect("mouse_entered", self, "_mouse_enter")
+	connect("mouse_exited", self, "_mouse_leave")
 	# Put all tiles in tab container once they are all initialized
 	self.scroll_horizontal_enabled = true
 	self.scroll_vertical_enabled = true
@@ -19,15 +19,13 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func mouse_enter():
+func _mouse_enter():
 	object_cursor.can_place = false
 	object_cursor.hide()
-	pass
 	
-func mouse_leave():
+func _mouse_leave():
 	object_cursor.can_place = true
 	object_cursor.show()
-	pass
 
 func scale_textures():
 	if row_container == null:
