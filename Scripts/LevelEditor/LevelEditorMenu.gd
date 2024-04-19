@@ -4,10 +4,11 @@ const LEVEL_DIR: String = "res://SavedLevels/"
 onready var tab_container: CanvasLayer = get_node("/root/LevelEditor/ItemSelect")
 onready var editor_cam: Camera2D = get_node("/root/LevelEditor/CamContainer/Camera2D")
 onready var level_editor: Node2D = get_node("/root/LevelEditor/")
-onready var level = get_node("/root/LevelEditor/Level")
+onready var level : Node2D = get_node("/root/LevelEditor/Level")
 onready var tile_map : TileMap = level.get_node("Ground")  #FIXME
 onready var title_popup: Node2D = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
-onready var object_cursor = get_node("/root/LevelEditor/EditorObject")
+onready var object_cursor: Node2D = get_node("/root/LevelEditor/EditorObject")
+onready var grid_line: Node2D = get_node("/root/LevelEditor/BackgroundGrid")
 
 onready var visBtn: Button = $VisibilityButton
 onready var saveBtn: Button = $SaveButton
@@ -38,6 +39,8 @@ func _on_visBtn_pressed():
 	if (!Global.save_editor_shown):
 			Global.playing = !Global.playing
 			tab_container.visible = !Global.playing
+			grid_line.visible = !Global.playing
+			
 	if (Global.playing):
 		NodeManager.play_test()
 		editor_cam.current = false
@@ -96,6 +99,9 @@ func _on_loadBtn_pressed():
 
 func _on_exitBtn_pressed():
 	print("Exit button pressed")
+	if (Global.playing):
+		Global.playing = !Global.playing
+		NodeManager.end_play_test()
 	# connect to the main menu
 	get_tree().change_scene("res://Scenes/Menu/PlayerMain/PlayerMain.tscn")
 	

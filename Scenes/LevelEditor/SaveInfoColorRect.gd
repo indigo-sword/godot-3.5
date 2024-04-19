@@ -1,5 +1,2 @@
-extends ColorRect
-
-
-# Declare member variables here. Examples:
+extends Shader
 

@@ -2,8 +2,8 @@ extends Node2D
 
 var can_place = true
 var is_planning = true
-export var cam_spd = 10
 var do_save = false
+export var cam_spd = 10
 
 onready var level = get_node("/root/LevelEditor/Level")
 onready var editor = get_node("/root/LevelEditor/CamContainer")
@@ -105,7 +105,6 @@ func remove_tile():
 		tm.set_cell(mousepos.x, mousepos.y, -1)
 	
 func move_editor():
-	# FIXME: fix moving editor (currently compromising player movement)
 	if (!Global.save_editor_shown):
 		if Input.is_action_pressed("w"):
 			editor.global_position.y -= cam_spd
@@ -131,7 +130,7 @@ func _unhandled_input(event):
 		if (event is InputEventMouseMotion):
 			if (is_planning):
 				editor.global_position -= event.relative + editor_cam.zoom
-
+# @deprecated
 func save_level():
 	var toSave : PackedScene = PackedScene.new()
 	ground_tm.owner = level
@@ -140,7 +139,7 @@ func save_level():
 	toSave.pack(level)
 	ResourceSaver.save(popup.current_path + ".tscn", toSave)
 	
-
+# @deprecated
 func load_level():
 	var toLoad : PackedScene = PackedScene.new()
 	toLoad = ResourceLoader.load(popup.current_path)

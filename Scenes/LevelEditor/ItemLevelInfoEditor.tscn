@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditorTogglePressed.tres" type="StyleBox" id=1]
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditor.gd" type="Script" id=2]
@@ -9,7 +9,23 @@
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditorToggleNormal.tres" type="StyleBox" id=7]
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditorControlBtnNormal.tres" type="StyleBox" id=8]
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditorControlBtnPressed.tres" type="StyleBox" id=9]
-[ext_resource path="res://Scenes/LevelEditor/SaveInfoColorRect.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/LevelEditor/ColorRect.gd" type="Script" id=10]
+
+[sub_resource type="VisualScript" id=18]
+data = {
+"base_type": "ShaderMaterial",
+"functions": [  ],
+"is_tool_script": false,
+"signals": [  ],
+"variables": [  ],
+"vs_unify": true
+}
+
+[sub_resource type="Shader" id=16]
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
+script = SubResource( 18 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
@@ -42,9 +58,10 @@ script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 show_behind_parent = true
+material = SubResource( 17 )
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 0.0745098, 0.243137, 0.486275, 0.388235 )
+color = Color( 0, 0.403922, 0.984314, 0.388235 )
 script = ExtResource( 10 )
 
 [node name="Title" type="Label" parent="."]
@@ -184,9 +201,5 @@ custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 9 )
 custom_styles/normal = ExtResource( 8 )
 text = "Save"
-
-[node name="ColorRect2" type="ColorRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
 
 [editable path="Title/TitleEdit"]
