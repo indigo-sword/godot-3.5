@@ -20,6 +20,7 @@ onready var decors_tm: TileMap = level.get_node("Decors")
 onready var ground_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Tiles/ScrollContainer")
 onready var buildings_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Buildings/ScrollContainer")
 onready var decors_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Items/ScrollContainer")
+onready var character_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Items/Characters/ScrollContainer")
 onready var item_texture_rect_script: Resource = preload("res://Scripts/LevelEditor/ItemTexture.gd")
 
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
@@ -130,6 +131,7 @@ func _unhandled_input(event):
 		if (event is InputEventMouseMotion):
 			if (is_planning):
 				editor.global_position -= event.relative + editor_cam.zoom
+				
 # @deprecated
 func save_level():
 	var toSave : PackedScene = PackedScene.new()
@@ -146,14 +148,7 @@ func load_level():
 	var this_level = toLoad.instance()
 	get_parent().remove_child(level)
 	level.queue_free()
-	
 	get_parent().add_child(this_level)
-	# Add player to scene
-	var player = player_obj.instance()
-	this_level.add_child(player)
-	# TODO Hide editor panel
-	# Use player camera
-	player.get_node("Camera2D").current = true
 	# Update attributes
 	ground_tm = get_parent().get_node("Level/Ground")
 	buildings_tm = get_parent().get_node("Level/Buildings")
@@ -166,13 +161,11 @@ func _on_FileDialog_confirmed():
 		save_level()
 	else:
 		load_level()
-	pass
 
 
 func _on_FileDialog_hide():
 	Global.save_editor_shown = false
 	do_save = false
-	pass 
 
 func _get_current_tm():
 	# Match and return the correct tilemap to place (or remove) the current tile

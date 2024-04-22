@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/LevelEditor/LevelEditorDecorsTileSet.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/LevelEditor/LevelEditorGroundTileSet.tres" type="TileSet" id=2]
+[ext_resource path="res://Scenes/LevelEditor/LevelEditorBuildingsTileSet.tres" type="TileSet" id=3]
+
+[node name="Level" type="Node2D"]
+
+[node name="Ground" type="TileMap" parent="."]
+scale = Vector2( 3, 3 )
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 524305, 2, 0, 524306, 2, 0, 524307, 2, 0, 524310, 2, 0, 524315, 2, 0, 524316, 2, 0 )
+
+[node name="Buildings" type="TileMap" parent="."]
+scale = Vector2( 3, 3 )
+z_index = 1
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( 262165, 5, 0 )
+
+[node name="Decors" type="TileMap" parent="."]
+scale = Vector2( 3, 3 )
+z_index = 2
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 393235, 6, 0, 655379, 7, 0 )

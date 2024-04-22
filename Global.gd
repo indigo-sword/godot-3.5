@@ -11,5 +11,6 @@ var uname = ""
 enum LevelEditorItemType {
 	GROUND,
 	BULDING,
-	DECOR
+	DECOR,
+	CHARACTER
 }
