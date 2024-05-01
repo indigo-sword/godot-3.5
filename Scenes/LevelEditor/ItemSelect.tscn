@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scenes/LevelEditor/Tab.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/LevelEditor/TabContainer.gd" type="Script" id=2]
@@ -33,10 +33,11 @@ expand_margin_bottom = 8.0
 modulate_color = Color( 0.964844, 0.964844, 0.964844, 1 )
 
 [sub_resource type="StyleBoxTexture" id=4]
-texture = ExtResource( 21 )
-region_rect = Rect2( 431, 1427, 569, 444 )
-margin_left = 1.0
-margin_top = 2.0
+texture = ExtResource( 16 )
+region_rect = Rect2( 0, 32, 48, 48 )
+expand_margin_left = 48.0
+expand_margin_right = 48.0
+expand_margin_bottom = 48.0
 
 [node name="ItemSelect" type="CanvasLayer"]
 
@@ -52,7 +53,6 @@ custom_styles/panel = SubResource( 4 )
 script = ExtResource( 2 )
 
 [node name="Items" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0

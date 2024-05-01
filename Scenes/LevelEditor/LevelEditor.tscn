@@ -59,7 +59,6 @@ visible = true
 
 [node name="Characters" parent="ItemSelect/TabContainer" index="3"]
 visible = false
-
 [node name="FileDialog" type="FileDialog" parent="ItemSelect"]
 margin_left = 661.0
 margin_top = 346.0

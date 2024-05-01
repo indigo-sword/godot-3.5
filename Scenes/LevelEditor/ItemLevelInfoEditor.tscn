@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditorTogglePressed.tres" type="StyleBox" id=1]
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditor.gd" type="Script" id=2]
@@ -28,20 +28,15 @@ shader = SubResource( 16 )
 script = SubResource( 18 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 48
+size = 80
 font_data = ExtResource( 4 )
 
 [sub_resource type="Theme" id=11]
 
 [sub_resource type="DynamicFont" id=6]
-size = 40
+size = 32
+use_filter = true
 font_data = ExtResource( 5 )
-
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
-
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 32
@@ -118,8 +113,6 @@ margin_bottom = 271.0
 rect_min_size = Vector2( 0, 30 )
 custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 6 )
-custom_styles/focus = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
 
 [node name="IsInitial" type="Label" parent="."]
 margin_left = -8.0
