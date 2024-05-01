@@ -107,7 +107,13 @@ We are migrating code from [godot-build](https://github.com/indigo-sword/godot-b
 
 - These are loadable scripts used by Objects in the game. They are organized into many subfolders, but each object calls them in their manner. They are organized within folders depending on who they relate to (i.e. the client scripts are in the Client folder)
 
----------------------------- OLD README -----------------------------
+#### Contributors
+
+- **Daniel Carvalho**: Huge shoutout to Daniel "Desenhos" Carvalho for the amazing art he has been doing for the game. He created a lot of assets you will be seeing in the game, as well as the game's logo. Thanks, Daniel!
+- **Anna Kelley**: Thanks for Anna "ack" Kelley for contributing with API endpoints about allowing a user to change his / her username.
+- **Alexandre Tagava**: Thanks for Alexandre "Alex" Tagava for contributing with music for the game.
+
+# Game knowledge
 
 ## Player
 
