@@ -1,32 +1,64 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelEditorMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/LevelEditor/ItemSelect.tscn" type="PackedScene" id=2]
-[ext_resource path="res://tilemap_tiles.tres" type="TileSet" id=3]
+[ext_resource path="res://Scenes/LevelEditor/LevelEditorBuildingsTileSet.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/LevelEditor/EditorObject.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/LevelEditor/FileDialog.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/LevelEditor/ItemLevelInfoEditor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/LevelEditor/LevelEditorGroundTileSet.tres" type="TileSet" id=7]
+[ext_resource path="res://Scenes/LevelEditor/LevelEditorDecorsTileSet.tres" type="TileSet" id=8]
+[ext_resource path="res://Scenes/LevelEditor/ItemTileEditingMenu.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Music/bgm.mp3" type="AudioStream" id=10]
+[ext_resource path="res://Scenes/LevelEditor/BackgroundGrid.gd" type="Script" id=11]
 
 [node name="LevelEditor" type="Node2D"]
 
 [node name="Level" type="Node2D" parent="."]
-position = Vector2( 1, -3 )
 
-[node name="TileMap" type="TileMap" parent="Level"]
+[node name="Grid" type="TileMap" parent="Level"]
+scale = Vector2( 3, 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="Ground" type="TileMap" parent="Level"]
+scale = Vector2( 3, 3 )
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="Buildings" type="TileMap" parent="Level"]
+scale = Vector2( 3, 3 )
+z_index = 1
 tile_set = ExtResource( 3 )
-cell_size = Vector2( 160, 160 )
-cell_quadrant_size = 128
-cell_clip_uv = true
+cell_size = Vector2( 16, 16 )
+cell_y_sort = true
+format = 1
+
+[node name="Decors" type="TileMap" parent="Level"]
+scale = Vector2( 3, 3 )
+z_index = 2
+tile_set = ExtResource( 8 )
+cell_size = Vector2( 16, 16 )
 format = 1
 
 [node name="EditorObject" type="Node2D" parent="."]
-position = Vector2( -1, 0 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="EditorObject"]
+modulate = Color( 1, 1, 1, 0.392157 )
+scale = Vector2( 3, 3 )
+centered = false
 
 [node name="ItemSelect" parent="." instance=ExtResource( 2 )]
 
+[node name="Items" parent="ItemSelect/TabContainer" index="0"]
+visible = true
+
+[node name="Characters" parent="ItemSelect/TabContainer" index="3"]
+visible = false
 [node name="FileDialog" type="FileDialog" parent="ItemSelect"]
 margin_left = 661.0
 margin_top = 346.0
@@ -40,12 +72,21 @@ script = ExtResource( 5 )
 [node name="Camera2D" type="Camera2D" parent="CamContainer"]
 position = Vector2( 960, 540 )
 
+[node name="BackgroundGrid" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
 [node name="LevelEditorMenu" parent="." instance=ExtResource( 1 )]
+
+[node name="TileEditingMenu" parent="." instance=ExtResource( 9 )]
 
 [node name="LevelInfoCanvas" type="CanvasLayer" parent="."]
 
 [node name="LevelInfoEditor" parent="LevelInfoCanvas" instance=ExtResource( 6 )]
 visible = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
 
 [connection signal="confirmed" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_confirmed"]
 [connection signal="hide" from="ItemSelect/FileDialog" to="EditorObject" method="_on_FileDialog_hide"]

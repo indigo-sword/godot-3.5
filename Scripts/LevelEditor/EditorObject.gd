@@ -2,45 +2,58 @@ extends Node2D
 
 var can_place = true
 var is_planning = true
-var current_item
-export var cam_spd = 10
 var do_save = false
+export var cam_spd = 10
 
 onready var level = get_node("/root/LevelEditor/Level")
 onready var editor = get_node("/root/LevelEditor/CamContainer")
 onready var leveleditormenu = get_node("/root/LevelEditor/LevelEditorMenu")
 onready var editor_cam = editor.get_node("Camera2D")
 
-onready var tile_map : TileMap = level.get_node("TileMap")
+# Tilemaps
+onready var grid: TileMap = level.get_node("Grid")
+onready var ground_tm: TileMap = level.get_node("Ground")
+onready var buildings_tm: TileMap = level.get_node("Buildings")
+onready var decors_tm: TileMap = level.get_node("Decors")
+
+# Item menu containers
+onready var ground_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Tiles/ScrollContainer")
+onready var buildings_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Buildings/ScrollContainer")
+onready var decors_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Items/ScrollContainer")
+onready var character_container: ScrollContainer = get_node("/root/LevelEditor/ItemSelect/TabContainer/Items/Characters/ScrollContainer")
+onready var item_texture_rect_script: Resource = preload("res://Scripts/LevelEditor/ItemTexture.gd")
+
 onready var popup : FileDialog = get_node("/root/LevelEditor/ItemSelect/FileDialog")
 onready var save_popup = get_node("/root/LevelEditor/LevelInfoCanvas/LevelInfoEditor")
 
 onready var player_obj = preload("res://Objects/Player.tscn")
 
+# Emits when all tiles in all tile maps 
+signal all_tiles_added_to_tree
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	editor_cam.current = true
-	pass # Replace with function body.
+	# Initialize tile nodes
+	_init_tiles_tree_from_tm(ground_tm, ground_container, Global.LevelEditorItemType.GROUND)
+	_init_tiles_tree_from_tm(buildings_tm, buildings_container, Global.LevelEditorItemType.BULDING)
+	_init_tiles_tree_from_tm(decors_tm, decors_container, Global.LevelEditorItemType.DECOR)
+	# Evoke container function to scale textures
+	self.connect("all_tiles_added_to_tree", ground_container, "scale_textures")
+	self.connect("all_tiles_added_to_tree", buildings_container, "scale_textures")
+	self.connect("all_tiles_added_to_tree", decors_container, "scale_textures")
+	emit_signal("all_tiles_added_to_tree")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	global_position = get_global_mouse_position()
-
-	if !Global.place_tile:
-		if (!Global.save_editor_shown):
-			if (current_item != null and can_place and Input.is_action_just_pressed("mb_left")):
-				var new_item = current_item.instance()
-				level.add_child(new_item)
-				new_item.owner = level
-				new_item.global_position = global_position
-	else:
-		if (!Global.save_editor_shown):
-			if (can_place):
-				if Input.is_action_pressed("mb_left"):
-					place_tile()
-				if Input.is_action_pressed("mb_right"):
-					remove_tile()
+	if (!Global.save_editor_shown):
+		if (can_place):
+			if Input.is_action_pressed("mb_left") and $Sprite.texture != null:
+				place_tile()
+			if Input.is_action_pressed("mb_right") and $Sprite.texture == null:
+				remove_tile()
 	
 	move_editor()
 	
@@ -56,18 +69,43 @@ func _process(delta):
 		popup.show()
 		
 	is_planning = Input.is_action_pressed("mb_middle")
-	pass
+	
+	if $Sprite.texture != null:
+		if Input.is_key_pressed(KEY_ESCAPE):
+			# Abort
+			$Sprite.texture = null
+			can_place = false
+		else:
+			var grid_pos = grid.world_to_map(get_global_mouse_position() / grid.scale)
+			# Account for tiles larger than one cell
+			var grid_unit_x = $Sprite.texture.get_width() / grid.cell_size.x
+			var grid_unit_y = $Sprite.texture.get_height() / grid.cell_size.y
+			grid_pos.x = (int(grid_pos.x) / int(grid_unit_x)) * grid_unit_x
+			grid_pos.y = (int(grid_pos.y) / int(grid_unit_y)) * grid_unit_y
+			var sprite_pos = grid_pos * grid.cell_size * grid.scale
+			$Sprite.global_position = sprite_pos
 
 func place_tile():
-	var mousepos = tile_map.world_to_map(get_global_mouse_position())
-	tile_map.set_cell(mousepos.x, mousepos.y, Global.current_tile)
+	var tm = _get_current_tm()
+	if (tm):
+		var tm_pos = tm.world_to_map(get_global_mouse_position() / tm.scale)
+		# Account for tiles larger than one cell
+		var tm_unit_x = $Sprite.texture.get_width() / tm.cell_size.x
+		var tm_unit_y = $Sprite.texture.get_height() / tm.cell_size.y
+		tm_pos.x = (int(tm_pos.x) / int(tm_unit_x)) * tm_unit_x
+		tm_pos.y = (int(tm_pos.y) / int(tm_unit_y)) * tm_unit_y
+		tm.set_cellv(tm_pos, Global.current_tile)
+		# Allow zooping for ground tiles
+		if Global.current_tile_type != Global.LevelEditorItemType.GROUND:
+			$Sprite.texture = null
 	
 func remove_tile():
-	var mousepos = tile_map.world_to_map(get_global_mouse_position())
-	tile_map.set_cell(mousepos.x, mousepos.y, -1)	
+	var tm = _get_current_tm()
+	if (tm):
+		var mousepos = tm.world_to_map(get_global_mouse_position() / tm.scale)
+		tm.set_cell(mousepos.x, mousepos.y, -1)
 	
 func move_editor():
-	# FIXME: fix moving editor (currently compromising player movement)
 	if (!Global.save_editor_shown):
 		if Input.is_action_pressed("w"):
 			editor.global_position.y -= cam_spd
@@ -93,30 +131,28 @@ func _unhandled_input(event):
 		if (event is InputEventMouseMotion):
 			if (is_planning):
 				editor.global_position -= event.relative + editor_cam.zoom
-
+				
+# @deprecated
 func save_level():
 	var toSave : PackedScene = PackedScene.new()
-	tile_map.owner = level
+	ground_tm.owner = level
+	buildings_tm.owner = level
+	decors_tm.owner = level
 	toSave.pack(level)
 	ResourceSaver.save(popup.current_path + ".tscn", toSave)
 	
-
+# @deprecated
 func load_level():
 	var toLoad : PackedScene = PackedScene.new()
 	toLoad = ResourceLoader.load(popup.current_path)
 	var this_level = toLoad.instance()
 	get_parent().remove_child(level)
 	level.queue_free()
-	
 	get_parent().add_child(this_level)
-	# Add player to scene
-	var player = player_obj.instance()
-	this_level.add_child(player)
-	# TODO Hide editor panel
-	# Use player camera
-	player.get_node("Camera2D").current = true
 	# Update attributes
-	tile_map = get_parent().get_node("Level/TileMap")
+	ground_tm = get_parent().get_node("Level/Ground")
+	buildings_tm = get_parent().get_node("Level/Buildings")
+	decors_tm = get_parent().get_node("Level/Decors")
 	level = this_level
 	
 
@@ -125,10 +161,34 @@ func _on_FileDialog_confirmed():
 		save_level()
 	else:
 		load_level()
-	pass
 
 
 func _on_FileDialog_hide():
 	Global.save_editor_shown = false
 	do_save = false
-	pass 
+
+func _get_current_tm():
+	# Match and return the correct tilemap to place (or remove) the current tile
+	match (Global.current_tile_type):
+		Global.LevelEditorItemType.GROUND:
+			return ground_tm
+		Global.LevelEditorItemType.BULDING:
+			return buildings_tm
+		Global.LevelEditorItemType.DECOR:
+			return decors_tm
+	return null
+
+func _init_tiles_tree_from_tm(tm: TileMap, c: ScrollContainer, type: int):
+	var all_tile_ids = tm.tile_set.get_tiles_ids()
+	for tile_id in all_tile_ids:
+		var tile_texture = tm.tile_set.tile_get_texture(tile_id)
+		var tile_subregion: Rect2 = tm.tile_set.tile_get_region(tile_id)
+		var tile_texture_rect: TextureRect = TextureRect.new()
+		tile_texture_rect.texture = AtlasTexture.new()
+		tile_texture_rect.texture.atlas = tile_texture
+		tile_texture_rect.texture.region = tile_subregion
+		tile_texture_rect.set_script(item_texture_rect_script)
+		tile_texture_rect.tile_id = tile_id
+		tile_texture_rect.tile_type = type
+		# All other attributes will be handled by the corresponding container
+		c.get_node("VBoxContainer").add_child(tile_texture_rect)

@@ -5,9 +5,7 @@
 [ext_resource path="res://Objects/SceneItems/Light.tscn" type="PackedScene" id=3]
 
 [node name="itemLight" instance=ExtResource( 2 )]
-margin_left = 26.0
-margin_top = 10.0
-margin_right = 216.0
-margin_bottom = 190.0
+margin_right = 16.0
+margin_bottom = 53.0
 texture = ExtResource( 1 )
 this_scene = ExtResource( 3 )

@@ -2,6 +2,7 @@ extends Node
 # class that manage nodes
 
 var player = preload("res://Objects/Player.tscn")
+
 var currPlayer: Node2D = null
 
 signal load_level_failed(msg)
@@ -45,7 +46,26 @@ func open_scene_in_editor(node_id):
 	else:
 		print("Scene file not found: " + scene_path)
 	
-		
+func _save_level():
+	var toSave : PackedScene = PackedScene.new()
+	var level = get_node("/root/LevelEditor/Level")
+	var ground_tm: TileMap = level.get_node("Ground")
+	var buildings_tm: TileMap = level.get_node("Buildings")
+	var decors_tm: TileMap = level.get_node("Decors")
+	ground_tm.owner = level
+	buildings_tm.owner = level
+	decors_tm.owner = level
+	toSave.pack(level)
+	return toSave
+	
+func _load_level(scene_path: String):
+	var toLoad : PackedScene = PackedScene.new()
+	toLoad = ResourceLoader.load(scene_path)
+	var this_level = toLoad.instance()
+	var level = get_node("/root/LevelEditor/Level")
+	get_parent().remove_child(level)
+	get_parent().add_child(this_level)
+	
 func edit_level(node_id):
 	# Construct the path to the .tscn file
 	get_tree().change_scene("res://Scenes/LevelEditor/LevelEditor.tscn")
@@ -53,20 +73,14 @@ func edit_level(node_id):
 	# Check if the scene file exists
 	if ResourceLoader.exists(scene_path):
 		# Load the scene
-		var scene = load(scene_path)
-		# Ensure it's a valid PackedScene resource
-		if scene is PackedScene:
-			get_tree().root.add_child(scene.instance())
-		else:
-			print("The specified file is not a valid scene.")
+		_load_level(scene_path)
 	else:
 		print("Scene file not found: " + scene_path)
-
 
 func create_level(level: Node2D, title: String, description: String, is_initial: bool, is_final: bool):
 	# Pack scene and save
 	var save_path	: String = "res://SavedLevels/temp.tscn"
-	var toSave 		: PackedScene = PackedScene.new()
+	var toSave 		: PackedScene = _save_level()
 	toSave.pack(level)
 	ResourceSaver.save(save_path, toSave)
 	# Request to save to server
